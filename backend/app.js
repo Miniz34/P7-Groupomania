@@ -4,9 +4,11 @@ const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/users');
 const commentRoutes = require('./routes/comment')
+const publicationRoutes = require('./routes/publication')
 // const postRoutes = require('./routes/post.js');
 
 const path = require('path');
+const { copyFile } = require('fs');
 //const likeRoutes = require('./routes/like.js');
 
 //création application Express
@@ -28,5 +30,6 @@ app.use(bodyParser.json());
 //Middleware
 app.use('/api/user', userRoutes)
 app.use('/api/comment', commentRoutes)
+app.use('/api/publication', publicationRoutes)
 
 module.exports = app;

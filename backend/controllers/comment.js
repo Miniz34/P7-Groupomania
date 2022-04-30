@@ -1,5 +1,4 @@
 const Sequelize = require("sequelize");
-const comment = require("../models/comment");
 const { DataTypes, Op } = Sequelize;
 require('dotenv').config();
 const CommentModel = require('../models/comment')
@@ -29,5 +28,29 @@ exports.getComment = (req, res, next) => {
     res.status(200).json(comment)
   }).catch((error) => res.status(404).json({ message: "Commentaire introuvable" })); //Ne fonctionne pas
 
+}
 
+exports.deleteComment = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id }
+  }).then(post => {
+    Comment.destroy({
+      where: { id: post.id }
+
+    }).then(res.status(200).json({ message: "Commentaire supprimée" }))
+  })
+}
+
+exports.modifyComment = (req, res, next) => {
+  Comment.findOne({
+    where: { id: req.params.id }
+  }).then(post => {
+    Comment.update({
+      commentaire: req.body.content
+    },
+      {
+        where: { id: post.id }
+
+      }).then(res.status(200).json({ message: "Commentaire modifiée" }))
+  })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
