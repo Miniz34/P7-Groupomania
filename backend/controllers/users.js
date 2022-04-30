@@ -29,14 +29,16 @@ const User = UserModel(sequelize, Sequelize)
 exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10) //On utilise Bcrypt pour le mot de passe, l'algorithme fera 10 tours
     .then(hash => {
-      User.create({ //création de l'utilisateur
+      const newUser = User.create({ //création de l'utilisateur
         username: req.body.username,  //on passe l'email crypté via crypto-JS
         password: hash // on passe le mot de passe hashé via Bcrypt
       })
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ message: "test1" }));
+        .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
+      // .catch(error => res.status(400).json({ hash }));
+      console.log(newUser);
+
     })
-    .catch(error => res.status(500).json({ message: "test2" }));
+    .catch(error => res.status(500).json({ message: "erreur2" }));
 
 
 };
@@ -64,6 +66,10 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 };
 
+
+// exports.getOneUser = (req, res, next) => {
+//   User.findOne({ where: { username } })
+// }
 //Contrôleur de suppression de compte
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { username: req.body.username } })
@@ -81,7 +87,20 @@ exports.deleteUser = (req, res, next) => {
     }).catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }))
 }
 
+exports.modifyUser = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id }
+  }).then(user => {
+    User.update({
+      username: req.body.username,
+      password: req.body.password
+    },
 
+      { where: { id: user.id } }
+
+    ).then(res.status(200).json({ message: "Publication modifiée" }))
+  })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+}
 
 
 
