@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('comment', {
-    comment: {
+    commentaire: {
       type: DataTypes.TEXT,
     },
   }, {

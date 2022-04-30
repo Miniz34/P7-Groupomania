@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('message', {
-    message: {
+  return sequelize.define('publication', {
+    content: {
       type: DataTypes.TEXT,
     },
   }, {

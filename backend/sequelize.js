@@ -5,7 +5,7 @@ const db = {}
 
 const UserModel = require('./models/users')
 const CommentModel = require('./models/comment')
-const MessageModel = require('./models/message')
+const PublicationModel = require('./models/publication')
 
 
 //connection à la database (database, log, pw {dialect, host ...})
@@ -29,18 +29,18 @@ sequelize.authenticate().then(() => {
 
 const User = UserModel(sequelize, Sequelize)
 const Comment = CommentModel(sequelize, Sequelize)
-const Message = MessageModel(sequelize, Sequelize)
+const Publication = PublicationModel(sequelize, Sequelize)
 
 
 
 // création de données
-User.sync({ alter: true }).then((data) => {
-  return User.create({
-    username: "test6",
-    password: "aaa",
-    admin: true,
-  });
-});
+// User.sync({ alter: true }).then((data) => {
+//   return User.create({
+//     username: "test6",
+//     password: "aaa",
+//     admin: true,
+//   });
+// });
 
 Comment.sync({ alter: true }).then((data) => {
   return Comment.create({
@@ -49,9 +49,9 @@ Comment.sync({ alter: true }).then((data) => {
 });
 
 
-Message.sync({ alter: true }).then((data) => {
-  return Message.create({
-    message: "test de message 1"
+Publication.sync({ alter: true }).then((data) => {
+  return Publication.create({
+    content: "test de publication"
   });
 });
 
