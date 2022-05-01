@@ -1,25 +1,28 @@
 // modèle de table
-module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('user', {
+const DataTypes = require('sequelize');
+const db = require('../config/database');
 
-    username: {
-      type: DataTypes.STRING,
-      unique: true,
-      allowNull: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    admin: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  }, {
-    timestamps: false,
+const User = db.define('user', {
 
-  })
-}
+  username: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  admin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  }
+}, {
+  timestamps: false,
+
+})
+
+module.exports = User;
 
 // user_id: {
 //   type: DataTypes.INTEGER,

@@ -1,35 +1,24 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
-require('dotenv').config();
-const db = {}
+const db = require('./config/database');
 
-const UserModel = require('./models/users')
-const CommentModel = require('./models/comment')
-const PublicationModel = require('./models/publication')
+const User = require('./models/users')
+const Comment = require('./models/comment')
+const Publication = require('./models/publication')
 
 
 //connection à la database (database, log, pw {dialect, host ...})
 
-const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
-  dialect: "mariadb",
-  define: {
-    freezeTableName: true,
-  }
-});
-
-db.sequelize = sequelize
+// db.sequelize = sequelize
 db.Sequelize = Sequelize
 
 
-sequelize.authenticate().then(() => {
+db.authenticate().then(() => {
   console.log("conntecté")
 }).catch((err) => {
   console.log("marche pas")
 });
 
-const User = UserModel(sequelize, Sequelize)
-const Comment = CommentModel(sequelize, Sequelize)
-const Publication = PublicationModel(sequelize, Sequelize)
 
 
 
@@ -42,16 +31,16 @@ const Publication = PublicationModel(sequelize, Sequelize)
 //   });
 // });
 
-Comment.sync({ alter: true }).then((data) => {
-  return Comment.create({
-    comment: "test de commentaire 1"
-  });
-});
+// Comment.sync({ alter: true }).then((data) => {
+//   return Comment.create({
+//     commentaire: "test de commentaire 1"
+//   });
+// });
 
 
-Publication.sync({ alter: true }).then((data) => {
-  return Publication.create({
-    content: "test de publication"
-  });
-});
+// Publication.sync({ alter: true }).then((data) => {
+//   return Publication.create({
+//     content: "test de publication"
+//   });
+// });
 

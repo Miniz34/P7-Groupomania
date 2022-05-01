@@ -1,15 +1,9 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
 require('dotenv').config();
-const PublicationModel = require('../models/publication')
+const Publication = require('../models/publication')
 
-const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
-  dialect: "mariadb",
-  define: {
-    freezeTableName: true,
-  }
-});
-const Publication = PublicationModel(sequelize, Sequelize)
+
 
 exports.createPublication = (req, res, next) => {
   Publication.create({

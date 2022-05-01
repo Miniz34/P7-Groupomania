@@ -1,16 +1,6 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
-require('dotenv').config();
-const CommentModel = require('../models/comment')
-
-const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
-  dialect: "mariadb",
-  define: {
-    freezeTableName: true,
-  }
-});
-const Comment = CommentModel(sequelize, Sequelize)
-
+const Comment = require('../models/comment')
 
 exports.createComment = (req, res, next) => {
   Comment.create({

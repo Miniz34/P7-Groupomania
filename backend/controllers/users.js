@@ -2,46 +2,10 @@ const bcrypt = require("bcrypt");
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
 require('dotenv').config();
-const UserModel = require('../models/users')
+const User = require('../models/users')
 const jwt = require('jsonwebtoken');
 const { json } = require("sequelize");
 
-const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
-  dialect: "mariadb",
-  define: {
-    freezeTableName: true,
-  }
-});
-
-
-// let jwt = require("jsonwebtoken");
-// const CryptoJS = require('crypto-js');
-// require('dotenv').config();
-
-// const key = CryptoJS.enc.Hex.parse(`${process.env.AES_KEY}`);
-// const iv = CryptoJS.enc.Hex.parse(`${process.env.AES_INIT_VECTOR}`);
-
-
-const User = UserModel(sequelize, Sequelize)
-
-
-
-
-
-// User.findAll({
-//   where: { [Op.and]: { username: "gérard", age: 45 } }
-// }).then((data) => {
-//   data.forEach((element) => {
-//     console.log(element.toJSON());
-//   });
-// }).catch((err) => {
-//   console.log("erreur");
-// })
-
-
-
-
-// console.log(isAdmin)
 
 //Contrôleur création de compte
 exports.signup = (req, res, next) => {
@@ -60,7 +24,6 @@ exports.signup = (req, res, next) => {
 
 
 };
-
 
 
 //Contrôleur connexion à un compte existant
