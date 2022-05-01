@@ -1,11 +1,12 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
+require('dotenv').config();
 const db = require('../config/database');
 
 const User = require('../models/users')
 const Comment = require('../models/comment')
 const Publication = require('../models/publication');
-const { init } = require("../app");
+// const { init } = require("../app");
 
 
 //connection à la database (database, log, pw {dialect, host ...})
@@ -13,17 +14,15 @@ const { init } = require("../app");
 // db.sequelize = sequelize
 db.Sequelize = Sequelize
 
-let Init = () => {
-  db.authenticate().then(() => {
-    console.log("conntecté")
-  }).catch((err) => {
-    console.log("marche pas")
-  });
-}
 
-Init()
+db.authenticate().then(() => {
+  console.log("conntecté")
+}).catch((err) => {
+  console.log("marche pas")
+});
 
-module.exports = Init;
+
+
 
 
 
