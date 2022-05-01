@@ -36,7 +36,7 @@ exports.modifyComment = (req, res, next) => {
     where: { id: req.params.id }
   }).then(post => {
     Comment.update({
-      commentaire: req.body.content
+      commentaire: req.body.commentaire
     },
       {
         where: { id: post.id }
