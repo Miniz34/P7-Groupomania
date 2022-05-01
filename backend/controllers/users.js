@@ -4,6 +4,7 @@ const { DataTypes, Op } = Sequelize;
 require('dotenv').config();
 const UserModel = require('../models/users')
 const jwt = require('jsonwebtoken');
+const { json } = require("sequelize");
 
 const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
   dialect: "mariadb",
@@ -24,6 +25,23 @@ const sequelize = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process
 const User = UserModel(sequelize, Sequelize)
 
 
+
+
+
+// User.findAll({
+//   where: { [Op.and]: { username: "gérard", age: 45 } }
+// }).then((data) => {
+//   data.forEach((element) => {
+//     console.log(element.toJSON());
+//   });
+// }).catch((err) => {
+//   console.log("erreur");
+// })
+
+
+
+
+// console.log(isAdmin)
 
 //Contrôleur création de compte
 exports.signup = (req, res, next) => {
@@ -53,11 +71,11 @@ exports.login = (req, res, next) => {
       bcrypt.compare(req.body.password, myUser.password) //On compare le PW pour vérifier qu'ils ont les mêmes string d'origine
         .then(valid => {
           if (!valid) { return res.status(401).json({ error: 'Mot de passe incorrect.' }); } //Si les mots de passe ne concordent pas, on renvoit une erreur
-          // const newToken = jwt.sign({ userId: myUser._id }, process.env.TOKEN_KEY, { expiresIn: '24h' }); //Création d'un token d'authentification
-          // res.setHeader('Authorization', 'Bearer ' + newToken);
+          const newToken = jwt.sign({ userId: myUser.id }, process.env.TOKEN_KEY, { expiresIn: '24h' }); //Création d'un token d'authentification
+          res.setHeader('Authorization', 'Bearer ' + newToken);
           res.status(200).json({
-            //Renvoi du token au frontend (à refaire)
-            myUser
+            userID: myUser.username,
+            newToken
           });
 
         })
@@ -71,6 +89,17 @@ exports.login = (req, res, next) => {
 //   User.findOne({ where: { username } })
 // }
 //Contrôleur de suppression de compte
+
+
+module.exports.getusers = (req, res) => {
+  User.findAll().then((data) => {
+    res.status(200).json({ data })
+  })
+    .catch((err) => {
+      console.log("erreur");
+    })
+}
+
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { username: req.body.username } })
     .then(user => {
@@ -87,62 +116,54 @@ exports.deleteUser = (req, res, next) => {
     }).catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }))
 }
 
+
+
+///Ajout de vérification du token
 exports.modifyUser = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id }
   }).then(user => {
-    User.update({
-      username: req.body.username,
-      password: req.body.password
-    },
+    var testid1 = user.id;
+    var testid2 = req.token.userId;
+    if (user.id == req.token.userId) {
+      User.update({
+        username: req.body.username,
+        password: req.body.password
+      },
 
-      { where: { id: user.id } }
+        { where: { id: user.id } }
 
-    ).then(res.status(200).json({ message: "Publication modifiée" }))
+      ).then(res.status(200).json({ isAdmin }))
+    } else {
+      res.status(401).json({ message: "Unauthorized" })
+    }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
 
 
+////////////////////////////////////
+//////Recherche des admins//////////
+////////////////////////////////////
 
-
-
-
-
-// User.update({ username: "Vieillot" }, { where: { age: { [Op.gt]: 35 } } })
-//   .then((data) => {
-//     console.log("bonjours")
-//   }).catch((err) => {
-//     console.log("erreur");
-//   })
-
-
-// ////////////Delete queries
-
-// User.destroy({ where: { age: 47 } })
-
-
-
-
-////////////Test création user 1.0
-// module.exports.signup = async (req, res) => {
-//   console.log(req.body)
-//   const { username, password, admin } = req.body
-//   try {
-//     const user = User.create({ username, password, admin });
-//     res.status(201);
-//   } catch (err) {
-//     res.status(200).send({ err });
-//   }
-// }
-
-// module.exports.getusers(req, res) => {
-
-//////test route get all
-module.exports.getusers = (req, res) => {
-  User.findAll().then((data) => {
-    res.status(200).json({ data })
-  })
-    .catch((err) => {
-      console.log("erreur");
-    })
+exports.findAdmin = (req, res, next) => {
+  User.findAll({
+    where: { admin: 1 }
+  }).then(user => res.status(200).json(user))
 }
+
+
+var isAdmin =
+  User.findAll({
+    attributes: ['id', 'username', 'admin'],
+    where: { admin: 1 }
+  }).then((admin) => {
+    isAdmin = admin;
+    isAdmin.forEach((element) => {
+      console.log(element.toJSON());
+      console.log(element.id)
+    });
+  }).catch((err) => {
+    console.log("erreur");
+  })
+
+
