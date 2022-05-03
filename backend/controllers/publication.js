@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
-require('dotenv').config();
 const Publication = require('../models/publication')
 
 

@@ -8,7 +8,7 @@ const publicationRoutes = require('./routes/publication')
 // const postRoutes = require('./routes/post.js');
 
 const path = require('path');
-const { copyFile } = require('fs');
+const Initialisation = require('./models/initdb');
 //const likeRoutes = require('./routes/like.js');
 
 //création application Express
@@ -28,8 +28,10 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 //Middleware
-app.use('/api/user', userRoutes)
-app.use('/api/comment', commentRoutes)
-app.use('/api/publication', publicationRoutes)
+Initialisation().then(() => {
+  app.use('/api/user', userRoutes);
+  app.use('/api/comment', commentRoutes);
+  app.use('/api/publication', publicationRoutes);
+});
 
 module.exports = app;

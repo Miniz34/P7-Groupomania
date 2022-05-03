@@ -1,48 +1,47 @@
-const Sequelize = require("sequelize");
-const { DataTypes, Op } = Sequelize;
-require('dotenv').config();
-const db = require('./config/database')
+// const Sequelize = require("sequelize");
+// const { DataTypes, Op } = Sequelize;
+// const db = require('./config/database')
 
-const User = require('./models/users')
-const Comment = require('./models/comment')
-const Publication = require('./models/publication')
-
-
-//connection à la database (database, log, pw {dialect, host ...})
+// const User = require('./models/users')
+// const Comment = require('./models/comment')
+// const Publication = require('./models/publication')
 
 
-
-db.Sequelize = Sequelize
-
-
-db.authenticate().then(() => {
-  console.log("conntecté")
-}).catch((err) => {
-  console.log("marche pas")
-});
+// //connection à la database (database, log, pw {dialect, host ...})
 
 
 
+// db.Sequelize = Sequelize
 
 
-// création de données
-// User.sync({ alter: true }).then((data) => {
-//   return User.create({
-//     username: "test6",
-//     password: "aaa",
-//     admin: true,
-//   });
-// });
-
-// Comment.sync({ alter: true }).then((data) => {
-//   return Comment.create({
-//     comment: "test de commentaire 1"
-//   });
+// db.authenticate().then(() => {
+//   console.log("conntecté")
+// }).catch((err) => {
+//   console.log("marche pas")
 // });
 
 
-// Publication.sync({ alter: true }).then((data) => {
-//   return Publication.create({
-//     content: "test de publication"
-//   });
-// });
+
+
+
+// // création de données
+// // User.sync({ alter: true }).then((data) => {
+// //   return User.create({
+// //     username: "test6",
+// //     password: "aaa",
+// //     admin: true,
+// //   });
+// // });
+
+// // Comment.sync({ alter: true }).then((data) => {
+// //   return Comment.create({
+// //     comment: "test de commentaire 1"
+// //   });
+// // });
+
+
+// // Publication.sync({ alter: true }).then((data) => {
+// //   return Publication.create({
+// //     content: "test de publication"
+// //   });
+// // });

@@ -1,29 +1,33 @@
-const Sequelize = require("sequelize");
-const { DataTypes, Op } = Sequelize;
-require('dotenv').config();
-const db = require('../config/database');
-
 const User = require('../models/users')
 const Comment = require('../models/comment')
 const Publication = require('../models/publication');
 // const { init } = require("../app");
 
 
-//connection à la database (database, log, pw {dialect, host ...})
+// const Initialisation = async () => {
+//   Comment.belongsTo(User);
+//   Publication.hasMany(Comment);
+//   Publication.belongsTo(User);
 
-// db.sequelize = sequelize
-db.Sequelize = Sequelize
+//   await User.sync({ alter: true });
+//   await Comment.sync({ alter: true });
+//   await Publication.sync({ alter: true });
+// }
+
+// Init forcé
+const Initialisation = async () => {
+
+  // Publication.hasMany(Comment);
+  // Publication.belongsTo(User);
+  // Comment.belongsTo(User);
+  await User.sync({ force: true });
+  await Comment.sync({ force: true });
+  await Publication.sync({ force: true });
+}
 
 
-db.authenticate().then(() => {
-  console.log("conntecté")
-}).catch((err) => {
-  console.log("marche pas")
-});
 
-
-
-
+module.exports = Initialisation;
 
 
 // création de données

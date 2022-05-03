@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 //Middleware qui vérifiera l'authentification de l'utilisateur
 
