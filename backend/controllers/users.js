@@ -34,7 +34,7 @@ exports.login = (req, res, next) => {
       bcrypt.compare(req.body.password, myUser.password) //On compare le PW pour vérifier qu'ils ont les mêmes string d'origine
         .then(valid => {
           if (!valid) { return res.status(401).json({ error: 'Mot de passe incorrect.' }); } //Si les mots de passe ne concordent pas, on renvoit une erreur
-          const newToken = jwt.sign({ userId: myUser.id }, process.env.TOKEN_KEY, { expiresIn: '24h' }); //Création d'un token d'authentification
+          const newToken = jwt.sign({ userId: myUser.id, admin: myUser.admin }, process.env.TOKEN_KEY, { expiresIn: '24h' }); //Création d'un token d'authentification
           res.setHeader('Authorization', 'Bearer ' + newToken);
           res.status(200).json({
             userID: myUser.username,
