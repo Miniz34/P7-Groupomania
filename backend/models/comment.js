@@ -6,8 +6,7 @@ const Comment = db.define('comment', {
     type: DataTypes.TEXT,
   },
 }, {
-  timestamps: false,
-
+  freezeTableName: true,
 })
 
 module.exports = Comment;

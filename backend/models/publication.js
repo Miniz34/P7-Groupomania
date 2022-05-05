@@ -6,8 +6,7 @@ const Publication = db.define('publication', {
     type: DataTypes.TEXT,
   },
 }, {
-  timestamps: false,
-
+  freezeTableName: true,
 })
 
 module.exports = Publication

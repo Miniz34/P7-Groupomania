@@ -8,9 +8,11 @@ const db = require('../config/database')
 
 
 const Initialisation = async () => {
-  //   // Comment.belongsTo(User);
-  //   // Publication.hasMany(Comment);
-  //   // Publication.belongsTo(User);
+
+  Publication.hasMany(Comment);
+  Comment.belongsTo(User);
+  Publication.belongsTo(User);
+
 
   // Publication.hasMany(Comment, { ForeingKey: 'CommentId' });
   // Publication.belongsTo(User, { as: 'UserPost', ForeingKey: 'UserIdPost' });
@@ -21,9 +23,10 @@ const Initialisation = async () => {
   await Publication.sync({ alter: true });
 }
 
-Publication.hasMany(Comment, { ForeingKey: 'CommentId' });
-Publication.belongsTo(User, { as: 'UserPost', ForeingKey: 'UserIdPost' });
-Comment.belongsTo(User, { as: 'UserComment', ForeingKey: 'UserIdComment' });
+
+// Publication.hasMany(Comment, { ForeingKey: 'CommentId' });
+// Publication.belongsTo(User, { as: 'UserPost', ForeingKey: 'UserIdPost' });
+// Comment.belongsTo(User, { as: 'UserComment', ForeingKey: 'UserIdComment' });
 
 // Init forcé
 // const Initialisation = async () => {

@@ -12,7 +12,8 @@ exports.signup = (req, res, next) => {
     .then(hash => {
       const newUser = User.create({ //création de l'utilisateur
         username: req.body.username,  //on passe l'email crypté via crypto-JS
-        password: hash // on passe le mot de passe hashé via Bcrypt
+        password: hash, // on passe le mot de passe hashé via Bcrypt
+        admin: req.body.admin
       })
         .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
       // .catch(error => res.status(400).json({ hash }));
@@ -47,14 +48,24 @@ exports.login = (req, res, next) => {
 };
 
 
-// exports.getOneUser = (req, res, next) => {
-//   User.findOne({ where: { username } })
-// }
+exports.getOneUser = (req, res, next) => {
+  User.findOne({
+    attributes: ['id', 'username', 'admin'],
+    where: { username: req.body.username }
+  })
+    .then((data) => {
+      res.status(200).json({ data })
+    })
+}
+
+
 //Contrôleur de suppression de compte
 
 
 module.exports.getusers = (req, res) => {
-  User.findAll().then((data) => {
+  User.findAll({
+    attributes: ['id', 'username', 'admin']
+  }).then((data) => {
     res.status(200).json({ data })
   })
     .catch((err) => {
@@ -62,32 +73,51 @@ module.exports.getusers = (req, res) => {
     })
 }
 
+
+// Delete User 1.0
+// exports.deleteUser = (req, res, next) => {
+//   User.findOne({ where: { username: req.body.username } })
+//     .then(user => {
+//       bcrypt.compare(req.body.password, user.password)
+//         .then(valid => {
+//           if (valid && (user.admin == true || user.id == req.token.userId)) {
+//             User.destroy({ where: { username: user.username } })
+//             res.status(200).json({ message: "Utilisateur supprimé" })
+//           }
+//           else {
+//             res.status(401).json({ message: "unauthorized" })
+//           }
+//         })
+//     }).catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }))
+// }
+
+
+// Delete User 2.0 avec vérification du token et status admin
 exports.deleteUser = (req, res, next) => {
-  User.findOne({ where: { username: req.body.username } })
+  User.findOne({
+    attributes: ['id', 'username', 'admin'],
+    where: { id: req.params.id }
+  })
     .then(user => {
-      bcrypt.compare(req.body.password, user.password)
-        .then(valid => {
-          if (valid) {
-            User.destroy({ where: { username: user.username } })
-            res.status(200).json({ message: "Utilisateur supprimé" })
-          }
-          else {
-            res.status(401).json({ message: "unauthorized" })
-          }
-        })
-    }).catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }))
+      if (user.admin == true || user.id == req.token.userId) {
+        User.destroy({ where: { id: user.id } })
+        res.status(200).json({ message: "Utilisateur supprimé" })
+      } else {
+        res.status(401).json({ message: "unauthorized" })
+      }
+    })
 }
 
 
 
-///Ajout de vérification du token
+///Ajout de vérification du token et status admin
 exports.modifyUser = (req, res, next) => {
   User.findOne({
+    attributes: ['id', 'username', 'admin'],
     where: { id: req.params.id }
   }).then(user => {
-    var testid1 = user.id;
-    var testid2 = req.token.userId;
-    if (user.id == req.token.userId) {
+
+    if (user.admin == true || user.id == req.token.userId) {
       User.update({
         username: req.body.username,
         password: req.body.password
@@ -95,9 +125,9 @@ exports.modifyUser = (req, res, next) => {
 
         { where: { id: user.id } }
 
-      ).then(res.status(200).json({ isAdmin }))
+      ).then(res.status(200).json({ message: "Utilisateur modifié" }))
     } else {
-      res.status(401).json({ message: "Unauthorized" })
+      res.status(401).json({ message: "unauthorized" })
     }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
@@ -107,25 +137,25 @@ exports.modifyUser = (req, res, next) => {
 //////Recherche des admins//////////
 ////////////////////////////////////
 
-exports.findAdmin = (req, res, next) => {
-  User.findAll({
-    where: { admin: 1 }
-  }).then(user => res.status(200).json(user))
-}
+// exports.findAdmin = (req, res, next) => {
+//   User.findAll({
+//     where: { admin: 1 }
+//   }).then(user => res.status(200).json(user))
+// }
 
 
-var isAdmin =
-  User.findAll({
-    attributes: ['id', 'username', 'admin'],
-    where: { admin: 1 }
-  }).then((admin) => {
-    isAdmin = admin;
-    isAdmin.forEach((element) => {
-      console.log(element.toJSON());
-      console.log(element.id)
-    });
-  }).catch((err) => {
-    console.log("erreur");
-  })
+// var isAdmin =
+//   User.findAll({
+//     attributes: ['id', 'username', 'admin'],
+//     where: { admin: 1 }
+//   }).then((admin) => {
+//     isAdmin = admin;
+//     isAdmin.forEach((element) => {
+//       console.log(element.toJSON());
+//       console.log(element.id)
+//     });
+//   }).catch((err) => {
+//     console.log("erreur");
+//   })
 
 
