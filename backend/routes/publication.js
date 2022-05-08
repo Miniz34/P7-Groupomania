@@ -2,14 +2,14 @@ const router = require("express").Router();
 const Publication = require('../controllers/publication');
 const auth = require('../middleware/auth')
 
-router.post("/", auth, Publication.createPublication)
+router.post("/", Publication.createPublication)
 
-router.delete("/:id", auth, Publication.deletePublication);
-router.put('/:id', auth, Publication.modifyPublication);
+router.delete("/:id", Publication.deletePublication);
+router.put('/:id', Publication.modifyPublication);
 
-router.get('/get', auth, Publication.getAllPublication);
-router.get("/:id", auth, Publication.getPublication)
-router.get('/get/user', auth, Publication.getAllPublicationUser);
+router.get('/get', Publication.getAllPublication);
+router.get("/:id", Publication.getPublication)
+router.get('/get/user', Publication.getAllPublicationUser);
 
 
 module.exports = router;
