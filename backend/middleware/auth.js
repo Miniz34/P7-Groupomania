@@ -12,4 +12,4 @@ module.exports = (req, res, next) => {
   }
 }
 
-//Middleware qui vérifiera le status admin de l'utilisateur
+//Middleware qui vérifiera le status admin de l'utilisateur zaezeae
