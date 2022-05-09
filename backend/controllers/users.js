@@ -13,7 +13,6 @@ exports.signup = (req, res, next) => {
       const newUser = User.create({ //création de l'utilisateur
         username: req.body.username,  //on passe l'email crypté via crypto-JS
         password: hash, // on passe le mot de passe hashé via Bcrypt
-        admin: req.body.admin
       })
         .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
       // .catch(error => res.status(400).json({ hash }));
