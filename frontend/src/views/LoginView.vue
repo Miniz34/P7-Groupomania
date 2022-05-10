@@ -58,7 +58,7 @@ export default {
     },
 
 
-    ////récupération base de donnée 
+    ////récupération base de donnée
     test() {
       fetch("http://localhost:3000/api/user/get")
         .then(response => response.json())
