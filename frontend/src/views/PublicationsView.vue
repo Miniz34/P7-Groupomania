@@ -1,8 +1,13 @@
 
 <template>
 
+  <h1> Liste des publications importées du component</h1>
 
   <publicationComp />
+
+  <h2>Et en dessous le random formulaire</h2>
+
+  <randomForm />
 </template>
 
 <script>
@@ -10,11 +15,13 @@
 
 
 import publicationComp from "@/components/publicationComp.vue";
+import randomForm from "@/components/randomForm.vue"
 
 export default {
   name: "publicationView",
   components: {
     publicationComp,
+    randomForm
   }
 }
 </script>

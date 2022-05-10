@@ -112,4 +112,9 @@ export default {
   background: #FFEEE4;
   margin: 10px;
 }
+
+#Publications-View {
+  margin-bottom: 100px;
+
+}
 </style>
