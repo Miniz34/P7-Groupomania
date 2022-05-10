@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 Initialisation().then(() => {
   app.use('/api/user', userRoutes);
   app.use('/api/comment', commentRoutes);
-  app.use('/api/publication', publicationRoutes);
+  app.use('/api/publications', publicationRoutes);
 });
 
 module.exports = app;

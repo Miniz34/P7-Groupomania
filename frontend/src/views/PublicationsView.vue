@@ -55,7 +55,8 @@
 
 <script>
 
-import axios from 'axios';
+
+// import axios from 'axios';
 
 export default {
   name: "Publications-View",
@@ -65,16 +66,36 @@ export default {
 
     };
   },
+  created() {
+    // http://localhost:3000/api/publications/all
+    const options = {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + sessionStorage.getItem("Token")
+      }
+    }
+    fetch("http://localhost:3000/api/publications/", options)
+      .then((response) => response.json())
+      .then(data => {
+        this.publications = data
+        console.table(data);
+      })
+
+
+  },
   methods: {
 
-    mounted() {
-      // GET request using axios with error handling
-      axios.get("http://localhost:3000/api/publication/get")
-        .then(function (response) {
-          this.publications = response.data
-        }.bind(this));
+    // created() {
+    //   // http://localhost:3000/api/publications/all
+    //   axios.get("http://localhost:3000/api/publications/")
+    //     .then(function (response) {
+    //       this.publications = response.data
+    //       console.log(response)
+    //     }.bind(this));
 
-    },
+    // },
     testClick() {
       const test = console.log("bonjours")
       return test

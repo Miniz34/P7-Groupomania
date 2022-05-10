@@ -7,9 +7,9 @@ router.post("/", Publication.createPublication)
 router.delete("/:id", Publication.deletePublication);
 router.put('/:id', Publication.modifyPublication);
 
-router.get('/get', Publication.getAllPublication);
+router.get('/', auth, Publication.getAllPublication);
 router.get("/:id", Publication.getPublication)
-router.get('/get/user', Publication.getAllPublicationUser);
+router.get('/user/:id', Publication.getAllPublicationUser);
 
 
 module.exports = router;
