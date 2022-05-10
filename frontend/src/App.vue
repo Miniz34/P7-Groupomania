@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="main-header d-flex flex-row justify-content-around align-items-center">
+    <div id="app" class="main-header d-flex flex-row justify-content-around align-items-center">
       <img src="./assets/icon.png" class="main-logo" />
 
       <h1 class="text-center">Groupomania</h1>

@@ -1,11 +1,31 @@
 <template>
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action">
-    Cras justo odio
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">User1</a>
-  <a href="#" class="list-group-item list-group-item-action">User2</a>
-  <a href="#" class="list-group-item list-group-item-action">User3</a>
-  <a href="#" class="list-group-item list-group-item-action disabled">User1</a>
-</div>
+  <listUser />
+
+
+
+
+
+  <p> {{ data }}</p>
 </template>
+
+
+
+<script>
+import listUser from "../components/listUser.vue";
+
+
+
+export default {
+  name: "test",
+  components: {
+    listUser,
+  },
+  data() {
+    return {
+      users: []
+    }
+  }
+
+}
+
+</script>
