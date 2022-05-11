@@ -29,8 +29,8 @@ app.use(bodyParser.json());
 
 //Middleware
 Initialisation().then(() => {
-  app.use('/api/user', userRoutes);
-  app.use('/api/comment', commentRoutes);
+  app.use('/api/users', userRoutes);
+  app.use('/api/comments', commentRoutes);
   app.use('/api/publications', publicationRoutes);
 });
 

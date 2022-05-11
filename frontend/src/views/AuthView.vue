@@ -46,7 +46,7 @@ export default {
 
 
       if (this.dataLogin.username && this.dataLogin.password) {
-        fetch("http://localhost:3000/api/user/auth", {
+        fetch("http://localhost:3000/api/users/auth", {
           method: "POST",
           body: JSON.stringify({
             username: this.dataLogin.username,

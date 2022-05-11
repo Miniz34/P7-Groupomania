@@ -1,17 +1,13 @@
 <template>
   <listUser />
 
-
-
-
-
   <p> {{ data }}</p>
 </template>
 
 
 
 <script>
-import listUser from "../components/listUser.vue";
+import listUser from "../components/UsersListTemplate.vue";
 
 
 

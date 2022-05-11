@@ -34,7 +34,7 @@ export default {
         'Content-Type': 'application/json',
       }
     }
-    fetch("http://localhost:3000/api/user/get", options)
+    fetch("http://localhost:3000/api/users", options)
       .then((response) => response.json())
       .then(data => {
         const userlist = data.data

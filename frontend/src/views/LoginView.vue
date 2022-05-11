@@ -32,7 +32,7 @@ export default {
   methods: {
     mounted() {
       if (this.dataLogin.username && this.dataLogin.password) {
-        fetch("http://localhost:3000/api/user/login", {
+        fetch("http://localhost:3000/api/users/login", {
           method: "POST",
           body: JSON.stringify({
             username: this.dataLogin.username,
@@ -60,7 +60,7 @@ export default {
 
     ////récupération base de donnée
     test() {
-      fetch("http://localhost:3000/api/user/get")
+      fetch("http://localhost:3000/api/users")
         .then(response => response.json())
         .then(data => {
           console.log(data)

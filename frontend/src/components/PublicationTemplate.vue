@@ -5,17 +5,17 @@
   </head>
   <div class="Publications-View" id="Publications-View">
     <div class="container">
-      <div v-for="publication in publications" :key="publication" class="well ">
+      <div class="well ">
         <div class="media">
           <a class="pull-left" href="#">
             <img class="media-object" src="http://placekitten.com/150/150">
           </a>
           <div class="media-body">
-            <h4 class="media-heading">{{ publication.id }}</h4>
-            <p class="text-right">by userid : {{ publication.userId }}</p>
-            <p>{{ publication.content }}</p>
+            <h4 class="media-heading"></h4>
+            <p class="text-right">by userid : {{ userId }}</p>
+            <p title="hello">{{ content }}</p>
             <ul class="list-inline list-unstyled main-post">
-              <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+              <li><span><i class="glyphicon glyphicon-calendar"></i>{{ createdAt }} </span></li>
               <li>|</li>
               <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
               <li>|</li>
@@ -47,51 +47,12 @@
 
 <script>
 
-
-// import axios from 'axios';
-
 export default {
-  name: "Publications-View",
-  data() {
-    return {
-      publications: []
-
-    };
-  },
-  created() {
-    // http://localhost:3000/api/publications/all
-    const options = {
-      method: "GET",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + sessionStorage.getItem("Token")
-      }
-    }
-    fetch("http://localhost:3000/api/publications/", options)
-      .then((response) => response.json())
-      .then(data => {
-        this.publications = data
-        console.table(data);
-      })
-
-
-  },
-  methods: {
-
-
-    testClick() {
-      const test = console.log("bonjours")
-      return test
-    },
-  }
+  name: "newPost",
+  props: ['content', 'userId', 'createdAt']
 }
 
-
-
-
 </script>
-
 
 <style>
 .well {

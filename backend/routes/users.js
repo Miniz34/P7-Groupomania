@@ -5,8 +5,8 @@ const auth = require('../middleware/auth')
 router.post("/auth", User.signup);
 router.post("/login", User.login);
 
-router.get("/get", User.getusers);
-router.get("/get/:id", User.getOneUser);
+router.get("/", User.getusers);
+router.get("/:id", User.getOneUser);
 
 router.put("/:id", User.modifyUser);
 router.delete("/:id", User.deleteUser);
