@@ -8,9 +8,32 @@
       <nav class="nav flex-column">
         <router-link class="nav-link active" to="/users">Users</router-link>
         <router-link class="nav-link active" to="/publications">Main Page</router-link>
+        <router-link @click="clear" class="nav-link active" to="/login">Logout</router-link>
       </nav>
     </div>
 
   </header>
 
 </template>
+
+<script>
+
+export default {
+
+  name: "logout",
+  data() {
+    return {
+
+    }
+  },
+
+  methods: {
+    clear() {
+      sessionStorage.clear()
+    }
+  }
+}
+
+
+
+</script>

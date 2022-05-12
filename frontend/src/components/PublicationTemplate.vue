@@ -3,17 +3,19 @@
   <head>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
   </head>
+
+
   <div class="Publications-View" id="Publications-View">
     <div class="container">
       <div class="well ">
         <div class="media">
-          <a class="pull-left" href="#">
+          <!-- <a class="pull-left" href="#">
             <img class="media-object" src="http://placekitten.com/150/150">
-          </a>
+          </a> -->
           <div class="media-body">
             <h4 class="media-heading"></h4>
-            <p class="text-right">by userid : {{ userId }}</p>
-            <p title="hello">{{ content }}</p>
+            <p class="text-right fw-bold fs-3">{{ title }}</p>
+            <p>{{ content }}</p>
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i>{{ createdAt }} </span></li>
               <li>|</li>
@@ -39,6 +41,7 @@
       </div>
       <div>
       </div>
+      <button> button filler commenter</button>
 
     </div>
   </div>
@@ -49,7 +52,7 @@
 
 export default {
   name: "newPost",
-  props: ['content', 'userId', 'createdAt']
+  props: ['title', 'content', 'createdAt']
 }
 
 </script>

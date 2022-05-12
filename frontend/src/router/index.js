@@ -3,6 +3,7 @@ import HomeView from '../views/AuthView.vue'
 import LoginView from '../views/LoginView.vue'
 import UsersList from '../views/UsersListView.vue'
 import PublicationsView from '../views/PublicationsView'
+import CreatePostView from '../views/CreatePostView.vue'
 
 
 const routes = [
@@ -28,7 +29,13 @@ const routes = [
     name: 'Publications-View',
     component: PublicationsView
 
-  }
+  },
+  {
+    path: '/publications/new',
+    name: 'newPost',
+    component: CreatePostView
+
+  },
 ]
 
 const router = createRouter({

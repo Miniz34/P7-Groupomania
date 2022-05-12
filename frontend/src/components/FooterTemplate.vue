@@ -1,6 +1,9 @@
 
 <template>
 
+  <head>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+  </head>
 
   <footer class="bg-light text-center text-white">
     <!-- Grid container -->
@@ -10,7 +13,7 @@
 
         <!-- Github -->
         <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="https://github.com/Miniz34"
-          role="button"><i class="fab fa-github"></i></a>
+          role="button"><i class="fa fa-github"></i></a>
       </section>
       <!-- Section: Social media -->
     </div>

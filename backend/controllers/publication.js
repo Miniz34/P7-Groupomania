@@ -9,7 +9,10 @@ const { post } = require("../routes/comment");
 
 exports.createPublication = (req, res, next) => {
   Publication.create({
-    content: req.body.content
+    title: req.body.title,
+    content: req.body.content,
+    userId: req.body.userId
+
   })
     .then(res.status(200).json({ message: "Publication créée" }))
   // .catch(res.status(500).json({ message: "Veuillez insérer un message" })) //Ne fonctionne pas

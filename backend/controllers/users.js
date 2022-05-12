@@ -36,6 +36,7 @@ exports.login = (req, res, next) => {
           const newToken = jwt.sign({ userId: myUser.id, admin: myUser.admin }, process.env.TOKEN_KEY, { expiresIn: '24h' }); //Création d'un token d'authentification
           res.setHeader('Authorization', 'Bearer ' + newToken);
           res.status(200).json({
+            id: myUser.id,
             userID: myUser.username,
             newToken
           });
