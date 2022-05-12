@@ -2,6 +2,7 @@
 
 <template>
 
+  <HeaderMainPage />
   <h1> Liste des publications importées du component</h1>
 
   <Post v-for="publication in publications" :key="publication" :content="publication.content"
@@ -19,12 +20,14 @@
 
 import Post from '@/components/PublicationTemplate.vue'
 import randomForm from "@/components/randomForm.vue"
+import HeaderMainPage from '@/components/HeaderMainPage.vue';
 
 export default {
   name: "newPost",
   components: {
     Post,
-    randomForm
+    randomForm,
+    HeaderMainPage
   },
   data() {
     return {

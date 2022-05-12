@@ -1,4 +1,6 @@
 <template>
+
+  <HeaderLogin />
   <form id="Auth-View">
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
@@ -21,7 +23,7 @@
 <script>
 
 
-
+import HeaderLogin from "@/components/HeaderLogin.vue";
 
 // import axios from 'axios';
 
@@ -30,6 +32,10 @@
 
 
 export default {
+
+
+
+
   name: "Auth-View",
   data() {
     return {
@@ -40,6 +46,7 @@ export default {
 
     };
   },
+  components: { HeaderLogin },
 
   methods: {
     mounted() {
