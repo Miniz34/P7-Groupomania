@@ -8,8 +8,7 @@
 
   <a href="/new">Nouveau post</a>
 
-  <Post v-for="publication in publications" :key="publication.id" :title="publication.title"
-    :content="publication.content" :createdAt="publication.createdAt">
+  <Post v-for="publication in publications" :key="publication.id" v-bind="publication">
   </Post>
 
 
