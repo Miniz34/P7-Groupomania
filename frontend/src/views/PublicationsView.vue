@@ -6,7 +6,7 @@
 
   <HeaderMainPage />
 
-  <a href="/new">Nouveau post</a>
+  <a href="publications/new">Nouveau post</a>
 
   <Post v-for="publication in publications" :key="publication.id" v-bind="publication">
   </Post>

@@ -59,11 +59,7 @@ export default {
         }).then(function (response) {
 
           if (response.ok) {
-
-            const token = sessionStorage.getItem("ID")
-
-            console.log(token)
-
+            document.location.href = `http://localhost:8080/publications`;
 
           }
         })
