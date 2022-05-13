@@ -15,18 +15,24 @@
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
               <li>|</li>
-              <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+              <!-- <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span> -->
               <p>{{ PostData.createdAt }} </p>
 
             </ul>
           </div>
         </div>
       </div>
-
+      <h4> {{ PostComment.length }} commentaires</h4>
       <div v-for="post in PostComment" :key="post" class="Comment-List" id="Comment-List">
+
+
         {{ post.commentaire }}
         <br />
         from {{ post.userId }}
+
+        <br />
+
+
 
       </div>
 
