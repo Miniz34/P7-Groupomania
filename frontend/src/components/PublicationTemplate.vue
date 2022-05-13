@@ -19,7 +19,7 @@
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i>{{ createdAt }} </span></li>
               <li>|</li>
-              <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+              <span><i class="glyphicon glyphicon-comment"></i> aaaaaaa --- {{ comment }} ---- aaaaa</span>
               <li>|</li>
               <li>
                 <span class="glyphicon glyphicon-star"></span>
@@ -52,7 +52,7 @@
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt']
+  props: ['title', 'content', 'createdAt', 'comment']
 }
 
 </script>

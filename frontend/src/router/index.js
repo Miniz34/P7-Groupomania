@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import UsersList from '../views/UsersListView.vue'
 import PublicationsView from '../views/PublicationsView'
 import CreatePostView from '../views/CreatePostView.vue'
+import PublicationSingle from '../views/PublicationSingleView.vue'
 
 
 const routes = [
@@ -34,6 +35,12 @@ const routes = [
     path: '/publications/new',
     name: 'newPost',
     component: CreatePostView
+
+  },
+  {
+    path: '/publications/2',
+    name: 'SinglePost',
+    component: PublicationSingle
 
   },
 ]

@@ -11,7 +11,7 @@ exports.createPublication = (req, res, next) => {
   Publication.create({
     title: req.body.title,
     content: req.body.content,
-    userId: req.body.userId
+    userId: req.body.userId,
 
   })
     .then(res.status(200).json({ message: "Publication créée" }))

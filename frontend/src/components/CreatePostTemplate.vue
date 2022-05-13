@@ -35,6 +35,7 @@ export default {
       dataPost: {
         title: "",
         content: "",
+        comment: ""
 
       }
     }
@@ -47,7 +48,7 @@ export default {
           body: JSON.stringify({
             title: this.dataPost.title,
             content: this.dataPost.content,
-            userId: id
+            userId: id,
 
           }),
           headers: {

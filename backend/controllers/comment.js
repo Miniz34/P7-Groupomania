@@ -10,6 +10,14 @@ exports.createComment = (req, res, next) => {
   // .catch(res.status(500).json({ message: "Veuillez insérer un message" })) //Ne fonctionne pas
 }
 
+
+exports.getAllComments = (req, res, next) => {
+  Comment.findAll()
+    .then(post => {
+      res.status(200).json(post)
+    }).catch((error) => res.status(400).json({ message: "test" }))
+}
+
 exports.getComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id }
