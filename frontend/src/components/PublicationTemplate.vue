@@ -14,12 +14,17 @@
           </a> -->
           <div class="media-body">
             <h4 class="media-heading"></h4>
-            <p class="text-right fw-bold fs-3">{{ title }}</p>
-            <p>{{ content }}</p>
+            <!-- <button v-on:click="OnePost"> <a href="/publications/{{route.params.id}}"> hello</a></button> -->
+            <router-link :to="{ name: 'SinglePost', params: { id } }">
+              <p class="text-right fw-bold fs-3">{{ title }}</p>
+            </router-link>
+
+
+            <p>{{ content }} {{ id }}</p>
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i>{{ createdAt }} </span></li>
               <li>|</li>
-              <span><i class="glyphicon glyphicon-comment"></i> aaaaaaa --- {{ comment }} ---- aaaaa</span>
+              <span><i class="glyphicon glyphicon-comment"></i> {{ postId }}--- {{ comment }} ---- aaaaa</span>
               <li>|</li>
               <li>
                 <span class="glyphicon glyphicon-star"></span>
@@ -52,8 +57,10 @@
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt', 'comment']
+  props: ['title', 'content', 'createdAt', 'comment', 'id'],
+
 }
+
 
 </script>
 

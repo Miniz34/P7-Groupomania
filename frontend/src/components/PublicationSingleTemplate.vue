@@ -57,7 +57,7 @@
 
 export default {
   name: "singlePost",
-  props: ['title', 'content', 'createdAt']
+  props: ['title', 'content', 'createdAt', 'comments']
 
 }
 

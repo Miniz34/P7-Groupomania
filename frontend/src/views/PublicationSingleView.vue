@@ -1,4 +1,5 @@
 <template>
+  <HeaderMainPage />
 
 
   <div class="Publications-View" id="Publications-View">
@@ -10,87 +11,146 @@
           </a> -->
           <div class="media-body">
             <h4 class="media-heading"></h4>
-            <p class="text-right fw-bold fs-3"> {{ PostData.title }}</p>
-            <p>{{ PostData.content }}</p>
+            <p class="text-right fw-bold fs-3"> {{ publications.title }}</p>
+            <p>{{ publications.content }}</p>
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
-              <li>|</li>
+
               <!-- <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span> -->
-              <p>{{ PostData.createdAt }} </p>
+              <p>{{ createdAt }}</p>
 
             </ul>
           </div>
         </div>
       </div>
-      <h4> {{ PostComment.length }} commentaires</h4>
-      <div v-for="post in PostComment" :key="post" class="Comment-List" id="Comment-List">
 
-
-        {{ post.commentaire }}
-        <br />
-        from {{ post.userId }}
-
-        <br />
-
-
-
-      </div>
 
 
 
     </div>
+
+    <div class="well container">
+      <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
+      <form role="form">
+        <div class="form-group">
+          <textarea v-model="comment" class="form-control" rows="3"></textarea>
+        </div>
+        <button v-on:click.prevent="SendComment" type="submit" value="" class="btn btn-primary"><i
+            class="fa fa-reply"></i>
+          Submit</button>
+      </form>
+    </div>
+
+    <div v-for="comment in publications.comments" :key="comment.id" class="container">
+      <h5><i class=""></i> {{ comment.userId }}
+        <small> {{ commentCreatedAt }}</small>
+      </h5>
+      <p>{{ comment.commentaire }}</p>
+    </div>
+
   </div>
-
-
 
 </template>
 
-
-
 <script>
 
-// import PublicationSingle from '../components/PublicationSingleTemplate'
+// import moment from 'moment'
 
+import HeaderMainPage from "@/components/HeaderMainPage.vue"
+
+const moment = require('moment');
+moment.locale('fr')
 export default {
-  // components: {
-  //   PublicationSingle
-  // },
+  components: {
+    HeaderMainPage
+  },
+
   data() {
     return {
-      PostData: {
-        title: "",
-        content: "",
-        createdAt: ""
-      },
-      PostComment: {
-        commentaire: "test",
-        userId: ""
-      }
-
-    };
+      publications: "",
+      comment: ""
+    }
   },
-  created() {
+  // computed: {
+  //   publicationId() {
+  //     return parseInt(this.$route.params.id)
+  //   },
 
 
-    fetch("http://localhost:3000/api/publications/44")
-      .then((response) => response.json())
-      .then(data => {
-        this.PostData = data
-        console.table(data);
-      }).then()
-    fetch("http://localhost:3000/api/comments")
+
+  // },
+
+  async created() {
+
+    fetch(`http://localhost:3000/api/publications/`)
       .then(response => response.json())
-      .then(res => {
+      .then(data => {
+        console.log(data)
+        const postId = this.$route.params.id;
+        const MainPost = data.find(post => post.id == postId)
+        this.publications = MainPost
+        console.log(MainPost)
+        // const date = moment(MainPost.createdAt)
+        // date.format('Do-MMM-YYYY')
+        // console.log(date._d)
+        // const testdate = this.publications.createdAt
+        // console.log(testdate)
+        // testdate.format('YYYY-MMM-DD')
 
-        console.table(res)
-        let CommentContent = res.filter(comment => comment.publicationId == 43)
-        if (CommentContent) {
-          console.table(CommentContent)
-          this.PostComment = CommentContent
-        }
 
       })
-  }
+
+  },
+
+  methods: {
+    SendComment() {
+      // const moment = require('moment');
+      // const aujourdhui = moment();
+      console.log("hello")
+      const postId = this.$route.params.id;
+      fetch('http://localhost:3000/api/comments/', {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          // 'Authorization': "Bearer " + sessionStorage.getItem("Token")
+        },
+        body: JSON.stringify({
+          publicationId: this.publications.id,
+          commentaire: this.comment
+        })
+      })
+      console.log(postId)
+
+    }
+  },
+  computed: {
+    createdAt: function () {
+
+      const testdate = this.publications.createdAt
+      return moment(testdate).format('Do MMM YYYY - LTS')
+
+    },
+    commentCreatedAt: function () {
+
+      const testdate = this.publications.comments.createdAt
+      console.log(testdate)
+      return moment(testdate).format('Do MMM YYYY - HH mm')
+
+    }
+
+  },
+
 }
 
 </script>
+
+<style>
+.date {
+  margin-left: 25px
+}
+
+.comment {
+  margin-bottom: 20px
+}
+</style>

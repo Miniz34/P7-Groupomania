@@ -9,7 +9,10 @@
   <a href="publications/new">Nouveau post</a>
 
   <Post v-for="publication in publications" :key="publication.id" v-bind="publication">
+
+
   </Post>
+  <button v-on:click="OnePost"> test publication</button>
 
 
 
@@ -18,6 +21,9 @@
 
 
 <script>
+
+
+
 
 import Post from '@/components/PublicationTemplate.vue'
 import HeaderMainPage from '@/components/HeaderMainPage.vue';
@@ -50,7 +56,10 @@ export default {
         this.publications = data
         console.table(data);
       })
-  }
+
+  },
+
+
 }
 </script>
 

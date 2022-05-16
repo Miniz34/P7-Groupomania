@@ -3,6 +3,7 @@ const { DataTypes, Op } = Sequelize;
 const Publication = require('../models/publication')
 const User = require('../models/users');
 const { post } = require("../routes/comment");
+const Comment = require('..//models/comment')
 
 
 
@@ -20,7 +21,8 @@ exports.createPublication = (req, res, next) => {
 
 exports.getPublication = (req, res, next) => {
   Publication.findOne({
-    where: { id: req.params.id }
+    where: { id: req.params.id },
+    include: { model: Comment, where: { id: 1 } }
 
   }).then(post => {
     res.status(200).json(post)
@@ -32,7 +34,9 @@ exports.getPublication = (req, res, next) => {
 }
 
 exports.getAllPublication = (req, res, next) => {
-  Publication.findAll()
+  Publication.findAll({
+    include: { model: Comment }
+  })
     .then(post => {
       res.status(200).json(post)
     }).catch((error) => res.status(400).json({ message: "test" }))

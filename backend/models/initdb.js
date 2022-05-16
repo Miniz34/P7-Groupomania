@@ -11,6 +11,7 @@ const Initialisation = async () => {
 
   Publication.hasMany(Comment);
   Comment.belongsTo(User);
+  Comment.belongsTo(Publication);
   Publication.belongsTo(User);
 
 

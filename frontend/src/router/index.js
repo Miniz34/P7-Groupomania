@@ -38,7 +38,7 @@ const routes = [
 
   },
   {
-    path: '/publications/2',
+    path: '/publications/:id',
     name: 'SinglePost',
     component: PublicationSingle
 

@@ -1,14 +1,30 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
 const Comment = require('../models/comment')
+const Publication = require('../models/publication')
+
+
+
+
+
 
 exports.createComment = (req, res, next) => {
+
+
   Comment.create({
+
+
+    include: { model: Publication },
+    publicationId: "45",
     commentaire: req.body.commentaire
   })
-    .then(res.status(200).json({ message: "Commentaire créée" }))
+    .then(res.status(200).json({ message: "commentaire créé" }))
+    .then((data) => {
+      console.log(data)
+    })
   // .catch(res.status(500).json({ message: "Veuillez insérer un message" })) //Ne fonctionne pas
 }
+
 
 
 exports.getAllComments = (req, res, next) => {
