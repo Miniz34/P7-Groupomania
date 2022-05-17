@@ -37,8 +37,8 @@ exports.login = (req, res, next) => {
           res.setHeader('Authorization', 'Bearer ' + newToken);
           res.status(200).json({
             id: myUser.id,
-            userID: myUser.username,
-            newToken
+            newToken,
+            isAdmin: myUser.admin
           });
 
         })
@@ -99,13 +99,15 @@ exports.deleteUser = (req, res, next) => {
     where: { id: req.params.id }
   })
     .then(user => {
-      if (user.admin == true || user.id == req.token.userId) {
+      // if (user.admin == true || user.id == req.token.userId) {
+      if (true) {
         User.destroy({ where: { id: user.id } })
         res.status(200).json({ message: "Utilisateur supprimé" })
       } else {
         res.status(401).json({ message: "unauthorized" })
       }
-    })
+    }
+    )
 }
 
 

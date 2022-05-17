@@ -22,7 +22,7 @@ exports.createPublication = (req, res, next) => {
 exports.getPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id },
-    include: { model: Comment, where: { id: 1 } }
+    include: { model: Comment }
 
   }).then(post => {
     res.status(200).json(post)

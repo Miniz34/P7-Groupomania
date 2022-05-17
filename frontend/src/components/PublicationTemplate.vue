@@ -22,7 +22,9 @@
 
             <p>{{ content }} {{ id }}</p>
             <ul class="list-inline list-unstyled main-post">
-              <li><span><i class="glyphicon glyphicon-calendar"></i>{{ createdAt }} </span></li>
+              <li> <span class="post__date">{{ new Date(createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+              }}</span>
+              </li>
               <li>|</li>
               <span><i class="glyphicon glyphicon-comment"></i> {{ postId }}--- {{ comment }} ---- aaaaa</span>
               <li>|</li>
@@ -50,7 +52,6 @@
 
     </div>
   </div>
-
 </template>
 
 <script>

@@ -58,6 +58,7 @@
 
 import HeaderMainPage from "@/components/HeaderMainPage.vue"
 
+
 const moment = require('moment');
 moment.locale('fr')
 export default {
@@ -81,21 +82,13 @@ export default {
   // },
 
   async created() {
-
-    fetch(`http://localhost:3000/api/publications/`)
+    const postId = this.$route.params.id;
+    fetch(`http://localhost:3000/api/publications/` + postId)
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        const postId = this.$route.params.id;
-        const MainPost = data.find(post => post.id == postId)
-        this.publications = MainPost
-        console.log(MainPost)
-        // const date = moment(MainPost.createdAt)
-        // date.format('Do-MMM-YYYY')
-        // console.log(date._d)
-        // const testdate = this.publications.createdAt
-        // console.log(testdate)
-        // testdate.format('YYYY-MMM-DD')
+        this.publications = data
+
 
 
       })
@@ -133,9 +126,11 @@ export default {
     },
     commentCreatedAt: function () {
 
-      const testdate = this.publications.comments.createdAt
+      const testdate = this.publications.comments[0].createdAt
       console.log(testdate)
-      return moment(testdate).format('Do MMM YYYY - HH mm')
+      return moment(testdate).format('Do MMM YYYY - LTS')
+
+      // new Date(post.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
 
     }
 

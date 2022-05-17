@@ -10,9 +10,9 @@ const db = require('../config/database')
 const Initialisation = async () => {
 
   Publication.hasMany(Comment);
-  Comment.belongsTo(User);
-  Comment.belongsTo(Publication);
-  Publication.belongsTo(User);
+  Comment.belongsTo(User, { onDelete: 'CASCADE' });
+  Comment.belongsTo(Publication, { onDelete: 'CASCADE' });
+  Publication.belongsTo(User, { onDelete: 'CASCADE' });
 
 
   // Publication.hasMany(Comment, { ForeingKey: 'CommentId' });

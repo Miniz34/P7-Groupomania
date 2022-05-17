@@ -47,7 +47,8 @@ export default {
         }).then(response => response.json())
           .then(data => {
             sessionStorage.setItem('Token', data.newToken)
-            sessionStorage.setItem('ID', data.id)
+            sessionStorage.setItem('userId', data.id)
+            sessionStorage.setItem('isAdmin', data.isAdmin)
             console.log(data)
             document.location.href = `http://localhost:8080/publications`;
           })
