@@ -20,35 +20,23 @@
             </router-link>
 
 
-            <p>{{ content }} {{ id }}</p>
+            <p>{{ content }} </p>
             <ul class="list-inline list-unstyled main-post">
-              <li> <span class="post__date">{{ new Date(createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+              <li> <span class="post__date">Publié par {{ user }} le {{ new
+                  Date(createdAt).toLocaleString("fr-FR", {
+                    timeZone: "UTC"
+                  })
               }}</span>
               </li>
-              <li>|</li>
-              <span><i class="glyphicon glyphicon-comment"></i> {{ postId }}--- {{ comment }} ---- aaaaa</span>
-              <li>|</li>
-              <li>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-              </li>
-              <li>|</li>
-              <li>
-                <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                <span><i class="fa fa-facebook-square"></i></span>
-                <span><i class="fa fa-twitter-square"></i></span>
-                <span><i class="fa fa-google-plus-square"></i></span>
-              </li>
+              <!-- <span><i class="glyphicon glyphicon-comment"></i> {{ comments.length }} </span> -->
+
             </ul>
           </div>
         </div>
       </div>
       <div>
       </div>
-      <button> button filler commenter</button>
+
 
     </div>
   </div>
@@ -58,7 +46,7 @@
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt', 'comment', 'id'],
+  props: ['title', 'content', 'createdAt', 'comment', 'id', 'userId', 'user', 'username'],
 
 }
 

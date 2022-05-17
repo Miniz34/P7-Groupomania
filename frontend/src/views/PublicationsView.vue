@@ -36,8 +36,7 @@ export default {
   },
   data() {
     return {
-      publications: []
-
+      publications: [],
     };
   },
   created() {
@@ -55,6 +54,11 @@ export default {
       .then(data => {
         this.publications = data
         console.table(data);
+        const test = data.id
+        console.table(test)
+        const test2 = this.publications.user
+        console.log(test2)
+
       })
 
   },

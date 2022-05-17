@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
 const Comment = require('../models/comment')
-const Publication = require('../models/publication')
+const Publication = require('../models/publication');
+const User = require("../models/users");
 
 
 
@@ -16,6 +17,7 @@ exports.createComment = (req, res, next) => {
 
     include: { model: Publication },
     publicationId: req.body.publicationId,
+    userId: req.body.userId,
     commentaire: req.body.commentaire
   })
     .then(res.status(200).json({ message: "commentaire créé" }))
@@ -28,7 +30,9 @@ exports.createComment = (req, res, next) => {
 
 
 exports.getAllComments = (req, res, next) => {
-  Comment.findAll()
+  Comment.findAll({
+    include: { model: User, attributes: ['username'] },
+  })
     .then(post => {
       res.status(200).json(post)
     }).catch((error) => res.status(400).json({ message: "test" }))
@@ -36,7 +40,9 @@ exports.getAllComments = (req, res, next) => {
 
 exports.getComment = (req, res, next) => {
   Comment.findOne({
-    where: { id: req.params.id }
+    where: { id: req.params.id },
+    include: { model: User, attributes: ['username'] },
+
 
   }).then(comment => {
     res.status(200).json(comment)

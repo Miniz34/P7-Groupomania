@@ -26,7 +26,7 @@
 
 <script>
 
-const id = sessionStorage.getItem("ID")
+const id = sessionStorage.getItem("userId")
 
 export default {
   name: "newPost",

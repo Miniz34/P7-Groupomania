@@ -10,9 +10,11 @@ const Comment = require('..//models/comment')
 
 exports.createPublication = (req, res, next) => {
   Publication.create({
+    include: [{ model: Comment }, { model: User, attributes: ['username'] }],
     title: req.body.title,
     content: req.body.content,
     userId: req.body.userId,
+
 
   })
     .then(res.status(200).json({ message: "Publication créée" }))
@@ -22,7 +24,7 @@ exports.createPublication = (req, res, next) => {
 exports.getPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id },
-    include: { model: Comment }
+    include: [{ model: Comment, include: [{ model: User, attributes: ['username'] }] }, { model: User, attributes: ['username'] }]
 
   }).then(post => {
     res.status(200).json(post)
@@ -35,7 +37,7 @@ exports.getPublication = (req, res, next) => {
 
 exports.getAllPublication = (req, res, next) => {
   Publication.findAll({
-    include: { model: Comment }
+    include: [{ model: Comment }, { model: User, attributes: ['username'] }],
   })
     .then(post => {
       res.status(200).json(post)

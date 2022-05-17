@@ -13,6 +13,8 @@ const Initialisation = async () => {
   Comment.belongsTo(User, { onDelete: 'CASCADE' });
   Comment.belongsTo(Publication, { onDelete: 'CASCADE' });
   Publication.belongsTo(User, { onDelete: 'CASCADE' });
+  User.hasMany(Publication)
+  User.hasMany(Comment)
 
 
   // Publication.hasMany(Comment, { ForeingKey: 'CommentId' });

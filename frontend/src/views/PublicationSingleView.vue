@@ -17,7 +17,9 @@
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
 
               <!-- <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span> -->
-              <p>{{ createdAt }}</p>
+              <p>Publié par {{ publications.user }} le {{ new
+                  Date(publications.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+              }}</p>
 
             </ul>
           </div>
@@ -28,6 +30,7 @@
 
 
     </div>
+
 
     <div class="well container">
       <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
@@ -42,8 +45,9 @@
     </div>
 
     <div v-for="comment in publications.comments" :key="comment.id" class="container">
-      <h5><i class=""></i> {{ comment.userId }}
-        <small> {{ commentCreatedAt }}</small>
+      <h5><i class=""></i>Commentaire de {{ comment.user.username }}
+        <small>{{ new Date(comment.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+        }}</small>
       </h5>
       <p>{{ comment.commentaire }}</p>
     </div>
@@ -57,10 +61,11 @@
 // import moment from 'moment'
 
 import HeaderMainPage from "@/components/HeaderMainPage.vue"
+const id = sessionStorage.getItem("userId")
 
 
-const moment = require('moment');
-moment.locale('fr')
+// const moment = require('moment');
+// moment.locale('fr')
 export default {
   components: {
     HeaderMainPage
@@ -69,7 +74,7 @@ export default {
   data() {
     return {
       publications: "",
-      comment: ""
+      comment: "",
     }
   },
   // computed: {
@@ -88,6 +93,8 @@ export default {
       .then(data => {
         console.log(data)
         this.publications = data
+        // const test = this.publications.user.username
+        // console.log(test)
 
 
 
@@ -100,7 +107,6 @@ export default {
       // const moment = require('moment');
       // const aujourdhui = moment();
       console.log("hello")
-      const postId = this.$route.params.id;
       fetch('http://localhost:3000/api/comments/', {
         method: "POST",
         headers: {
@@ -110,31 +116,40 @@ export default {
         },
         body: JSON.stringify({
           publicationId: this.publications.id,
-          commentaire: this.comment
+          commentaire: this.comment,
+          userId: id
         })
-      })
-      console.log(postId)
+      }).then(
+        alert("votre commentaire a été publié"))
+      location.reload()
+      const test = this.publications.id
+      console.log(test)
+        .catch((error) => {
+          console.log(error + "message d'erreur filler")
+        })
+
+
 
     }
   },
-  computed: {
-    createdAt: function () {
+  // computed: {
+  //   createdAt: function () {
 
-      const testdate = this.publications.createdAt
-      return moment(testdate).format('Do MMM YYYY - LTS')
+  //     const testdate = this.publications.createdAt
+  //     return moment(testdate).format('Do MMM YYYY - LTS')
 
-    },
-    commentCreatedAt: function () {
+  //   },
+  //   commentCreatedAt: function () {
 
-      const testdate = this.publications.comments[0].createdAt
-      console.log(testdate)
-      return moment(testdate).format('Do MMM YYYY - LTS')
+  //     const testdate = this.publications.comments[0].createdAt
+  //     console.log(testdate)
+  //     return moment(testdate).format('Do MMM YYYY - LTS')
 
-      // new Date(post.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+  //     // new Date(post.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
 
-    }
+  //   }
 
-  },
+  // },
 
 }
 
