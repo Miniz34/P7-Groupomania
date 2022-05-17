@@ -17,7 +17,7 @@
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
 
               <!-- <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span> -->
-              <p>Publié par {{ publications.user }} le {{ new
+              <p>Publié par {{ publications.user.username }} le {{ new
                   Date(publications.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
               }}</p>
 

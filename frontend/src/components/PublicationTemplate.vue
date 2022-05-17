@@ -22,7 +22,7 @@
 
             <p>{{ content }} </p>
             <ul class="list-inline list-unstyled main-post">
-              <li> <span class="post__date">Publié par {{ user }} le {{ new
+              <li> <span class="post__date">Publié par {{ user.username }} le {{ new
                   Date(createdAt).toLocaleString("fr-FR", {
                     timeZone: "UTC"
                   })
