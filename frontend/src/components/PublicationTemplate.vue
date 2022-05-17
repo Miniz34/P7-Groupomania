@@ -32,6 +32,7 @@
 
             </ul>
           </div>
+          <p>{{ comments.length }} commentaires</p>
         </div>
       </div>
       <div>
@@ -46,7 +47,7 @@
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt', 'comment', 'id', 'userId', 'user', 'username'],
+  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'username'],
 
 }
 

@@ -12,7 +12,6 @@
 
 
   </Post>
-  <button v-on:click="OnePost"> test publication</button>
 
 
 
