@@ -2,7 +2,7 @@
 
 
 
-  <form id="Auth-View">
+  <form id="Auth-View" enctype="multipart/form-data">
 
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <h2 class="col align-self-center">Inscription</h2>
@@ -12,6 +12,16 @@
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
       <input v-model="dataLogin.password" class=" form-control form-control-lg" type="text" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
+
+
+      <div class="custom-file">
+        <input name="inputFile" type="file" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
+          @change="onFileChange" />
+        <label class="custom-file-label" for="inputFile">Choose file</label>
+      </div>
+
+
+
       <div v-if="isVisibleRegex" class="alert alert-danger" role="alert">
         Votre mot de passe doit avoir entre 3 et 16 caractères, seules les lettres, chiffres et tirets sont autorisés
       </div>
@@ -37,13 +47,19 @@ export default {
     return {
       dataLogin: {
         username: "",
-        password: ""
+        password: "",
+        avatar: null,
       },
       isVisibleRegex: false,
       isVisibleEmpty: false
 
     };
   }, methods: {
+    onFileChange(e) {
+      console.log(e);
+      this.dataLogin.avatar = e.target.files[0]
+      console.log(this.dataLogin.avatar);
+    },
     mounted() {
 
 
@@ -53,7 +69,8 @@ export default {
           method: "POST",
           body: JSON.stringify({
             username: this.dataLogin.username,
-            password: this.dataLogin.password
+            password: this.dataLogin.password,
+            avatar: this.dataLogin.avatar
           }),
           headers: {
             'Accept': 'application/json',
@@ -61,8 +78,8 @@ export default {
           }
         })
           .then((response) => response.json())
-          .then(document.location.href = `http://localhost:8080/publications`
-          )
+        // .then(document.location.href = `http://localhost:8080/publications`
+        // )
 
       } else {
         if (this.dataLogin.username && this.dataLogin.password && regexPassword.test(this.dataLogin.password) === false) {
@@ -75,6 +92,7 @@ export default {
 
       }
     }
+
   }
 }
 

@@ -4,15 +4,22 @@ const { DataTypes, Op } = Sequelize;
 const User = require('../models/users')
 const jwt = require('jsonwebtoken');
 const { json } = require("sequelize");
+const multer = require('multer')
+const path = require('path')
+
 
 
 //Contrôleur création de compte
 exports.signup = (req, res, next) => {
+
   bcrypt.hash(req.body.password, 10) //On utilise Bcrypt pour le mot de passe, l'algorithme fera 10 tours
     .then(hash => {
+
+      let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       const newUser = User.create({ //création de l'utilisateur
         username: req.body.username,  //on passe l'email crypté via crypto-JS
         password: hash, // on passe le mot de passe hashé via Bcrypt
+        avatar: attachmentURL
       })
         .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
       // .catch(error => res.status(400).json({ hash }));
@@ -64,7 +71,7 @@ exports.getOneUser = (req, res, next) => {
 
 module.exports.getusers = (req, res) => {
   User.findAll({
-    attributes: ['id', 'username', 'admin']
+    attributes: ['id', 'username', 'admin', 'avatar']
   }).then((data) => {
     res.status(200).json({ data })
   })

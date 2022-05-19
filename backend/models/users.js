@@ -13,6 +13,10 @@ const User = db.define('user', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  avatar: {
+    type: DataTypes.STRING,
+    // defaultValue: 'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg'
+  },
   admin: {
     type: DataTypes.BOOLEAN,
     defaultValue: false

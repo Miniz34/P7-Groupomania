@@ -26,6 +26,8 @@ app.use((req, res, next) => {
 //Parser les corps des requête + forcer parse d'objets inclus dans d'autres objets
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 //Middleware
 Initialisation().then(() => {

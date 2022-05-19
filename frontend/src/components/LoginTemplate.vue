@@ -10,6 +10,7 @@
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
       <input v-model="dataLogin.password" class="form-control form-control-lg" type="text" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
+
       <button @click.prevent="mounted" type="submit"
         class="btn btn-primary w-25 col align-self-center">Connexion</button>
       <p class="col align-self-center">Pas de compte ? vous pouvez vous inscrire <a href="/">ici</a></p>
