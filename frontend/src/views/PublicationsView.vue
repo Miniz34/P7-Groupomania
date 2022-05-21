@@ -14,7 +14,7 @@
   </Post>
 
 
-
+  <FooterTemplate />
 
 </template>
 
@@ -23,7 +23,7 @@
 
 
 
-
+import FooterTemplate from '@/components/FooterTemplate.vue';
 import Post from '@/components/PublicationTemplate.vue'
 import HeaderMainPage from '@/components/HeaderMainPage.vue';
 
@@ -31,7 +31,8 @@ export default {
   name: "newPost",
   components: {
     Post,
-    HeaderMainPage
+    HeaderMainPage,
+    FooterTemplate
   },
   data() {
     return {

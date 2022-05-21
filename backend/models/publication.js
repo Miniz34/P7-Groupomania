@@ -9,6 +9,10 @@ const Publication = db.define('publication', {
   content: {
     type: DataTypes.TEXT,
   },
+  image: {
+    type: DataTypes.STRING,
+    default: " http://localhost:3000/images/icon.png"
+  }
 }, {
   freezeTableName: true,
 })

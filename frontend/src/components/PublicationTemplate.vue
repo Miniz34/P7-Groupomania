@@ -1,81 +1,96 @@
 <template>
 
-  <head>
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
-  </head>
-
-
-  <div class="Publications-View" id="Publications-View">
+  <main>
     <div class="container">
-      <div class="well ">
-        <div class="media">
-          <!-- <a class="pull-left" href="#">
-            <img class="media-object" src="http://placekitten.com/150/150">
-          </a> -->
-          <div class="media-body">
-            <h4 class="media-heading"></h4>
-            <!-- <button v-on:click="OnePost"> <a href="/publications/{{route.params.id}}"> hello</a></button> -->
-            <router-link :to="{ name: 'SinglePost', params: { id } }">
-              <p class="text-right fw-bold fs-3">{{ title }}</p>
-            </router-link>
-
-
-            <p>{{ content }} </p>
-            <ul class="list-inline list-unstyled main-post">
-              <li> <span class="post__date">Publié par {{ user.username }} le {{ new
-                  Date(createdAt).toLocaleString("fr-FR", {
-                    timeZone: "UTC"
-                  })
-              }}</span>
-              </li>
-              <!-- <span><i class="glyphicon glyphicon-comment"></i> {{ comments.length }} </span> -->
-
-            </ul>
-          </div>
-          <p>{{ comments.length }} commentaires</p>
+      <div class="img-container">
+        <div class="img-main-page" v-if="image">
+          <img :src="image" alt="post img" class="main-img">
         </div>
       </div>
-      <div>
+      <div class="content">
+        <div class="title">
+          <router-link :to="{ name: 'SinglePost', params: { id } }">
+            <p class="text-right fw-bold fs-3">{{ title }}</p>
+          </router-link>
+
+        </div>
+        <div class="text">
+          {{ content }}
+        </div>
+        <div class="data">
+          <div class="date">
+            Publié par {{ user.username }} le {{ new
+                Date(createdAt).toLocaleString("fr-FR", {
+                  timeZone: "UTC"
+                })
+            }}
+
+
+          </div>
+          <div class="comments">
+            {{ comments.length }} commentaires
+          </div>
+        </div>
+
       </div>
 
-
     </div>
-  </div>
+
+  </main>
+
+
 </template>
 
 <script>
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'username'],
+  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'username', 'image'],
 
 }
 
 
 </script>
 
-<style>
-.well {
-  margin-top: 50px;
+<style scoped>
+.container {
   background-color: white;
-}
-
-.main-post {
-  display: flex;
-}
-
-.post {
-  width: 300px;
-  border: 1px solid black;
+  height: 200px;
+  width: 100%;
+  margin: 50px;
   display: flex;
   flex-direction: row;
-  padding: 20px;
-  background: #FFEEE4;
-  margin: 10px;
 }
 
-#Publications-View {
-  margin-bottom: 100px;
+.img-container {
+  background-color: blue;
+  width: 200px;
+  margin-left: -12px;
 
+
+}
+
+.main-img {
+  width: 200px;
+  height: 200px;
+}
+
+.content {
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.data {
+  display: flex;
+  justify-content: start;
+  margin-left: -25px;
+
+}
+
+.comments {
+  margin-left: 25px;
 }
 </style>

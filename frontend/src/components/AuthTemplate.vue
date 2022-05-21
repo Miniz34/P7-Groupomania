@@ -2,7 +2,7 @@
 
 
 
-  <form id="Auth-View" enctype="multipart/form-data">
+  <form id="Auth-View" enctype="multipart/form-data" method="post">
 
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <h2 class="col align-self-center">Inscription</h2>
@@ -15,9 +15,10 @@
 
 
       <div class="custom-file">
-        <input name="inputFile" type="file" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
-          @change="onFileChange" />
+        <input name="inputFile" type="file" accept="image/*" class="custom-file-input" id="inputFile"
+          aria-describedby="inputFileAddon" @change="onFileChange" />
         <label class="custom-file-label" for="inputFile">Choose file</label>
+        <button @click="onSubmit">Upload</button>
       </div>
 
 
@@ -41,6 +42,8 @@
 
 <script>
 
+// import axios from 'axios';
+
 export default {
   name: "Login-Template",
   data() {
@@ -48,33 +51,37 @@ export default {
       dataLogin: {
         username: "",
         password: "",
-        avatar: null,
       },
       isVisibleRegex: false,
       isVisibleEmpty: false
 
     };
   }, methods: {
-    onFileChange(e) {
-      console.log(e);
-      this.dataLogin.avatar = e.target.files[0]
-      console.log(this.dataLogin.avatar);
-    },
+
+
+
+
+
     mounted() {
 
 
       const regexPassword = /^[a-zA-Z0-9_-]{3,16}$/;
       if (this.dataLogin.username && this.dataLogin.password && regexPassword.test(this.dataLogin.password)) {
+
+
+
         fetch("http://localhost:3000/api/users/auth", {
+
           method: "POST",
-          body: JSON.stringify({
-            username: this.dataLogin.username,
-            password: this.dataLogin.password,
-            avatar: this.dataLogin.avatar
-          }),
+          body:
+            JSON.stringify({
+              username: this.dataLogin.username,
+              password: this.dataLogin.password,
+            }),
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'multipart/form-data'
           }
         })
           .then((response) => response.json())
@@ -91,7 +98,13 @@ export default {
         }
 
       }
-    }
+    },
+    onFileChange(e) {
+      console.log(e);
+      this.dataLogin.avatar = e.target.files[0] || e.dataTransfer.files;
+      console.log(this.dataLogin.avatar);
+
+    },
 
   }
 }
@@ -107,3 +120,11 @@ export default {
   margin-bottom: 10px;
 }
 </style>
+
+
+<!-- 
+<div class="form-group">
+    <input type="file" accept="image/*" #imageInput (change)="onFileAdded($event)">
+    <button mat-raised-button color="primary" (click)="imageInput.click()">ADD IMAGE</button>
+    <img [src]="imagePreview" *ngIf="imagePreview" style="max-height: 100px;display:block;margin-top:10px">
+  </div> -->

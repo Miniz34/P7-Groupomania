@@ -1,22 +1,18 @@
 <template>
   <HeaderMainPage />
-
-
   <div class="Publications-View" id="Publications-View">
     <div class="container">
       <div class="well ">
         <div class="media">
-          <!-- <a class="pull-left" href="#">
-            <img class="media-object" src="http://placekitten.com/150/150">
-          </a> -->
           <div class="media-body">
             <h4 class="media-heading"></h4>
             <p class="text-right fw-bold fs-3"> {{ publications.title }}</p>
+            <div class="card-img-top w-50 mx-auto" v-if="publications.image">
+              <img :src="publications.image" alt="..." class="w-100" />
+            </div>
             <p>{{ publications.content }}</p>
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
-
-              <!-- <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span> -->
               <p>Publié par {{ publications.user.username }} le {{ new
                   Date(publications.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
               }}</p>
@@ -25,10 +21,17 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="modify">
+      <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
+        <button>Modifier publication</button>
+      </router-link>
+      <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
-
+        <button>Supprimer publication</button>
+      </router-link>
     </div>
 
 
@@ -43,49 +46,35 @@
           Submit</button>
       </form>
     </div>
-
     <div v-for="comment in publications.comments" :key="comment.id" class="container">
-      <h5><i class=""></i>Commentaire de {{ comment.user.username }}
+      <h5><i class="commentaire"></i>Commentaire de {{ comment.user.username }}
         <small>{{ new Date(comment.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
         }}</small>
       </h5>
       <p>{{ comment.commentaire }}</p>
     </div>
-
   </div>
+
+
 
 </template>
 
 <script>
 
-// import moment from 'moment'
-
 import HeaderMainPage from "@/components/HeaderMainPage.vue"
 const id = sessionStorage.getItem("userId")
 
-
-// const moment = require('moment');
-// moment.locale('fr')
 export default {
   components: {
     HeaderMainPage
   },
-
   data() {
     return {
       publications: "",
       comment: "",
+      image: ""
     }
   },
-  // computed: {
-  //   publicationId() {
-  //     return parseInt(this.$route.params.id)
-  //   },
-
-
-
-  // },
-
   async created() {
     const postId = this.$route.params.id;
     fetch(`http://localhost:3000/api/publications/` + postId)
@@ -93,15 +82,8 @@ export default {
       .then(data => {
         console.log(data)
         this.publications = data
-        // const test = this.publications.user.username
-        // console.log(test)
-
-
-
       })
-
   },
-
   methods: {
     SendComment() {
       // const moment = require('moment');
@@ -127,29 +109,8 @@ export default {
         .catch((error) => {
           console.log(error + "message d'erreur filler")
         })
-
-
-
     }
   },
-  // computed: {
-  //   createdAt: function () {
-
-  //     const testdate = this.publications.createdAt
-  //     return moment(testdate).format('Do MMM YYYY - LTS')
-
-  //   },
-  //   commentCreatedAt: function () {
-
-  //     const testdate = this.publications.comments[0].createdAt
-  //     console.log(testdate)
-  //     return moment(testdate).format('Do MMM YYYY - LTS')
-
-  //     // new Date(post.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
-
-  //   }
-
-  // },
 
 }
 

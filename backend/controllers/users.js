@@ -2,10 +2,12 @@ const bcrypt = require("bcrypt");
 const Sequelize = require("sequelize");
 const { DataTypes, Op } = Sequelize;
 const User = require('../models/users')
+const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken');
 const { json } = require("sequelize");
 const multer = require('multer')
-const path = require('path')
+const path = require('path');
+const Publication = require("../models/publication");
 
 
 
@@ -15,11 +17,11 @@ exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.password, 10) //On utilise Bcrypt pour le mot de passe, l'algorithme fera 10 tours
     .then(hash => {
 
-      let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      // let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
       const newUser = User.create({ //création de l'utilisateur
         username: req.body.username,  //on passe l'email crypté via crypto-JS
         password: hash, // on passe le mot de passe hashé via Bcrypt
-        avatar: attachmentURL
+        // avatar: attachmentURL
       })
         .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
       // .catch(error => res.status(400).json({ hash }));
@@ -57,13 +59,42 @@ exports.login = (req, res, next) => {
 
 exports.getOneUser = (req, res, next) => {
   User.findOne({
-    attributes: ['id', 'username', 'admin'],
-    where: { username: req.body.username }
+    where: { id: req.params.id },
+    include: [{
+      model: Comment,
+      where: { userId: req.params.id }
+    },
+    {
+      model: Publication,
+      where: { userId: req.params.id }
+    }],
+    attributes: ['id', 'username', 'admin', 'createdAt', 'avatar'],
+
   })
     .then((data) => {
       res.status(200).json({ data })
     })
 }
+
+// exports.getUserData = (req, res, next) => {
+//   User.findOne({
+//     where: { id: req.params.id },
+//     include: [{
+//       model: Comment,
+//       where: { userId: 3 }
+//     },
+//     {
+//       model: Publication,
+//       where: { userId: 3 }
+//     }],
+//     attributes: ['id', 'username', 'admin', 'createdAt', 'avatar'],
+
+//   })
+//     .then((data) => {
+//       res.status(200).json({ data })
+//     })
+// }
+
 
 
 //Contrôleur de suppression de compte

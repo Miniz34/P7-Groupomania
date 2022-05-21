@@ -15,7 +15,7 @@ const User = db.define('user', {
   },
   avatar: {
     type: DataTypes.STRING,
-    // defaultValue: 'https://www.referenseo.com/wp-content/uploads/2019/03/image-attractive-960x540.jpg'
+    defaultValue: "http://localhost:3000/images/avatardefault.png"
   },
   admin: {
     type: DataTypes.BOOLEAN,

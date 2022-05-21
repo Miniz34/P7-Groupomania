@@ -9,11 +9,14 @@ const Comment = require('..//models/comment')
 
 
 exports.createPublication = (req, res, next) => {
+  // let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
   Publication.create({
     include: [{ model: Comment }, { model: User, attributes: ['username'] }],
     title: req.body.title,
     content: req.body.content,
     userId: req.body.userId,
+    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 
 
   })
@@ -121,7 +124,10 @@ exports.modifyPublication = (req, res, next) => {
     where: { id: req.params.id }
   }).then(post => {
     Publication.update({
-      content: req.body.content
+      title: req.body.title,
+      content: req.body.content,
+      userId: req.body.userId,
+      image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     },
       {
         where: { id: post.id }

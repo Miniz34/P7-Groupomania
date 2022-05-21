@@ -5,6 +5,9 @@ import UsersList from '../views/UsersListView.vue'
 import PublicationsView from '../views/PublicationsView'
 import CreatePostView from '../views/CreatePostView.vue'
 import PublicationSingle from '../views/PublicationSingleView.vue'
+import UserSingleView from '../views/UserSingleView.vue'
+import ModifyPost from '../views/ModifyPost'
+
 
 
 const routes = [
@@ -43,6 +46,17 @@ const routes = [
     component: PublicationSingle
 
   },
+  {
+    path: '/users/:id',
+    name: 'SingleUser',
+    component: UserSingleView
+  },
+  {
+    path: '/publications/modify/:id',
+    name: 'Modify',
+    component: ModifyPost
+  }
+
 ]
 
 const router = createRouter({
