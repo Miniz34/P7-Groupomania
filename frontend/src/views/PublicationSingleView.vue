@@ -30,8 +30,19 @@
       </router-link>
       <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
-        <button>Supprimer publication</button>
+        <button @click="deletePost">Supprimer publication</button>
       </router-link>
+
+
+
+
+
+      <button v-if="id" @click.prevent="showButtons">buttonv3</button>
+
+
+
+
+
     </div>
 
 
@@ -62,7 +73,11 @@
 <script>
 
 import HeaderMainPage from "@/components/HeaderMainPage.vue"
-const id = sessionStorage.getItem("userId")
+let id = sessionStorage.getItem("userId")
+console.log(id)
+
+
+
 
 export default {
   components: {
@@ -72,17 +87,27 @@ export default {
     return {
       publications: "",
       comment: "",
-      image: ""
+      image: "",
+      id: ""
     }
   },
   async created() {
+
+
     const postId = this.$route.params.id;
     fetch(`http://localhost:3000/api/publications/` + postId)
       .then(response => response.json())
       .then(data => {
         console.log(data)
         this.publications = data
-      })
+        console.log(this.publications.userId)
+
+      }).then()
+    this.id = sessionStorage.getItem("userId")
+    const test = this.id
+    console.log(test)
+    console.log(this.id)
+
   },
   methods: {
     SendComment() {
@@ -109,8 +134,57 @@ export default {
         .catch((error) => {
           console.log(error + "message d'erreur filler")
         })
-    }
+    },
+    deletePost() {
+      const postId = this.$route.params.id;
+      fetch('http://localhost:3000/api/publications/' + postId, {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + sessionStorage.getItem("Token")
+        },
+
+      })
+        .then(() =>
+          document.location.href = `http://localhost:8080/publications`)
+
+
+    },
+
+
+    //////////////////// // Version obscure de v-if  ////////////////////////
+
+
+    // showButtons() {
+    //   let newId = sessionStorage.getItem("userId")
+    //   // console.log(newId)
+
+    //   // let postCreator = false
+    //   // idPost = this.publications.user.userId
+    //   let idPost = this.publications.userId
+    //   if (newId == idPost) {
+    //     // postCreator = true
+    //     // console.log(postCreator)
+    //     console.log(newId)
+    //     console.log(idPost)
+    //     return true
+
+
+
+
+    //   } else {
+    //     // postCreator = false
+    //     // console.log(postCreator)
+    //     console.log(newId)
+    //     console.log(idPost)
+    //     return false
+
+
+    //   }
+    // }
   },
+
 
 }
 

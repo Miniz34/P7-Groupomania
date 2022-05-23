@@ -70,6 +70,9 @@ export default {
 
         axios
           .put("http://localhost:3000/api/publications/" + postId, fd, {
+            headers: {
+              Authorization: "Bearer " + sessionStorage.getItem("Token")
+            }
           })
 
 

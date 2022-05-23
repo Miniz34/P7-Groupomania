@@ -5,10 +5,10 @@ const multer = require('../middleware/multer-config')
 
 router.post("/", multer, Publication.createPublication)
 
-router.delete("/:id", multer, Publication.deletePublication);
+router.delete("/:id", auth, multer, Publication.deletePublication);
 
 
-router.put('/:id', multer, Publication.modifyPublication);
+router.put('/:id', auth, multer, Publication.modifyPublication);
 
 router.get('/', multer, Publication.getAllPublication);
 router.get("/:id", multer, Publication.getPublication)

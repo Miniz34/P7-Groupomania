@@ -87,10 +87,18 @@ exports.deletePublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id }
   }).then(post => {
-    Publication.destroy({
-      where: { id: post.id }
+    const createur = post.userId
+    const letoken = req.token.userId
+    const admin = req.token.admin
+    if (post.userId == req.token.userId) {
+      Publication.destroy({
+        where: { id: post.id }
 
-    }).then(res.status(200).json({ message: "Publication supprimée" }))
+      }).then(res.status(200).json({ message: "Publication supprimée" }))
+    } else {
+      res.status(401).json({ message: "Unauthorized" })
+    }
+
   })
 }
 
@@ -123,15 +131,17 @@ exports.modifyPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id }
   }).then(post => {
-    Publication.update({
-      title: req.body.title,
-      content: req.body.content,
-      userId: req.body.userId,
-      image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    },
-      {
-        where: { id: post.id }
+    if (post.userId == req.token.userId) {
+      Publication.update({
+        title: req.body.title,
+        content: req.body.content,
+        userId: req.body.userId,
+        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      },
+        {
+          where: { id: post.id }
 
-      }).then(res.status(200).json({ message: "Publication modifiée" }))
+        }).then(res.status(200).json({ message: "Publication modifiée" }))
+    }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }

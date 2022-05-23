@@ -1,3 +1,4 @@
+
 <template>
   <!-- <div v-for="user in users" :key="user.id" v-bind="user" class="list-group">
     <div class="img-main-page">
@@ -17,23 +18,25 @@
   </div> -->
 
 
-  <router-link :to="{ name: 'SingleUser', params: { id } }">
-    <p class="text-right fw-bold fs-3">{{ username }}</p>
-
-    <div class="container">
-      <div class="user">
-        <div class="img-main-page">
-          <img :src="avatar" alt="avatar" class="main-img">
-        </div>
-
-        <div class="col-md-6 details username">
-          <h5>{{ username }}</h5>
-        </div>
 
 
+  <div class="container">
+    <div class="user">
+      <div class="img-main-page">
+        <img :src="avatar" alt="avatar" class="main-img">
       </div>
+
+      <div class="col-md-6 details username">
+        <router-link :to="{ name: 'SingleUser', params: { id } }">{{ username }}</router-link>
+      </div>
+      <div v-if="admin == true">
+        admin
+      </div>
+
+
     </div>
-  </router-link>
+  </div>
+
 
 
 </template>
@@ -43,7 +46,7 @@
 
 export default {
   name: "user-list",
-  props: ['username', 'avatar', 'id'],
+  props: ['username', 'avatar', 'id', "admin"],
 
 }
 
