@@ -10,13 +10,14 @@ const Comment = require('..//models/comment')
 
 exports.createPublication = (req, res, next) => {
   // let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-
   Publication.create({
-    include: [{ model: Comment }, { model: User, attributes: ['username'] }],
+    // include: [{ model: Comment }, { model: User, attributes: ['username'] }],
     title: req.body.title,
     content: req.body.content,
     userId: req.body.userId,
-    image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+
+    image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+
 
 
   })
@@ -90,13 +91,14 @@ exports.deletePublication = (req, res, next) => {
     const createur = post.userId
     const letoken = req.token.userId
     const admin = req.token.admin
-    if (post.userId == req.token.userId) {
+    if (post.userId == req.token.userId || req.token.admin) {
       Publication.destroy({
         where: { id: post.id }
 
       }).then(res.status(200).json({ message: "Publication supprimée" }))
     } else {
-      res.status(401).json({ message: "Unauthorized" })
+      // res.status(401).json({ message: "Unauthorized" })
+      res.status(401).json({ message: "unauthorized" })
     }
 
   })
@@ -104,39 +106,19 @@ exports.deletePublication = (req, res, next) => {
 
 
 
-//Delete post 2.0 : à revoir avec le front
-exports.deletePublicationDeux = (req, res, next) => {
-  User.findOne({
-    attributes: ['id', 'username', 'admin'],
-    where: { id: req.params.id }
-  })
-    .then(user => {
-      if (user.id == req.token.userId) {
-        Publication.findOne({ where: { id: post.id } })
-        res.status(200).json({ message: "Utilisateur supprimé" })
-          .then((publication) => {
-            Publication.destroy({
-              where: { id: publication.id }
-            }).then(() => res.end)
-              .catch(err => res.status(500).json(err))
-          }
-          )
-      } else {
-        res.status(401).json({ message: "unauthorized" })
-      }
-    })
-}
 
 exports.modifyPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id }
   }).then(post => {
-    if (post.userId == req.token.userId) {
+    if (post.userId == req.token.userId || req.token.admin) {
+      const letoken = req.token.userId
+
       Publication.update({
         title: req.body.title,
         content: req.body.content,
         userId: req.body.userId,
-        image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
       },
         {
           where: { id: post.id }
@@ -145,3 +127,48 @@ exports.modifyPublication = (req, res, next) => {
     }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// //Delete post 2.0 : à revoir avec le front
+// exports.deletePublicationDeux = (req, res, next) => {
+//   User.findOne({
+//     attributes: ['id', 'username', 'admin'],
+//     where: { id: req.params.id }
+//   })
+//     .then(user => {
+//       if (user.id == req.token.userId) {
+//         Publication.findOne({ where: { id: post.id } })
+//         res.status(200).json({ message: "Utilisateur supprimé" })
+//           .then((publication) => {
+//             Publication.destroy({
+//               where: { id: publication.id }
+//             }).then(() => res.end)
+//               .catch(err => res.status(500).json(err))
+//           }
+//           )
+//       } else {
+//         res.status(401).json({ message: "unauthorized" })
+//       }
+//     })
+// }

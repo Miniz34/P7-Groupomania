@@ -3,6 +3,8 @@
   <HeaderMainPage></HeaderMainPage>
 
   <UserSingleTemplate v-for="x in user" :key="x" v-bind="x">
+
+    <button>test</button>
   </UserSingleTemplate>
 
 
@@ -22,14 +24,16 @@ export default {
   },
   data() {
     return {
-      user: []
+      user: [],
+      id: sessionStorage.getItem("userId"),
+      admin: sessionStorage.getItem("isAdmin")
     }
   },
 
   created() {
-    const postId = this.$route.params.id;
+    const userId = this.$route.params.id;
 
-    fetch("http://localhost:3000/api/users/" + postId)
+    fetch("http://localhost:3000/api/users/" + userId)
       .then((response) => response.json())
       .then(data => {
         this.user = data
@@ -39,16 +43,25 @@ export default {
 
 
       })
-    // .then(
-    //   fetch("http://localhost:3000/api/users/data" + postId)
-    //     .then((response) => response.json())
-    //     .then(data => {
 
-    //       console.log(data)
-    //     })
+  },
+  // methods: {
+  //   deleteUser() {
 
-    // )
-  }
+  //     const userId = this.$route.params.id;
+  //     fetch('http://localhost:3000/api/user/' + userId, {
+  //       method: "DELETE",
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //         'Authorization': "Bearer " + sessionStorage.getItem("Token")
+  //       },
+
+  //     })
+  //       .then(() =>
+  //         document.location.href = `http://localhost:8080/publications`)
+  //   }
+  // }
 
 
 }

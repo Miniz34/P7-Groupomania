@@ -34,7 +34,7 @@
 
 <script>
 
-import axios from 'axios';
+// import axios from 'axios';
 // import { json } from 'body-parser';
 const userId = sessionStorage.getItem("userId")
 
@@ -53,11 +53,13 @@ export default {
   methods: {
 
     mounted() {
+      let postId = this.$route.params.id
 
+      let input = document.getElementById('inputFile')
       const fd = new FormData();
       fd.append("title", this.dataPost.title);
       fd.append("content", this.dataPost.content);
-      fd.append("inputFile", this.dataPost.image);
+      fd.append("inputFile", input.files[0]);
       fd.append("userId", userId);
 
       console.log("test récup", fd.get("title"));
@@ -66,20 +68,27 @@ export default {
       console.log("test récup", fd.get("userId"));
       if (this.dataPost.title && this.dataPost.content) {
 
-        const postId = this.$route.params.id;
 
-        axios
-          .put("http://localhost:3000/api/publications/" + postId, fd, {
-            headers: {
-              Authorization: "Bearer " + sessionStorage.getItem("Token")
-            }
-          })
+        // axios
+        // .post("http://localhost:3000/api/publications", fd, {
+        // })
+        const options = {
+          method: "PUT",
+          body: fd,
+          headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Authorization': "Bearer " + sessionStorage.getItem("Token")
+          }
+
+        }
+        fetch("http://localhost:3000/api/publications/" + postId, options)
 
 
 
           .then(response => {
             console.log(response)
-          })
+          }).catch((err) => console.log(err))
       }
     },
     onFileChange(e) {

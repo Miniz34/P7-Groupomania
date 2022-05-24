@@ -13,7 +13,7 @@
           <textarea v-model="dataPost.content" id="editor" cols="30" rows="10">Submit your text post here...</textarea>
           <br>
           <div class="form-group">
-            <button @click.prevent="mounted" class="btn btn-primary" id="submit">Submit new post</button>
+            <button @click.prevent="sendPost" class="btn btn-primary" id="submit">Submit new post</button>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
 
 <script>
 
-import axios from 'axios';
+// import axios from 'axios';
 // import { json } from 'body-parser';
 const userId = sessionStorage.getItem("userId")
 
@@ -51,29 +51,42 @@ export default {
     }
   },
   methods: {
-    mounted() {
+    sendPost() {
+      let input = document.getElementById('inputFile')
       const fd = new FormData();
       fd.append("title", this.dataPost.title);
       fd.append("content", this.dataPost.content);
-      fd.append("inputFile", this.dataPost.image);
+      fd.append("inputFile", input.files[0]);
       fd.append("userId", userId);
 
       console.log("test récup", fd.get("title"));
       console.log("test récup", fd.get("content"));
       console.log("test récup", fd.get("inputFile"));
       console.log("test récup", fd.get("userId"));
+      console.log(input.files[0])
       if (this.dataPost.title && this.dataPost.content) {
 
 
-        axios
-          .post("http://localhost:3000/api/publications", fd, {
-          })
+        // axios
+        // .post("http://localhost:3000/api/publications", fd, {
+        // })
+        const options = {
+          method: "POST",
+          body: fd,
+          headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Authorization': "Bearer " + sessionStorage.getItem("Token")
+          }
+
+        }
+        fetch("http://localhost:3000/api/publications", options)
 
 
 
           .then(response => {
             console.log(response)
-          })
+          }).catch((err) => console.log(err))
       }
     },
     onFileChange(e) {

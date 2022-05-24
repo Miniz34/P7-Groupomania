@@ -11,7 +11,7 @@ router.get("/:id", multer, User.getOneUser);
 
 // router.get("/data/:id", multer, User.getUserData)
 
-router.put("/:id", multer, User.modifyUser);
+router.put("/modify/:id", multer, User.modifyUser);
 router.delete("/:id", User.deleteUser);
 // router.get("/get/admin", User.findAdmin)
 

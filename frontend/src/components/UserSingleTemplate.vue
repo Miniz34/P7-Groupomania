@@ -24,6 +24,17 @@
 
     </div>
   </div>
+  <div>
+
+
+    <router-link :to="{ name: 'ModifyUser', params: { id } }">
+      <p v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3"><button>Modifier profile</button>
+      </p>
+    </router-link>
+
+    <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3"
+      @click.prevent="deleteUser">Supprimer profile</button>
+  </div>
 
 
 </template>
@@ -33,7 +44,30 @@
 
 export default {
   name: "SingleUser",
+  data() {
+    return {
+      userid: sessionStorage.getItem("userId"),
+      admin: sessionStorage.getItem("isAdmin")
+    }
+  },
   props: ['username', 'id', 'createdAt', 'comments', 'publications', 'avatar'],
+  methods: {
+    deleteUser() {
+      const userId = this.$route.params.id;
+      fetch('http://localhost:3000/api/users/' + userId, {
+        method: "DELETE",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + sessionStorage.getItem("Token")
+        },
+
+      })
+        .then(() =>
+          document.location.href = `http://localhost:8080/publications`)
+    }
+
+  }
 
 
 }

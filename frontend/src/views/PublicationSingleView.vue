@@ -26,18 +26,16 @@
     <div class="modify">
       <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
-        <button>Modifier publication</button>
-      </router-link>
-      <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
-
-        <button @click="deletePost">Supprimer publication</button>
+        <button v-if="id == this.publications.userId || admin == `true`">Modifier publication</button>
       </router-link>
 
+      <button v-if="id == this.publications.userId || admin == `true`" @click="deletePost">Supprimer
+        publication</button>
 
 
 
 
-      <button v-if="id" @click.prevent="showButtons">buttonv3</button>
+
 
 
 
@@ -88,7 +86,8 @@ export default {
       publications: "",
       comment: "",
       image: "",
-      id: ""
+      id: sessionStorage.getItem("userId"),
+      admin: sessionStorage.getItem("isAdmin")
     }
   },
   async created() {
@@ -102,11 +101,7 @@ export default {
         this.publications = data
         console.log(this.publications.userId)
 
-      }).then()
-    this.id = sessionStorage.getItem("userId")
-    const test = this.id
-    console.log(test)
-    console.log(this.id)
+      })
 
   },
   methods: {
