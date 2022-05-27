@@ -53,24 +53,49 @@ exports.getComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id }
-  }).then(post => {
-    Comment.destroy({
-      where: { id: post.id }
+  }).then(comment => {
+    if (comment.userId == req.token.userId || req.token.admin) {
 
-    }).then(res.status(200).json({ message: "Commentaire supprimée" }))
+      Comment.destroy({
+        where: { id: comment.id }
+
+      }).then(res.status(200).json({ message: "Commentaire supprimée" }))
+    }
   })
 }
 
 exports.modifyComment = (req, res, next) => {
+  const test = req.body.commentaire
+
   Comment.findOne({
     where: { id: req.params.id }
-  }).then(post => {
-    Comment.update({
-      commentaire: req.body.commentaire
-    },
-      {
-        where: { id: post.id }
+  }).then(comment => {
+    if (comment.userId == req.token.userId || req.token.admin) {
 
-      }).then(res.status(200).json({ message: "Commentaire modifiée" }))
-  })     ///.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+      Comment.update({
+
+        commentaire: req.body.commentaire
+
+      },
+        {
+          where: { id: comment.id }
+
+        }).then(res.status(200).json({ message: "Commentaire modifié" }))
+        .then((data) => {
+          console.log(test)
+        })
+    }
+
+  })
+  // Comment.findOne({
+  //   where: { id: req.params.id }
+  // }).then(post => {
+  //   Comment.update({
+  //     commentaire: req.body.commentaire
+  //   },
+  //     {
+  //       where: { id: post.id }
+
+  //     }).then(res.status(200).json({ message: "Commentaire modifiée" }))
+  // })     ///.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }

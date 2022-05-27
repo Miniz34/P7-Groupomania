@@ -107,6 +107,7 @@ exports.deletePublication = (req, res, next) => {
 
 
 
+
 exports.modifyPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id }
@@ -127,7 +128,6 @@ exports.modifyPublication = (req, res, next) => {
     }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
-
 
 
 
@@ -172,3 +172,33 @@ exports.modifyPublication = (req, res, next) => {
 //       }
 //     })
 // }
+
+
+
+
+
+
+
+
+
+
+
+exports.modifyPublication = (req, res, next) => {
+
+  if (req.token.userId = req.params.id) {
+
+    Publication.update({
+      title: req.body.title,
+      content: req.body.content,
+      userId: req.body.userId,
+      image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+    },
+      {
+        where: { id: req.params.id }
+
+      }).then(res.status(200).json({ message: "Publication modifiée" }))
+    //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+  } else {
+    res.status(401).json({ message: "userid invalide " })
+  }
+}

@@ -97,20 +97,21 @@ module.exports.getusers = (req, res) => {
 
 // Delete User 2.0 avec vérification du token et status admin
 exports.deleteUser = (req, res, next) => {
-  User.findOne({
-    attributes: ['id', 'username', 'admin'],
-    where: { id: req.params.id }
-  })
-    .then(user => {
-      // if (user.admin == true || user.id == req.token.userId) {
-      if (true) {
-        User.destroy({ where: { id: user.id } })
-        res.status(200).json({ message: "Utilisateur supprimé" })
-      } else {
-        res.status(401).json({ message: "unauthorized" })
-      }
-    }
-    )
+  let test = req.token.userId
+  let test2 = req.params.id
+  let admin = req.token.admin
+
+  // if (user.admin == true || user.id == req.token.userId) {
+  if (req.token.userId == req.params.id || req.token.admin) {
+    console.log(test, test2, admin)
+    User.destroy({ where: { id: req.params.id } })
+    res.status(200).json({ message: "Utilisateur supprimé" })
+  } else {
+    console.log(test, test2, admin)
+    console.log("false")
+    res.status(401).json({ message: "unauthorized" })
+  }
+
 }
 
 
@@ -121,36 +122,73 @@ exports.deleteUser = (req, res, next) => {
 ///Ajout de vérification du token et status admin
 exports.modifyUser = (req, res, next) => {
 
-  User.findOne({
-    attributes: ['id', 'username', 'admin'],
-    where: { id: req.params.id }
-  }).then(user => {
 
+  let repeatNewPwd = req.body.repeatNewPwd
 
-    let repeatNewPwd = req.body.repeatNewPwd
+  if (req.token.userId == req.params.id || req.token.admin) {
+    bcrypt.hash(repeatNewPwd, 10, function (err, bcryptrepeatNewPwd) {
+      User.update({
+        // username: req.body.username,
+        password: bcryptrepeatNewPwd
+      },
+        { where: { id: req.params.id } }
+      ).then(res.status(200).json({ message: "Mot de passe modifié" }))
+    })
 
-
-
-    if (user.id) {
-
-
-      bcrypt.hash(repeatNewPwd, 10, function (err, bcryptrepeatNewPwd) {
-
-        User.update({
-          // username: req.body.username,
-          password: bcryptrepeatNewPwd
-        },
-
-          { where: { id: user.id } }
-
-        ).then(res.status(200).json({ message: "Mot de passe modifié" }))
-      })
-
-
-
-    } else {
-      res.status(401).json({ message: "unauthorized" })
-    }
-  })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+  } else {
+    res.status(401).json({ message: "Utilisateur non autorisé" })
+  }
+  //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
 
+
+
+
+
+
+
+// exports.modifyUser = (req, res, next) => {
+//   User.findOne({
+//     attributes: ['id', 'username', 'admin'],
+//     where: { id: req.params.id }
+//   }).then(user => {
+
+//     let repeatNewPwd = req.body.repeatNewPwd
+//     if (user.id) {
+//       bcrypt.hash(repeatNewPwd, 10, function (err, bcryptrepeatNewPwd) {
+//         User.update({
+//           // username: req.body.username,
+//           password: bcryptrepeatNewPwd
+//         },
+//           { where: { id: user.id } }
+//         ).then(res.status(200).json({ message: "Mot de passe modifié" }))
+//       })
+
+//     } else {
+//       res.status(401).json({ message: "unauthorized" })
+//     }
+//   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+// }
+
+
+
+
+// exports.deleteUser = (req, res, next) => {
+//   let test = req.token.userId
+//   let test2 = req.params.id
+//   let admin = req.token.admin
+//   User.findOne({
+//     attributes: ['id', 'username', 'admin'],
+//     where: { id: req.params.id }
+//   })
+//     .then(user => {
+//       // if (user.admin == true || user.id == req.token.userId) {
+//       if (true) {
+//         User.destroy({ where: { id: user.id } })
+//         res.status(200).json({ message: "Utilisateur supprimé" })
+//       } else {
+//         res.status(401).json({ message: "unauthorized" })
+//       }
+//     }
+//     )
+// }

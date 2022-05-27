@@ -61,6 +61,10 @@
         }}</small>
       </h5>
       <p>{{ comment.commentaire }}</p>
+      <router-link :to="{ name: 'ModifyComment', params: { id: comment.id } }">
+        <button v-if="id == comment.userId || admin == `true`"> Modifier commentaire
+        </button>
+      </router-link>
     </div>
   </div>
 
@@ -146,6 +150,7 @@ export default {
 
 
     },
+
 
 
     //////////////////// // Version obscure de v-if  ////////////////////////

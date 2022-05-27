@@ -8,6 +8,7 @@ import PublicationSingle from '../views/PublicationSingleView.vue'
 import UserSingleView from '../views/UserSingleView.vue'
 import ModifyPost from '../views/ModifyPost'
 import ModifyUser from '../views/ModifyUser.vue'
+import ModifyComment from '../views/CommentView.vue'
 
 
 
@@ -61,6 +62,11 @@ const routes = [
     path: '/users/modify/:id',
     name: 'ModifyUser',
     component: ModifyUser
+  },
+  {
+    path: '/comments/modify/:id',
+    name: "ModifyComment",
+    component: ModifyComment
   }
 
 ]
