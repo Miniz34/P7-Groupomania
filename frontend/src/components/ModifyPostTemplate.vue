@@ -21,13 +21,12 @@
       <div class="custom-file">
         <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
           @change="onFileChange" />
-        <label class="custom-file-label" for="inputFile">Choose file</label>
+        <label class="custom-file-label" for="inputFile"></label>
       </div>
     </div>
   </form>
 
 
-  <button @click="test">test</button>
 
 </template>
 

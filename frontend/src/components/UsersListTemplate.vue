@@ -17,10 +17,12 @@
     </div>
   </div> -->
 
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  </head>
 
 
-
-  <div class="container">
+  <div class="container d-flex align-items-center">
     <div class="user">
       <div class="img-main-page">
         <img :src="avatar" alt="avatar" class="main-img">
@@ -30,8 +32,9 @@
         <router-link :to="{ name: 'SingleUser', params: { id } }">{{ username }}</router-link>
       </div>
       <div v-if="admin == true">
-        admin
+        <i class="fa fa-solid fa-crown"></i>
       </div>
+
 
 
     </div>
@@ -57,6 +60,8 @@ export default {
 .container {
   margin-top: 40px;
   background-color: white;
+  width: 40%;
+  border-radius: 20px;
 }
 
 .img-main-page {
@@ -72,11 +77,17 @@ export default {
 .user {
   display: flex;
   justify-content: start;
+  align-items: center;
 }
 
 .username {
   margin-left: 20px;
   align-self: center;
+}
+
+.fa {
+  font-size: 30px;
+  color: orange;
 }
 </style>
 

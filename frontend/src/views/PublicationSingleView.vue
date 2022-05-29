@@ -23,13 +23,15 @@
       </div>
     </div>
 
-    <div class="modify">
+    <div class="modify container">
       <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
-        <button v-if="id == this.publications.userId || admin == `true`">Modifier publication</button>
+        <button v-if="id == this.publications.userId || admin == `true`" class=" btn btn-warning btn-sm">Modifier
+          publication</button>
       </router-link>
 
-      <button v-if="id == this.publications.userId || admin == `true`" @click="deletePost">Supprimer
+      <button v-if="id == this.publications.userId || admin == `true`" @click="deletePost"
+        class="btn btn-danger btn-sm">Supprimer
         publication</button>
 
 
@@ -50,9 +52,9 @@
         <div class="form-group">
           <textarea v-model="comment" class="form-control" rows="3"></textarea>
         </div>
-        <button v-on:click.prevent="SendComment" type="submit" value="" class="btn btn-primary"><i
+        <button v-on:click.prevent="SendComment" type="submit" value="" class="btn btn-primary btn-sm"><i
             class="fa fa-reply"></i>
-          Submit</button>
+          Envoyer commentaire</button>
       </form>
     </div>
     <div v-for="comment in publications.comments" :key="comment.id" class="container">
@@ -62,7 +64,7 @@
       </h5>
       <p>{{ comment.commentaire }}</p>
       <router-link :to="{ name: 'ModifyComment', params: { id: comment.id } }">
-        <button v-if="id == comment.userId || admin == `true`"> Modifier commentaire
+        <button v-if="id == comment.userId || admin == `true`" class="btn btn-warning btn-sm"> Modifier commentaire
         </button>
       </router-link>
     </div>
@@ -118,7 +120,7 @@ export default {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          // 'Authorization': "Bearer " + sessionStorage.getItem("Token")
+          'Authorization': "Bearer " + sessionStorage.getItem("Token")
         },
         body: JSON.stringify({
           publicationId: this.publications.id,

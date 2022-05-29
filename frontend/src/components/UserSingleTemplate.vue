@@ -28,11 +28,12 @@
 
 
     <router-link :to="{ name: 'ModifyUser', params: { id } }">
-      <p v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3"><button>Modifier profile</button>
-      </p>
+      <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-warning btn-sm ">
+        Modifier profile
+      </button>
     </router-link>
 
-    <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3"
+    <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-danger btn-sm"
       @click.prevent="deleteUser">Supprimer profile</button>
   </div>
 

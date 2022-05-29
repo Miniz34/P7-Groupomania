@@ -1,16 +1,17 @@
 <template>
-  <form id="Auth-View" enctype="multipart/form-data" method="post">
+  <form id="commentaire" method="put" name="commentaire">
 
     <div class="container col align-self-center">
       <div class="row" id="row_style">
         <h4 class="text-center">Modifier commentaire</h4>
         <div class="col-md-4   col-md-offset-4">
+          <input for="commentaire" name="commentaire">
           <textarea id="commentaire" v-model="commentaire" class="form-control form-control-lg" type="text" cols="30"
-            rows="10"></textarea>
+            rows="10" name="commentaire"></textarea>
           <br>
           <div class="form-group">
 
-            <button v-on:click.prevent="modifyComment" class="btn btn-primary" id="submit">Envoyer nouveau
+            <button v-on:click.prevent="modifyComment" class="btn btn-primary" id="submit" type="submit">Envoyer nouveau
               commentaire</button>
             <button @click.prevent="deleteComment" class="btn btn-primary" id="submit">Supprimer
               commentaire</button>

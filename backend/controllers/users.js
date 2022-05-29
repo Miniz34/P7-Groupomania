@@ -126,6 +126,7 @@ exports.modifyUser = (req, res, next) => {
   let repeatNewPwd = req.body.repeatNewPwd
 
   if (req.token.userId == req.params.id || req.token.admin) {
+
     bcrypt.hash(repeatNewPwd, 10, function (err, bcryptrepeatNewPwd) {
       User.update({
         // username: req.body.username,
@@ -141,6 +142,20 @@ exports.modifyUser = (req, res, next) => {
   //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
 
+exports.modifyAvatar = (req, res, next) => {
+
+  if (req.token.userId == req.params.id || req.token.admin) {
+    User.update({
+      avatar: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+
+    },
+      { where: { id: req.params.id } }
+
+    ).then(res.status(200).json({ message: "Avatar modifié" }))
+      .catch(res.status(400).json({ message: "erreur" }))
+  }
+
+}
 
 
 

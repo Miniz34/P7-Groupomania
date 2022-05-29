@@ -15,9 +15,8 @@ exports.createComment = (req, res, next) => {
   Comment.create({
 
 
-    include: { model: Publication },
     publicationId: req.body.publicationId,
-    userId: req.body.userId,
+    userId: req.token.userId,
     commentaire: req.body.commentaire
   })
     .then(res.status(200).json({ message: "commentaire créé" }))

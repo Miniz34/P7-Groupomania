@@ -6,6 +6,9 @@
         <div class="img-main-page" v-if="image">
           <img :src="image" alt="post img" class="main-img">
         </div>
+        <div class="img-main-page" v-else>
+          <img src="http://localhost:3000/images/icon.png" alt="post img" class="main-img">
+        </div>
       </div>
       <div class="content">
         <div class="title">

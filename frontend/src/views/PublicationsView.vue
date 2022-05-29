@@ -6,7 +6,7 @@
 
   <HeaderMainPage />
 
-  <a href="publications/new">Nouveau post</a>
+  <a href="publications/new" class="btn btn-primary w-25 new-post">Nouveau post</a>
 
   <Post v-for="publication in publications" :key="publication.id" v-bind="publication">
 
@@ -14,7 +14,6 @@
   </Post>
 
 
-  <FooterTemplate />
 
 </template>
 
@@ -23,7 +22,6 @@
 
 
 
-import FooterTemplate from '@/components/FooterTemplate.vue';
 import Post from '@/components/PublicationTemplate.vue'
 import HeaderMainPage from '@/components/HeaderMainPage.vue';
 
@@ -32,11 +30,11 @@ export default {
   components: {
     Post,
     HeaderMainPage,
-    FooterTemplate
   },
   data() {
     return {
       publications: [],
+      user: []
     };
   },
   created() {
@@ -64,7 +62,13 @@ export default {
   },
 
 
+
 }
 </script>
 
 
+<style scoped>
+.new-post {
+  margin: 4%;
+}
+</style>

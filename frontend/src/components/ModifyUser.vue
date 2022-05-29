@@ -1,5 +1,21 @@
 <template>
 
+
+  <form id="new-avatar" class="d-flex flex-column main-form w-50 align-center main-form ">
+    <h2 class="col align-self-center">Modification de l'avatar</h2>
+
+
+    <div class="custom-file">
+      <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
+        @change="onFileChange" />
+      <label class="custom-file-label" for="inputFile"></label>
+    </div>
+    <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-25 col align-self-center">Modifier
+      avatar</button>
+
+  </form>
+
+
   <form id="Login-View">
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <h2 class="col align-self-center">Modification de mot de passe</h2>
@@ -18,7 +34,6 @@
       <button @click.prevent="changePwd" type="submit" class="btn btn-primary w-25 col align-self-center">Modifier mot
         de
         passe</button>
-      <p class="col align-self-center">Pas de compte ? vous pouvez vous inscrire <a href="/">ici</a></p>
     </section>
   </form>
 
@@ -38,7 +53,8 @@ export default {
       dataLogin: {
         newPwd: "",
         repeatNewPwd: "",
-        userId: ""
+        userId: "",
+        avatar: ""
       }
     };
   },
@@ -61,7 +77,30 @@ export default {
       } else {
         console.log("Les mots de passe ne sont pas identiques")
       }
-    }
+    },
+    changeAvatar() {
+
+      let input = document.getElementById('inputFile')
+      const fd = new FormData();
+      fd.append("inputFile", input.files[0]);
+
+      fetch("http://localhost:3000/api/users/modify/avatar/" + userId,
+        {
+          method: "PUT",
+          body: fd,
+          headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json',
+            'Authorization': "Bearer " + sessionStorage.getItem("Token")
+          }
+        })
+    },
+    onFileChange(e) {
+      console.log(e);
+      this.avatar = e.target.files[0] || e.dataTransfer.files;
+      console.log(this.avatar);
+
+    },
   }
 }
 </script>
