@@ -16,16 +16,22 @@ exports.signup = (req, res, next) => {
 
   bcrypt.hash(req.body.password, 10) //On utilise Bcrypt pour le mot de passe, l'algorithme fera 10 tours
     .then(hash => {
+      User.findOne({ where: { username: req.body.username } })
+        .then(CheckUser => {
+          if (!CheckUser) {
 
-      // let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      const newUser = User.create({ //création de l'utilisateur
-        username: req.body.username,  //on passe l'email crypté via crypto-JS
-        password: hash, // on passe le mot de passe hashé via Bcrypt
-        // avatar: attachmentURL
-      })
-        .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
-      // .catch(error => res.status(400).json({ hash }));
-      console.log(newUser);
+            const newUser = User.create({ //création de l'utilisateur
+              username: req.body.username,  //on passe l'email crypté via crypto-JS
+              password: hash, // on passe le mot de passe hashé via Bcrypt
+              // avatar: attachmentURL
+            })
+              .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
+            // .catch(error => res.status(400).json({ hash }));
+            console.log(newUser);
+          } else {
+            res.status(400).json({ message: "Username existe déjà" })
+          }
+        })
 
     })
     .catch(error => res.status(500).json({ message: "erreur2" }));

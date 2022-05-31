@@ -49,7 +49,7 @@ export default {
         console.log(data)
         this.publications = data
         console.log(this.publications)
-        this.username = this.publications.user.username
+
 
 
       })
@@ -99,38 +99,6 @@ export default {
 
     },
 
-
-
-    //////////////////// // Version obscure de v-if  ////////////////////////
-
-
-    // showButtons() {
-    //   let newId = sessionStorage.getItem("userId")
-    //   // console.log(newId)
-
-    //   // let postCreator = false
-    //   // idPost = this.publications.user.userId
-    //   let idPost = this.publications.userId
-    //   if (newId == idPost) {
-    //     // postCreator = true
-    //     // console.log(postCreator)
-    //     console.log(newId)
-    //     console.log(idPost)
-    //     return true
-
-
-
-
-    //   } else {
-    //     // postCreator = false
-    //     // console.log(postCreator)
-    //     console.log(newId)
-    //     console.log(idPost)
-    //     return false
-
-
-    //   }
-    // }
   },
 
 

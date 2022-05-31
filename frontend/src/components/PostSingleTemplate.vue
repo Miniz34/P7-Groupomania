@@ -12,9 +12,11 @@
             <p>{{ content }}</p>
             <ul class="list-inline list-unstyled main-post">
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
-              <p>Publié par {{ username }} le {{ new
-                  Date(createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
-              }}</p>
+              <p>Publié par <router-link :to="{ name: 'SingleUser', params: { id: userId } }">{{ user.username }}
+                  {{ userId }}
+                </router-link> le {{ new
+                    Date(createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+                }}</p>
 
             </ul>
 
@@ -35,15 +37,6 @@
       class="btn btn-danger btn-sm">Supprimer
       publication</button>
 
-
-
-
-
-
-
-
-
-
   </div>
 
 
@@ -59,7 +52,9 @@
     </form>
   </div>
   <div v-for="x in comments" :key="x" class="container">
-    <h5><i class="commentaire"></i>Commentaire de {{ x.user.username }}
+    <h5><i class="commentaire"></i>Commentaire de <router-link :to="{ name: 'SingleUser', params: { id: x.userId } }">{{
+        x.user.username
+    }} </router-link>
       <small>{{ new Date(x.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
       }}</small>
     </h5>
@@ -70,7 +65,6 @@
     </router-link>
   </div>
 
-  <button @click="test">test</button>
 
 
 </template>
@@ -79,22 +73,20 @@
 
 export default {
   name: "singlePost",
-  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'username', 'image',],
+  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'image',],
   data() {
     return {
       userid: sessionStorage.getItem("userId"),
-      admin: sessionStorage.getItem("isAdmin")
+      admin: sessionStorage.getItem("isAdmin"),
+      username: ""
     }
 
   },
-  methods: {
-    test() {
-      let zeub = sessionStorage.getItem("userId")
-      console.log(zeub)
-      let zeub2 = this.comments.userId
-      console.log(zeub2)
-    }
-  }
+  mounted() {
+    this.username = this.user.username
+    console.log(this.username)
+
+  },
 
 }
 

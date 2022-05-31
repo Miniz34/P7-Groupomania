@@ -13,15 +13,12 @@
       <input v-model="dataLogin.password" class=" form-control form-control-lg" type="text" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
 
-
       <div class="custom-file">
         <input name="inputFile" type="file" accept="image/*" class="custom-file-input" id="inputFile"
           aria-describedby="inputFileAddon" @change="onFileChange" />
         <label class="custom-file-label" for="inputFile">Choose file</label>
         <button @click="onSubmit">Upload</button>
       </div>
-
-
 
       <div v-if="isVisibleRegex" class="alert alert-danger" role="alert">
         Votre mot de passe doit avoir entre 3 et 16 caractères, seules les lettres, chiffres et tirets sont autorisés
@@ -58,20 +55,12 @@ export default {
     };
   }, methods: {
 
-
-
-
-
     mounted() {
-
 
       const regexPassword = /^[a-zA-Z0-9_-]{3,16}$/;
       if (this.dataLogin.username && this.dataLogin.password && regexPassword.test(this.dataLogin.password)) {
 
-
-
         fetch("http://localhost:3000/api/users/auth", {
-
           method: "POST",
           body:
             JSON.stringify({
@@ -85,7 +74,8 @@ export default {
           }
         })
           .then((response) => response.json())
-        // .then(document.location.href = `http://localhost:8080/publications`
+          .then(() =>
+            document.location.href = `http://localhost:8080/login`)
         // )
 
       } else {
