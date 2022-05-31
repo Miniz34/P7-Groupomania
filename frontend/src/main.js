@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import "axios"
 
-// import './assets/styles/bootstrap.css'
-// import './assets/styles/bootstrap.min.css'
-// import './assets/styles/style.css'
+import './assets/styles/bootstrap.css'
+import './assets/styles/bootstrap.min.css'
+import './assets/styles/style.css'
 // import './assets/styles/bootstrap.rtl.css'
 // import './assets/styles/bootstrap.rtl.min.css'
 // import './assets/styles/bootstrap-grid.css'
