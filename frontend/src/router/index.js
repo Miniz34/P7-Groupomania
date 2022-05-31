@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+
 import HomeView from '../views/AuthView.vue'
-import LoginView from '../views/LoginView.vue'
-import UsersList from '../views/UsersListView.vue'
-import PublicationsView from '../views/PublicationsView'
-import CreatePostView from '../views/CreatePostView.vue'
-import PublicationSingle from '../views/PublicationSingleView.vue'
-import UserSingleView from '../views/UserSingleView.vue'
-import ModifyPost from '../views/ModifyPost'
-import ModifyUser from '../views/ModifyUser.vue'
+import Login from '../views/Login.vue'
+
+import Posts from '../views/Posts'
+import PostCreate from '../views/PostCreate.vue'
+import PostSingle from '../views/PostSingle.vue'
+import PostModify from '../views/PostModify'
 import ModifyComment from '../views/CommentView.vue'
+
+
+import UsersList from '../views/UsersList.vue'
+import UserSingle from '../views/UserSingle.vue'
+import UserModify from '../views/UserModify.vue'
+
 
 
 
@@ -21,7 +27,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login-View',
-    component: LoginView
+    component: Login
 
   },
   {
@@ -33,35 +39,35 @@ const routes = [
   {
     path: '/publications',
     name: 'Publications-View',
-    component: PublicationsView
+    component: Posts
 
   },
   {
     path: '/publications/new',
     name: 'newPost',
-    component: CreatePostView
+    component: PostCreate
 
   },
   {
     path: '/publications/:id',
     name: 'SinglePost',
-    component: PublicationSingle
+    component: PostSingle
 
   },
   {
     path: '/users/:id',
     name: 'SingleUser',
-    component: UserSingleView
+    component: UserSingle
   },
   {
     path: '/publications/modify/:id',
     name: 'Modify',
-    component: ModifyPost
+    component: PostModify
   },
   {
     path: '/users/modify/:id',
     name: 'ModifyUser',
-    component: ModifyUser
+    component: UserModify
   },
   {
     path: '/comments/modify/:id',

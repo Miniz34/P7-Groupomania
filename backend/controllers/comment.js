@@ -65,20 +65,17 @@ exports.deleteComment = (req, res, next) => {
 
 exports.modifyComment = (req, res, next) => {
   const test = req.body.commentaire
+  console.log(test)
 
   Comment.findOne({
     where: { id: req.params.id }
   }).then(comment => {
     if (comment.userId == req.token.userId || req.token.admin) {
-
       Comment.update({
-
         commentaire: req.body.commentaire
-
       },
         {
           where: { id: comment.id }
-
         }).then(res.status(200).json({ message: "Commentaire modifié" }))
         .then((data) => {
           console.log(test)
