@@ -63,8 +63,7 @@ export default {
   },
   methods: {
     changePwd() {
-      if (this.newPwd == this.repeatNewPwd) {
-        console.log(this.repeatNewPwd)
+      if (this.repeatNewPwd && this.newPwd == this.repeatNewPwd) {
         fetch("http://localhost:3000/api/users/modify/" + this.$route.params.id,
           {
             method: "PUT",
@@ -76,9 +75,13 @@ export default {
               'Content-Type': 'application/json',
               'Authorization': "Bearer " + sessionStorage.getItem("Token")
             }
+          }).then(() => {
+            alert('Mot de passe modifié')
           })
+
       } else {
         console.log("Les mots de passe ne sont pas identiques")
+        alert("Les mots de passe ne sont pas identiques")
       }
     },
     changeAvatar() {
@@ -86,17 +89,24 @@ export default {
       let input = document.getElementById('inputFile')
       const fd = new FormData();
       fd.append("inputFile", input.files[0]);
+      // const file = fd.get("inputFile")
+      if (input.files[0]) {
+        fetch("http://localhost:3000/api/users/modify/avatar/" + this.$route.params.id,
+          {
+            method: "PUT",
+            body: fd,
+            headers: {
+              // 'Accept': 'application/json',
+              // 'Content-Type': 'application/json',
+              'Authorization': "Bearer " + sessionStorage.getItem("Token")
+            }
+          }).then(() => {
+            alert("avatar modifié")
+          })
+      } else {
+        alert("Veuillez sélectionner un avatar")
+      }
 
-      fetch("http://localhost:3000/api/users/modify/avatar/" + this.$route.params.id,
-        {
-          method: "PUT",
-          body: fd,
-          headers: {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/json',
-            'Authorization': "Bearer " + sessionStorage.getItem("Token")
-          }
-        })
     },
     onFileChange(e) {
       console.log(e);

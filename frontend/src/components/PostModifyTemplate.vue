@@ -68,9 +68,6 @@ export default {
       if (this.dataPost.title && this.dataPost.content) {
 
 
-        // axios
-        // .post("http://localhost:3000/api/publications", fd, {
-        // })
         const options = {
           method: "PUT",
           body: fd,
@@ -87,6 +84,7 @@ export default {
 
           .then(response => {
             console.log(response)
+            document.location.href = `http://localhost:8080/publications`
           }).catch((err) => console.log(err))
       }
     },

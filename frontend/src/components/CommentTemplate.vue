@@ -75,7 +75,13 @@ export default {
         },
 
       })
-      // .then(console.log("test récup", fd.get("commentaire")))
+        .then(() => {
+
+          history.back()
+        }).then(() => {
+          alert('Commentaire Modifié')
+        })
+
 
     },
 
@@ -89,6 +95,12 @@ export default {
           'Authorization': "Bearer " + sessionStorage.getItem("Token")
         },
       })
+        .then(() => {
+
+          history.back()
+        }).then(() => {
+          alert('Commentaire supprimé')
+        })
     }
   }
 }

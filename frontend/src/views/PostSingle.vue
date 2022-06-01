@@ -62,7 +62,7 @@
       }}</small>
     </h5>
     <p>{{ comment.commentaire }}</p>
-    <router-link :to="{ name: 'ModifyComment', params: { id: publications.id } }">
+    <router-link :to="{ name: 'ModifyComment', params: { id: comment.id } }">
       <button v-if="id == comment.userId || admin == `true`" class="btn btn-warning btn-sm"> Modifier commentaire
       </button>
     </router-link>
@@ -140,7 +140,7 @@ export default {
         },
         body: JSON.stringify({
           publicationId: this.publications.id,
-          commentaire: "hello",
+          commentaire: this.comment,
           userId: this.id
         })
       }).then(

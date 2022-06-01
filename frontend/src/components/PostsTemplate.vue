@@ -60,9 +60,12 @@ export default {
   background-color: white;
   height: 200px;
   width: 100%;
-  margin: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
   display: flex;
   flex-direction: row;
+
+
 }
 
 .img-container {
@@ -96,4 +99,6 @@ export default {
 .comments {
   margin-left: 25px;
 }
+
+.well {}
 </style>

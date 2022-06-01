@@ -86,6 +86,7 @@ export default {
 
           .then(response => {
             console.log(response)
+            document.location.href = `http://localhost:8080/publications`
           }).catch((err) => console.log(err))
       }
     },

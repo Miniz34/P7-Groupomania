@@ -65,7 +65,7 @@ export default {
 
       })
         .then(() =>
-          document.location.href = `http://localhost:8080/publications`)
+          document.location.href = `http://localhost:8080/users`)
     }
 
   }
