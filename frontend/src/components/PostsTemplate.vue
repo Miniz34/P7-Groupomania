@@ -22,7 +22,7 @@
         </div>
         <div class="data">
           <div class="date">
-            Publié par {{ user.username }} le {{ new
+            Publié par {{ user.firstname }} {{ user.lastname }} le {{ new
                 Date(createdAt).toLocaleString("fr-FR", {
                   timeZone: "UTC"
                 })
@@ -48,7 +48,7 @@
 
 export default {
   name: "newPost",
-  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'username', 'image'],
+  props: ['title', 'content', 'createdAt', 'comments', 'id', 'userId', 'user', 'firstname', 'lastname', 'image'],
 
 }
 

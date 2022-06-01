@@ -3,11 +3,11 @@
   <div class="container-fluid well span6">
     <div class="row-fluid">
       <div class="span2">
-        <img :src="avatar" class="img-circle">
+        <img :src="avatar" class="img-circle" alt="avatar">
       </div>
 
       <div class="span8">
-        <h3 title="username">{{ username }}</h3>
+        <h3 title="name">{{ firstname }} {{ lastname }} </h3>
         <h6>Membre depuis le {{ new
             Date(createdAt).toLocaleString("fr-FR", {
               timeZone: "UTC"
@@ -51,7 +51,7 @@ export default {
       admin: sessionStorage.getItem("isAdmin")
     }
   },
-  props: ['username', 'id', 'createdAt', 'comments', 'publications', 'avatar'],
+  props: ['firstname', 'lastname', 'email', 'id', 'createdAt', 'comments', 'publications', 'avatar'],
   methods: {
     deleteUser() {
       const userId = this.$route.params.id;

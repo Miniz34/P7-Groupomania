@@ -1,16 +1,17 @@
 <template>
 
 
-  <form id="new-avatar" class="d-flex flex-column main-form w-50 align-center main-form ">
+  <form id="new-avatar" class="d-flex flex-column main-form w-50 align-center main-form " aria-label="Modifier-avatar">
     <h2 class="col align-self-center">Modification de l'avatar</h2>
 
 
     <div class="custom-file">
       <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
-        @change="onFileChange" />
+        @change="onFileChange" aria-label="choose-avatar" />
       <label class="custom-file-label" for="inputFile"></label>
     </div>
-    <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-25 col align-self-center">Modifier
+    <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-25 col align-self-center"
+      aria-label="Modifier-avatar">Modifier
       avatar</button>
 
   </form>
@@ -43,6 +44,8 @@
 
 
 let userId = sessionStorage.getItem("userId")
+
+
 console.log(userId)
 
 
@@ -62,7 +65,7 @@ export default {
     changePwd() {
       if (this.newPwd == this.repeatNewPwd) {
         console.log(this.repeatNewPwd)
-        fetch("http://localhost:3000/api/users/modify/" + userId,
+        fetch("http://localhost:3000/api/users/modify/" + this.$route.params.id,
           {
             method: "PUT",
             body: JSON.stringify({
@@ -84,7 +87,7 @@ export default {
       const fd = new FormData();
       fd.append("inputFile", input.files[0]);
 
-      fetch("http://localhost:3000/api/users/modify/avatar/" + userId,
+      fetch("http://localhost:3000/api/users/modify/avatar/" + this.$route.params.id,
         {
           method: "PUT",
           body: fd,

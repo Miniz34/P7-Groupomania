@@ -4,6 +4,7 @@ const Publication = require('../models/publication')
 const User = require('../models/users');
 const { post } = require("../routes/comment");
 const Comment = require('..//models/comment')
+const fs = require('fs');
 
 
 
@@ -28,7 +29,7 @@ exports.createPublication = (req, res, next) => {
 exports.getPublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id },
-    include: [{ model: Comment, include: [{ model: User, attributes: ['username'] }] }, { model: User, attributes: ['username'] }]
+    include: [{ model: Comment, include: [{ model: User, attributes: ['firstname', 'lastname', 'email'] }] }, { model: User, attributes: ['firstname', 'lastname', 'email'] }]
 
   }).then(post => {
     res.status(200).json(post)
@@ -41,7 +42,7 @@ exports.getPublication = (req, res, next) => {
 
 exports.getAllPublication = (req, res, next) => {
   Publication.findAll({
-    include: [{ model: Comment }, { model: User, attributes: ['username'] }],
+    include: [{ model: Comment }, { model: User, attributes: ['firstname', 'lastname', 'email'] }],
   })
     .then(post => {
       res.status(200).json(post)
@@ -91,16 +92,27 @@ exports.deletePublication = (req, res, next) => {
     const createur = post.userId
     const letoken = req.token.userId
     const admin = req.token.admin
-    if (post.userId == req.token.userId || req.token.admin) {
-      Publication.destroy({
-        where: { id: post.id }
 
-      }).then(res.status(200).json({ message: "Publication supprimée" }))
+    if (post.userId == req.token.userId || req.token.admin) {
+      if (post.image) {
+        const filename = post.image.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+
+          Publication.destroy({
+            where: { id: post.id }
+
+          }).then(res.status(200).json({ message: "Publication supprimée" }))
+        })
+      } else {
+        Publication.destroy({
+          where: { id: post.id }
+
+        }).then(res.status(200).json({ message: "Publication supprimée" }))
+      }
     } else {
       // res.status(401).json({ message: "Unauthorized" })
       res.status(401).json({ message: "unauthorized" })
     }
-
   })
 }
 
@@ -113,7 +125,6 @@ exports.modifyPublication = (req, res, next) => {
     where: { id: req.params.id }
   }).then(post => {
     if (post.userId == req.token.userId || req.token.admin) {
-      const letoken = req.token.userId
 
       Publication.update({
         title: req.body.title,

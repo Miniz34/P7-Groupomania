@@ -28,8 +28,8 @@
         <img :src="avatar" alt="avatar" class="main-img">
       </div>
 
-      <div class="col-md-6 details username">
-        <router-link :to="{ name: 'SingleUser', params: { id } }">{{ username }}</router-link>
+      <div class="col-md-6 details name">
+        <router-link :to="{ name: 'SingleUser', params: { id } }">{{ firstname }} {{ lastname }}</router-link>
       </div>
       <div v-if="admin == true">
         <i class="fa fa-solid fa-crown"></i>
@@ -49,7 +49,7 @@
 
 export default {
   name: "user-list",
-  props: ['username', 'avatar', 'id', "admin"],
+  props: ['firstname', 'lastname', 'avatar', 'id', "admin"],
 
 }
 

@@ -30,7 +30,7 @@ exports.createComment = (req, res, next) => {
 
 exports.getAllComments = (req, res, next) => {
   Comment.findAll({
-    include: { model: User, attributes: ['username'] },
+    include: { model: User, attributes: ['firstname', 'lastname'] },
   })
     .then(post => {
       res.status(200).json(post)
@@ -40,7 +40,7 @@ exports.getAllComments = (req, res, next) => {
 exports.getComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
-    include: { model: User, attributes: ['username'] },
+    include: { model: User, attributes: ['firstname', 'lastname'] },
 
 
   }).then(comment => {

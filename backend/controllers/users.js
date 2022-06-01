@@ -16,12 +16,14 @@ exports.signup = (req, res, next) => {
 
   bcrypt.hash(req.body.password, 10) //On utilise Bcrypt pour le mot de passe, l'algorithme fera 10 tours
     .then(hash => {
-      User.findOne({ where: { username: req.body.username } })
+      User.findOne({ where: { email: req.body.email } })
         .then(CheckUser => {
           if (!CheckUser) {
 
             const newUser = User.create({ //création de l'utilisateur
-              username: req.body.username,  //on passe l'email crypté via crypto-JS
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+              email: req.body.email,
               password: hash, // on passe le mot de passe hashé via Bcrypt
               // avatar: attachmentURL
             })
@@ -29,7 +31,7 @@ exports.signup = (req, res, next) => {
             // .catch(error => res.status(400).json({ hash }));
             console.log(newUser);
           } else {
-            res.status(400).json({ message: "Username existe déjà" })
+            res.status(400).json({ message: "Email existe déjà" })
           }
         })
 
@@ -42,7 +44,7 @@ exports.signup = (req, res, next) => {
 
 //Contrôleur connexion à un compte existant
 exports.login = (req, res, next) => {
-  User.findOne({ where: { username: req.body.username } }) //On cherche l'utilisateur dans la base de données cryptée
+  User.findOne({ where: { email: req.body.email } }) //On cherche l'utilisateur dans la base de données cryptée
     .then(myUser => {
       if (!myUser) { return res.status(401).json({ error: 'Utilisateur non trouvé.' }); }
       bcrypt.compare(req.body.password, myUser.password) //On compare le PW pour vérifier qu'ils ont les mêmes string d'origine
@@ -74,7 +76,7 @@ exports.getOneUser = (req, res, next) => {
       model: Publication,
       // where: { userId: req.params.id }
     }],
-    attributes: ['id', 'username', 'admin', 'createdAt', 'avatar'],
+    attributes: ['id', 'firstname', 'lastname', 'admin', 'createdAt', 'avatar'],
 
   })
     .then((data) => {
@@ -90,7 +92,7 @@ exports.getOneUser = (req, res, next) => {
 
 module.exports.getusers = (req, res) => {
   User.findAll({
-    attributes: ['id', 'username', 'admin', 'avatar']
+    attributes: ['id', 'firstname', 'lastname', 'admin', 'avatar']
   }).then((data) => {
     res.status(200).json({ data })
   })

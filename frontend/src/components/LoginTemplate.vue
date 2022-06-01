@@ -4,9 +4,9 @@
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <h2 class="col align-self-center">Connexion</h2>
 
-      <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
-      <input v-model="dataLogin.username" class="form-control form-control-lg" type="text" placeholder="Username"
-        aria-label=".form-control-lg example" id="username">
+      <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+      <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="Email"
+        aria-label=".form-control-lg example" id="email">
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
       <input v-model="dataLogin.password" class="form-control form-control-lg" type="text" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
@@ -26,19 +26,21 @@ export default {
   data() {
     return {
       dataLogin: {
-        username: "",
+        firstname: "",
+        lastname: "",
         password: "",
+        email: "",
         id: ""
       }
     };
   },
   methods: {
     mounted() {
-      if (this.dataLogin.username && this.dataLogin.password) {
+      if (this.dataLogin.email && this.dataLogin.password) {
         fetch("http://localhost:3000/api/users/login", {
           method: "POST",
           body: JSON.stringify({
-            username: this.dataLogin.username,
+            email: this.dataLogin.email,
             password: this.dataLogin.password
           }),
           headers: {

@@ -6,16 +6,23 @@
 
     <section class="d-flex flex-column main-form w-50 align-center main-form">
       <h2 class="col align-self-center">Inscription</h2>
-      <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
-      <input v-model="dataLogin.username" class=" form-control form-control-lg" type="text" placeholder="Username"
-        aria-label=".form-control-lg example" id="username">
+      <label for="firstname" class="col-md-4 col-form-label text-md-right">First Name</label>
+      <input v-model="dataLogin.firstname" class="form-control form-control-lg" type="text" placeholder="firstname"
+        id="firstname">
+      <label for="lastname" class="col-md-4 col-form-label text-md-right">Last Name</label>
+      <input v-model="dataLogin.lastname" class="form-control form-control-lg" type="text" placeholder="lastname"
+        id="lastname">
+
+      <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
+      <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="email" id="email">
+
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
       <input v-model="dataLogin.password" class=" form-control form-control-lg" type="text" placeholder="Password"
-        aria-label=".form-control-lg example" id="password">
+        id="password">
 
       <div class="custom-file">
         <input name="inputFile" type="file" accept="image/*" class="custom-file-input" id="inputFile"
-          aria-describedby="inputFileAddon" @change="onFileChange" />
+          @change="onFileChange" />
         <label class="custom-file-label" for="inputFile">Choose file</label>
         <button @click="onSubmit">Upload</button>
       </div>
@@ -24,7 +31,7 @@
         Votre mot de passe doit avoir entre 3 et 16 caractères, seules les lettres, chiffres et tirets sont autorisés
       </div>
       <div v-if="isVisibleEmpty" class="alert alert-danger" role="alert">
-        Veuillez remplir les champs "Username" et "Password"
+        Veuillez remplir les champs "Prénom", "Nom", "Email" et "Password"
       </div>
       <!-- <div class="valid-feedback">
         Looks good!
@@ -46,8 +53,11 @@ export default {
   data() {
     return {
       dataLogin: {
-        username: "",
+        firstname: "",
+        lastname: "",
+        email: "",
         password: "",
+        id: ""
       },
       isVisibleRegex: false,
       isVisibleEmpty: false
@@ -58,14 +68,16 @@ export default {
     mounted() {
 
       const regexPassword = /^[a-zA-Z0-9_-]{3,16}$/;
-      if (this.dataLogin.username && this.dataLogin.password && regexPassword.test(this.dataLogin.password)) {
+      if (this.dataLogin.email && this.dataLogin.password && this.dataLogin.firstname && this.dataLogin.lastname && regexPassword.test(this.dataLogin.password)) {
 
         fetch("http://localhost:3000/api/users/auth", {
           method: "POST",
           body:
             JSON.stringify({
-              username: this.dataLogin.username,
-              password: this.dataLogin.password,
+              firstname: this.dataLogin.firstname,
+              lastname: this.dataLogin.lastname,
+              email: this.dataLogin.email,
+              password: this.dataLogin.password
             }),
           headers: {
             'Accept': 'application/json',
@@ -74,12 +86,12 @@ export default {
           }
         })
           .then((response) => response.json())
-          .then(() =>
-            document.location.href = `http://localhost:8080/login`)
+        // .then(() =>
+        //   document.location.href = `http://localhost:8080/login`)
         // )
 
       } else {
-        if (this.dataLogin.username && this.dataLogin.password && regexPassword.test(this.dataLogin.password) === false) {
+        if (this.dataLogin.email && this.dataLogin.password && regexPassword.test(this.dataLogin.password) === false) {
           this.isVisibleRegex = true
 
         } else {

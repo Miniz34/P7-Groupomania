@@ -4,7 +4,18 @@ const db = require('../config/database');
 
 const User = db.define('user', {
 
-  username: {
+
+  firstname: {
+    type: DataTypes.STRING,
+    unique: false,
+    allowNull: false,
+  },
+  lastname: {
+    type: DataTypes.STRING,
+    unique: false,
+    allowNull: false,
+  },
+  email: {
     type: DataTypes.STRING,
     unique: true,
     allowNull: false,
