@@ -5,9 +5,8 @@
       <div class="row" id="row_style">
         <h4 class="text-center">Modifier commentaire</h4>
         <div class="col-md-4   col-md-offset-4">
-          <input for="commentaire" name="commentaire">
-          <textarea id="commentaire" v-model="commentaire" class="form-control form-control-lg" type="text" cols="30"
-            rows="10" name="commentaire"></textarea>
+          <textarea id="commentaire" v-model="comments.commentaire" class="form-control form-control-lg" type="text"
+            cols="30" rows="10" name="commentaire"></textarea>
           <br>
           <div class="form-group">
 
@@ -41,24 +40,35 @@ export default {
       }
     }
   },
-  // mounted() {
-  //   const commentId = this.$route.params.id;
-  //   fetch('http://localhost:3000/api/comments/' + commentId, {
-  //     method: "GET",
-  //     headers: {
-  //       // 'Accept': 'application/json',
-  //       // 'Content-Type': 'application/json',
-  //       'Authorization': "Bearer " + sessionStorage.getItem("Token")
-  //     },
+  mounted() {
 
+    const commentId = this.$route.params.id;
+    // const fd = new FormData();
+    // fd.append("commentaire", this.commentaire);
+    fetch('http://localhost:3000/api/comments/' + commentId, {
+      method: "GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + sessionStorage.getItem("Token")
+      },
 
-  //   }).then(response => response.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       this.commentaire = data
+    })
+      // .then(() => {
 
-  //     })
-  // },
+      //   history.back()
+      // }).then(() => {
+      //   alert('Commentaire Modifié')
+      // })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.comments = data
+        console.log(this.comments)
+
+      })
+
+  },
 
   methods: {
     modifyComment() {
@@ -67,7 +77,7 @@ export default {
       // fd.append("commentaire", this.commentaire);
       fetch('http://localhost:3000/api/comments/' + commentId, {
         method: "PUT",
-        body: JSON.stringify({ commentaire: this.commentaire }),
+        body: JSON.stringify({ commentaire: this.comments.commentaire }),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

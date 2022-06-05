@@ -8,11 +8,10 @@
       <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="Email"
         aria-label=".form-control-lg example" id="email">
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-      <input v-model="dataLogin.password" class="form-control form-control-lg" type="text" placeholder="Password"
+      <input v-model="dataLogin.password" class="form-control form-control-lg" type="password" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
 
-      <button @click.prevent="mounted" type="submit"
-        class="btn btn-primary w-25 col align-self-center">Connexion</button>
+      <button @click.prevent="login" type="submit" class="btn btn-primary w-25 col align-self-center">Connexion</button>
       <p class="col align-self-center">Pas de compte ? vous pouvez vous inscrire <a href="/">ici</a></p>
     </section>
   </form>
@@ -35,7 +34,7 @@ export default {
     };
   },
   methods: {
-    mounted() {
+    login() {
       if (this.dataLogin.email && this.dataLogin.password) {
         fetch("http://localhost:3000/api/users/login", {
           method: "POST",
@@ -53,7 +52,11 @@ export default {
             sessionStorage.setItem('userId', data.id)
             sessionStorage.setItem('isAdmin', data.isAdmin)
             console.log(data)
-            document.location.href = `http://localhost:8080/publications`;
+            if (data.newToken) {
+              document.location.href = `http://localhost:8080/publications`;
+            } else {
+              alert("Nom d'utilisateur ou mot de passe incorrect")
+            }
           })
       } else {
         alert("Veuillez remplir le formulaire d'inscription")

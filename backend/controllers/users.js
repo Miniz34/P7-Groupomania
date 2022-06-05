@@ -8,8 +8,7 @@ const { json } = require("sequelize");
 const multer = require('multer')
 const path = require('path');
 const Publication = require("../models/publication");
-
-
+const fs = require('fs');
 
 //Contrôleur création de compte
 exports.signup = (req, res, next) => {
@@ -84,9 +83,6 @@ exports.getOneUser = (req, res, next) => {
     })
 }
 
-
-
-
 //Contrôleur de suppression de compte
 
 
@@ -102,29 +98,31 @@ module.exports.getusers = (req, res) => {
 }
 
 
-
 // Delete User 2.0 avec vérification du token et status admin
 exports.deleteUser = (req, res, next) => {
-  let test = req.token.userId
-  let test2 = req.params.id
-  let admin = req.token.admin
+
 
   // if (user.admin == true || user.id == req.token.userId) {
-  if (req.token.userId == req.params.id || req.token.admin) {
-    console.log(test, test2, admin)
-    User.destroy({ where: { id: req.params.id } })
-    res.status(200).json({ message: "Utilisateur supprimé" })
-  } else {
-    console.log(test, test2, admin)
-    console.log("false")
-    res.status(401).json({ message: "unauthorized" })
-  }
+  User.findOne({
+    where: { id: req.params.id }
+  }).then((user) => {
+    if (req.token.userId == req.params.id || req.token.admin) {
 
+      const filename = user.avatar.split('/images/')[1];
+      if (filename == "avatardefault.png") {
+        User.destroy({ where: { id: req.params.id } })
+        res.status(200).json({ message: "Utilisateur supprimé" })
+      } else {
+        fs.unlink(`images/${filename}`, () => {
+          User.destroy({ where: { id: req.params.id } })
+          res.status(200).json({ message: "Utilisateur supprimé" })
+        })
+      }
+    } else {
+      res.status(401).json({ message: "unauthorized" })
+    }
+  })
 }
-
-
-
-
 
 
 ///Ajout de vérification du token et status admin
@@ -150,22 +148,61 @@ exports.modifyUser = (req, res, next) => {
   //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
 
+
+
 exports.modifyAvatar = (req, res, next) => {
+  User.findOne({
+    where: { id: req.params.id }
+  }).then(user => {
+    console.log(user.avatar)
 
-  if (req.token.userId == req.params.id || req.token.admin) {
-    User.update({
-      avatar: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
 
-    },
-      { where: { id: req.params.id } }
+    if (req.token.userId == req.params.id || req.token.admin) {
 
-    ).then(res.status(200).json({ message: "Avatar modifié" }))
-      .catch(res.status(400).json({ message: "erreur" }))
-  }
 
+
+      const filename = user.avatar.split('/images/')[1];
+      console.log(filename)
+      if (filename == "avatardefault.png") {
+        User.update({
+          avatar: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+        },
+          { where: { id: req.params.id } }
+        ).then(res.status(200).json({ message: "Avatar modifié" }))
+        // .catch(res.status(400).json({ message: "erreur" }))
+        return;
+      } else {
+        fs.unlink(`images/${filename}`, () => {
+          User.update({
+            avatar: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+          },
+            { where: { id: req.params.id } }
+          ).then(res.status(200).json({ message: "Avatar modifié" }))
+          // .catch(res.status(400).json({ message: "erreur" }))
+          return;
+        })
+      }
+    }
+  })
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// avatardefault.png
 
 
 

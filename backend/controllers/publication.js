@@ -96,6 +96,8 @@ exports.deletePublication = (req, res, next) => {
     if (post.userId == req.token.userId || req.token.admin) {
       if (post.image) {
         const filename = post.image.split('/images/')[1];
+        console.log("teseeeest", filename);
+
         fs.unlink(`images/${filename}`, () => {
 
           Publication.destroy({
@@ -125,17 +127,37 @@ exports.modifyPublication = (req, res, next) => {
     where: { id: req.params.id }
   }).then(post => {
     if (post.userId == req.token.userId || req.token.admin) {
+      const newImg = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
 
-      Publication.update({
-        title: req.body.title,
-        content: req.body.content,
-        userId: req.body.userId,
-        image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
-      },
-        {
-          where: { id: post.id }
+      console.log(post)
 
-        }).then(res.status(200).json({ message: "Publication modifiée" }))
+      try {
+        const filename = post.image.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          Publication.update({
+            title: req.body.title,
+            content: req.body.content,
+            userId: req.body.userId,
+            image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+          },
+            {
+              where: { id: post.id }
+
+            }).then(res.status(200).json({ message: "Publication modifiée" }))
+        })
+      } catch {
+        Publication.update({
+          title: req.body.title,
+          content: req.body.content,
+          userId: req.body.userId,
+          image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+        },
+          {
+            where: { id: post.id }
+
+          }).then(res.status(200).json({ message: "Publication modifiée" }))
+      }
+
     }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
@@ -143,7 +165,26 @@ exports.modifyPublication = (req, res, next) => {
 
 
 
+// exports.modifyPublication = (req, res, next) => {
 
+//   if (req.token.userId = req.params.id) {
+//     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
+//     Publication.update({
+//       title: req.body.title,
+//       content: req.body.content,
+//       userId: req.body.userId,
+//       image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
+//     },
+//       {
+//         where: { id: req.params.id }
+
+//       }).then(res.status(200).json({ message: "Publication modifiée" }))
+//     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
+//   } else {
+//     res.status(401).json({ message: "userid invalide " })
+//   }
+// }
 
 
 
@@ -194,22 +235,3 @@ exports.modifyPublication = (req, res, next) => {
 
 
 
-exports.modifyPublication = (req, res, next) => {
-
-  if (req.token.userId = req.params.id) {
-
-    Publication.update({
-      title: req.body.title,
-      content: req.body.content,
-      userId: req.body.userId,
-      image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
-    },
-      {
-        where: { id: req.params.id }
-
-      }).then(res.status(200).json({ message: "Publication modifiée" }))
-    //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
-  } else {
-    res.status(401).json({ message: "userid invalide " })
-  }
-}

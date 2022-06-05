@@ -17,21 +17,27 @@
       <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="email" id="email">
 
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-      <input v-model="dataLogin.password" class=" form-control form-control-lg" type="text" placeholder="Password"
+      <input v-model="dataLogin.password" class=" form-control form-control-lg" type="password" placeholder="Password"
         id="password">
+      <label for="repeatPassword" class="col-md-4 col-form-label text-md-right">Repeat Password</label>
+      <input v-model="dataLogin.repeatPassword" class=" form-control form-control-lg" type="password"
+        placeholder="repeat Password" id="repeatPassword">
 
-      <div class="custom-file">
+      <!-- <div class="custom-file">
         <input name="inputFile" type="file" accept="image/*" class="custom-file-input" id="inputFile"
           @change="onFileChange" />
         <label class="custom-file-label" for="inputFile">Choose file</label>
         <button @click="onSubmit">Upload</button>
-      </div>
+      </div> -->
 
       <div v-if="isVisibleRegex" class="alert alert-danger" role="alert">
         Votre mot de passe doit avoir entre 3 et 16 caractères, seules les lettres, chiffres et tirets sont autorisés
       </div>
       <div v-if="isVisibleEmpty" class="alert alert-danger" role="alert">
         Veuillez remplir les champs "Prénom", "Nom", "Email" et "Password"
+      </div>
+      <div v-if="isVisibleRepeat" class="alert alert-danger" role="alert">
+        Vos mots de passes de correspondent pas
       </div>
       <!-- <div class="valid-feedback">
         Looks good!
@@ -57,10 +63,12 @@ export default {
         lastname: "",
         email: "",
         password: "",
+        repeatPassword: "",
         id: ""
       },
       isVisibleRegex: false,
-      isVisibleEmpty: false
+      isVisibleEmpty: false,
+      isVisibleRepeat: false,
 
     };
   }, methods: {
@@ -68,7 +76,7 @@ export default {
     mounted() {
 
       const regexPassword = /^[a-zA-Z0-9_-]{3,16}$/;
-      if (this.dataLogin.email && this.dataLogin.password && this.dataLogin.firstname && this.dataLogin.lastname && regexPassword.test(this.dataLogin.password)) {
+      if (this.dataLogin.email && this.dataLogin.password && this.dataLogin.firstname && this.dataLogin.lastname && regexPassword.test(this.dataLogin.password) && this.dataLogin.password == this.dataLogin.repeatPassword) {
 
         fetch("http://localhost:3000/api/users/auth", {
           method: "POST",
@@ -86,18 +94,20 @@ export default {
           }
         })
           .then((response) => response.json())
-        // .then(() =>
-        //   document.location.href = `http://localhost:8080/login`)
-        // )
+          .then(() =>
+            document.location.href = `http://localhost:8080/login`)
+
 
       } else {
-        if (this.dataLogin.email && this.dataLogin.password && regexPassword.test(this.dataLogin.password) === false) {
+        if (this.dataLogin.firstname && this.dataLogin.lastname && this.dataLogin.email && this.dataLogin.password && regexPassword.test(this.dataLogin.password) === false) {
           this.isVisibleRegex = true
 
-        } else {
-          this.isVisibleEmpty = true
+        } else if (this.dataLogin.firstname && this.dataLogin.lastname && this.dataLogin.email && this.dataLogin.password && regexPassword.test(this.dataLogin.password) && this.dataLogin.password != this.dataLogin.repeatPassword) {
+          this.isVisibleRepeat = true
 
-        }
+        } else (
+          this.isVisibleEmpty = true
+        )
 
       }
     },

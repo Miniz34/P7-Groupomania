@@ -43,7 +43,18 @@
 
 <script>
 
+
+const isAdmin = sessionStorage.getItem("isAdmin")
+console.log(isAdmin)
+
+
+
+
+
 export default {
+
+
+
   name: "SingleUser",
   data() {
     return {
@@ -64,8 +75,15 @@ export default {
         },
 
       })
-        .then(() =>
-          document.location.href = `http://localhost:8080/users`)
+        .then(() => {
+          if (isAdmin == "true") {
+            document.location.href = `http://localhost:8080/users`
+          } else {
+            sessionStorage.clear()
+            document.location.href = `http://localhost:8080`
+
+          }
+        })
     }
 
   }

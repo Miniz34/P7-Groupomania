@@ -102,6 +102,7 @@ export default {
             }
           }).then(() => {
             alert("avatar modifié")
+            document.location.href = `http://localhost:8080/users`
           })
       } else {
         alert("Veuillez sélectionner un avatar")

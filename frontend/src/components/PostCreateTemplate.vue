@@ -19,10 +19,13 @@
       </div>
 
       <div class="custom-file">
-        <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
-          @change="onFileChange" />
-        <label class="custom-file-label" for="inputFile"></label>
+        <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" @change="onFileChange" />
+        <label for="file"> test </label>
       </div>
+      <div class="thumbnail">
+        <img v-if="this.dataPost.image" :src="this.dataPost.image" />
+      </div>
+
     </div>
   </form>
 
@@ -101,3 +104,11 @@ export default {
 
 </script>
 
+
+<style scoped>
+.inputFile {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+</style>

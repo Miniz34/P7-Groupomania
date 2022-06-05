@@ -16,7 +16,14 @@ export default {
     PostModifyTemplate,
     HeaderMainPage
 
-  }
+  },
+  data() {
+    return {
+      publication: {}
+
+    }
+  },
+
 }
 
 
