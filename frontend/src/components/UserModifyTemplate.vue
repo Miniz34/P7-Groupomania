@@ -1,24 +1,34 @@
 <template>
 
 
-  <form id="new-avatar" class="d-flex flex-column main-form w-50 align-center main-form " aria-label="Modifier-avatar">
-    <h2 class="col align-self-center">Modification de l'avatar</h2>
+  <form id="new-avatar" class="d-flex flex-columnw-50 align-center" aria-label="Modifier-avatar">
 
 
-    <div class="custom-file">
-      <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
-        @change="onFileChange" aria-label="choose-avatar" />
-      <label class="custom-file-label" for="inputFile"></label>
+
+    <div class="modify-avatar">
+      <div v-if="this.avatar" class="thumbnail">
+        <p class="text-center">Aperçu de l'avatar</p>
+        <img class="avatar-img" :src="this.avatar" />
+      </div>
+      <h2 class="col align-self-center">Modification de l'avatar</h2>
+
+
+      <div class="custom-file">
+        <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
+          @change="onFileChange" aria-label="choose-avatar" ref="fileInput" />
+        <label class="custom-file-label" for="inputFile"></label>
+      </div>
+      <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-50 col align-self-center"
+        aria-label="Modifier-avatar">Modifier
+        avatar</button>
+
     </div>
-    <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-25 col align-self-center"
-      aria-label="Modifier-avatar">Modifier
-      avatar</button>
 
   </form>
 
 
   <form id="Login-View">
-    <section class="d-flex flex-column main-form w-50 align-center main-form">
+    <section class="d-flex flex-column  w-50 align-center modify-pwd">
       <h2 class="col align-self-center">Modification de mot de passe</h2>
 
       <label for="newPwd" class="col-md-4 col-form-label text-md-right">Nouveau mot de passe</label>
@@ -57,9 +67,36 @@ export default {
         newPwd: "",
         repeatNewPwd: "",
         userId: "",
-        avatar: ""
-      }
+      },
+      avatar: ""
     };
+  },
+  created() {
+
+    {
+      const postId = this.$route.params.id;
+      console.log(postId);
+      fetch(`http://localhost:3000/api/users/` + postId, {
+        method: "GET",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + sessionStorage.getItem("Token")
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data)
+          this.dataLogin = data
+          this.avatar = this.dataLogin.data.avatar
+          console.log(this.avatar)
+          console.log(this.dataLogin.data.avatar)
+
+
+
+
+        })
+    }
   },
   methods: {
     changePwd() {
@@ -109,12 +146,44 @@ export default {
       }
 
     },
-    onFileChange(e) {
-      console.log(e);
-      this.avatar = e.target.files[0] || e.dataTransfer.files;
-      console.log(this.avatar);
-
-    },
+    onFileChange() {
+      const input = this.$refs.fileInput
+      const files = input.files
+      if (files && files[0]) {
+        const reader = new FileReader
+        reader.onload = e => {
+          this.avatar = e.target.result
+        }
+        reader.readAsDataURL(files[0])
+      }
+    }
   }
 }
 </script>
+
+
+<style scoped>
+.modify-avatar {
+
+  background-color: rgb(231, 231, 220);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 500px;
+  height: 750px;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+
+}
+
+.avatar-img {
+  width: 100%;
+}
+
+.modify-pwd {
+  margin: auto;
+  margin-bottom: 50px;
+}
+</style>

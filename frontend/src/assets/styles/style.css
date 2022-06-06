@@ -2,6 +2,8 @@ body
 {
   background-color: rgb(212, 212, 212);
   height: 100%;
+  max-width: 1800px;
+  margin: auto;
  
 }
 
@@ -38,6 +40,10 @@ body
 
 a {
   color: black
+}
+
+footer {
+  width: 100%;
 }
 
 /* * {

@@ -19,14 +19,18 @@
       </div>
 
       <div class="custom-file">
-        <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" @change="onFileChange" />
-        <label for="file"> test </label>
+        <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" @change="onFileChange"
+          ref="fileInput" />
       </div>
-      <div class="thumbnail">
-        <img v-if="this.dataPost.image" :src="this.dataPost.image" />
+      <div v-if="this.dataPost.image" class="thumbnail">
+        <p>Aperçu de l'image</p>
+        <img :src="this.dataPost.image" />
       </div>
 
     </div>
+
+
+
   </form>
 
 
@@ -93,12 +97,18 @@ export default {
           }).catch((err) => console.log(err))
       }
     },
-    onFileChange(e) {
-      console.log(e);
-      this.dataPost.image = e.target.files[0] || e.dataTransfer.files;
-      console.log(this.dataPost.image);
+    onFileChange() {
+      const input = this.$refs.fileInput
+      const files = input.files
+      if (files && files[0]) {
+        const reader = new FileReader
+        reader.onload = e => {
+          this.dataPost.image = e.target.result
+        }
+        reader.readAsDataURL(files[0])
+      }
+    }
 
-    },
   }
 }
 
@@ -106,9 +116,10 @@ export default {
 
 
 <style scoped>
-.inputFile {
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
+img {
+  margin-bottom: 25px;
+  width: 100px;
+  height: 100px;
 }
 </style>
+

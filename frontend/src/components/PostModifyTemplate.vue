@@ -21,14 +21,12 @@
 
       <div class="custom-file">
         <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" aria-describedby="inputFileAddon"
-          @change="onFileChange" />
-        <label class="custom-file-label" for="inputFile"> Modifier image (à refaire)</label>
+          @change="onFileChange" ref="fileInput" />
+        <label class="custom-file-label" for="inputFile"></label>
       </div>
-      <div class="thumbnail">
-        <img v-if="publication.image" :src="publication.image" />
-      </div>
-      <div class="zaeaze">
-        <img :src="this.publication.image" />
+      <div v-if="publication.image" class="thumbnail">
+        <p>Aperçu de l'image</p>
+        <img :src="publication.image" />
       </div>
     </div>
   </form>
@@ -115,12 +113,17 @@ export default {
           }).catch((err) => console.log(err))
       }
     },
-    onFileChange(e) {
-      console.log(e);
-      this.publication.image = e.target.files[0] || e.dataTransfer.files;
-      console.log(this.publication.image);
-
-    },
+    onFileChange() {
+      const input = this.$refs.fileInput
+      const files = input.files
+      if (files && files[0]) {
+        const reader = new FileReader
+        reader.onload = e => {
+          this.publication.image = e.target.result
+        }
+        reader.readAsDataURL(files[0])
+      }
+    }
   }
 }
 
@@ -130,7 +133,7 @@ export default {
 
 <style scoped>
 img {
-  margin-top: 25px;
+
   margin-bottom: 25px;
   width: 100px;
   height: 100px;

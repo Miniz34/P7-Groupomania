@@ -1,9 +1,9 @@
 <template>
 
-  <div class="container-fluid well span6">
+  <div class="main-user">
     <div class="row-fluid">
       <div class="span2">
-        <img :src="avatar" class="img-circle" alt="avatar">
+        <img :src="avatar" class="img-user" alt="avatar">
       </div>
 
       <div class="span8">
@@ -23,18 +23,19 @@
 
 
     </div>
-  </div>
-  <div>
+    <div>
 
 
-    <router-link :to="{ name: 'ModifyUser', params: { id } }">
-      <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-warning btn-sm ">
-        Modifier profile
-      </button>
-    </router-link>
+      <router-link :to="{ name: 'ModifyUser', params: { id } }">
+        <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-warning btn-sm ">
+          Modifier profile
+        </button>
+      </router-link>
 
-    <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-danger btn-sm"
-      @click.prevent="deleteUser">Supprimer profile</button>
+      <button v-if="this.id == userid || admin == `true`" class="text-right fw-bold fs-3 btn btn-danger btn-sm"
+        @click.prevent="deleteUser">Supprimer profile</button>
+    </div>
+
   </div>
 
 
@@ -95,4 +96,22 @@ export default {
 
 
 <style scoped>
+.main-user {
+  background-color: rgb(231, 231, 220);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 500px;
+  height: 750px;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.img-user {
+
+  width: 100%;
+
+}
 </style>
