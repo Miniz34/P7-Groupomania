@@ -3,48 +3,56 @@
 # Project
 
 Projet 7 du parcours Web d'Openclassrooms
-Par Karim Farhi (Miniz)
-
-## Getting Started
-
-Les instructions pour lancer le projet sur votre ordinateur local
+Par Karim Farhi (Miniz34)
 
 ### Installation du Backend
 
 1. Accéder au Backend
-```cd backend```
+``` bash cd backend
+```
 
 2. Install NPM
-```npm install```
-
-3. Installer une base de donnée et éventuellement importer MyDatabase.sql
 ``` bash
-Créer une nouvelle database nommée "groupomania_dev". Il est ensuite possible soit d'y importer le fichier MyDatabase.sql (qui comprend 1 admin, 1 user et un message de chaque), ou de la laisser vide
+npm install
+```
+
+3. Installer une base de donnée
+``` bash
+Créer une nouvelle database nommée "groupomania_dev".
+ ```
+``` bash
+Importer si besoin le fichier MyDatabase.sql
  ```
 
-4. Rename .env_copy into .env
+4. Renommer `.env_copy` en `.env`
 
-5. Run server
-```nodemon server```
+5. Lancer le serveur
+``` bash
+nodemon server
+```
 
-### Installing Frontend
+### Installation du Frontend
 
-1. Acces the frontend
-```cd frontend```
+1. Accéder au Frontend
+``` bash
+cd frontend
+```
 
 2. Install NPM
-```npm install```
+``` bash
+npm install
+```
 
 
-3. Run framwork
-```npm run serve```
+3. Lancer le Frontend
+``` bash
+npm run serve
+```
 
-### Acces the app
+### Accéder au site
 
-1. go the url : 
-[http://localhost:8080/]([http://localhost:8080/)
+1. lancer l'url : http://localhost:8080/
 
-## Authors
 
 * **Karim Farhi** -  - [github](https://github.com/Miniz34)
 
