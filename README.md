@@ -9,16 +9,18 @@ Par Karim Farhi (Miniz)
 
 Les instructions pour lancer le projet sur votre ordinateur local
 
-### Installing Backend
+### Installation du Backend
 
-1. Acces the backend
+1. Accéder au Backend
 ```cd backend```
 
 2. Install NPM
 ```npm install```
 
-3. Setup new database or import Mydatabase.sql 
-3.1 ``` Créer une nouvelle database nommée "groupomania_dev". Il est ensuite possible soit d'y importer le fichier MyDatabase.sql (qui comprend 1 admin, 1 user et un message de chaque), ou de la laisser vide ```
+3. Installer une base de donnée et éventuellement importer MyDatabase.sql 
+3.1 ``` bash 
+Créer une nouvelle database nommée "groupomania_dev". Il est ensuite possible soit d'y importer le fichier MyDatabase.sql (qui comprend 1 admin, 1 user et un message de chaque), ou de la laisser vide
+ ```
 
 4. Rename .env_copy into .env
 
