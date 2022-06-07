@@ -17,7 +17,13 @@ Les instructions pour lancer le projet sur votre ordinateur local
 2. Install NPM
 ```npm install```
 
-3. Run server
+3. Create .env file 
+``` MDB_DB = ```
+```MDB_LOG =```
+```MDB_PW =```
+```TOKEN_KEY = ```
+
+4. Run server
 ```nodemon server```
 
 ### Installing Frontend
@@ -35,9 +41,9 @@ Les instructions pour lancer le projet sur votre ordinateur local
 ### Acces the app
 
 1. go the url : 
-```http://localhost:8080/publications ```
+[http://localhost:8080/]([http://localhost:8080/)
 
 ## Authors
 
-* **Karim Farhi** - *Initial work* - [PurpleBooth](https://github.com/Miniz34)
+* **Karim Farhi** -  - [github](https://github.com/Miniz34)
 
