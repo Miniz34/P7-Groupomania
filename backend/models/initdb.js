@@ -17,8 +17,8 @@ const Initialisation = async () => {
   User.hasMany(Comment)
 
   await User.sync({ alter: true });
-  // await Publication.sync({ alter: true });
-  // await Comment.sync({ alter: true });
+  await Publication.sync({ alter: true });
+  await Comment.sync({ alter: true });
 
 
 

@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 const db = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
-  dialect: "mariadb",
+  dialect: "mysql",
   define: {
     freezeTableName: true,
   }
