@@ -7,17 +7,14 @@ const User = db.define('user', {
 
   firstname: {
     type: DataTypes.STRING,
-    unique: false,
     allowNull: false,
   },
   lastname: {
     type: DataTypes.STRING,
-    unique: false,
     allowNull: false,
   },
   email: {
     type: DataTypes.STRING,
-    unique: false,
     allowNull: false,
   },
   password: {

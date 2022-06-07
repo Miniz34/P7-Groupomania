@@ -16,14 +16,12 @@ const Initialisation = async () => {
   User.hasMany(Publication)
   User.hasMany(Comment)
 
-
-  // Publication.hasMany(Comment, { ForeingKey: 'CommentId' });
-  // Publication.belongsTo(User, { as: 'UserPost', ForeingKey: 'UserIdPost' });
-  // Comment.belongsTo(User, { as: 'UserComment', ForeingKey: 'UserIdComment' });
-
   await User.sync({ alter: true });
-  await Comment.sync({ alter: true });
   await Publication.sync({ alter: true });
+  await Comment.sync({ alter: true });
+
+
+
 }
 
 

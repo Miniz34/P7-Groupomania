@@ -10,9 +10,9 @@ const db = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MD
 
 try {
   db.authenticate();
-  console.log("conntecté")
+  console.log("connecté")
 } catch (error) {
-  console.log("marche pas")
+  console.log("problème de connection à la base de donnée")
 }
 
 
