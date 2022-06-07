@@ -83,15 +83,5 @@ exports.modifyComment = (req, res, next) => {
     }
 
   })
-  // Comment.findOne({
-  //   where: { id: req.params.id }
-  // }).then(post => {
-  //   Comment.update({
-  //     commentaire: req.body.commentaire
-  //   },
-  //     {
-  //       where: { id: post.id }
 
-  //     }).then(res.status(200).json({ message: "Commentaire modifiée" }))
-  // })     ///.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }

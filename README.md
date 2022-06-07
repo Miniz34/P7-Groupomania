@@ -17,13 +17,12 @@ Les instructions pour lancer le projet sur votre ordinateur local
 2. Install NPM
 ```npm install```
 
-3. Create .env file 
-``` MDB_DB = ```
-```MDB_LOG =```
-```MDB_PW =```
-```TOKEN_KEY = ```
+3. Setup new database or import Mydatabase.sql 
+3.1 ``` Créer une nouvelle database nommée "groupomania_dev". Il est ensuite possible soit d'y importer le fichier MyDatabase.sql (qui comprend 1 admin, 1 user et un message de chaque), ou de la laisser vide ```
 
-4. Run server
+4. Rename .env_copy into .env
+
+5. Run server
 ```nodemon server```
 
 ### Installing Frontend

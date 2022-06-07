@@ -16,10 +16,4 @@ try {
 }
 
 
-// db.authenticate().then(() => {
-//   console.log("conntecté")
-// }).catch((err) => {
-//   console.log("marche pas")
-// });
-
 module.exports = db;

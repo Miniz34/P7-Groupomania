@@ -75,12 +75,6 @@ exports.getAllPublicationUser = (req, res, next) => {
 
 
 }
-//  const test = post
-//  console.log(test)
-
-
-
-// .catch((error) => res.status(400).json({ message: "test" }))
 
 
 
@@ -112,7 +106,6 @@ exports.deletePublication = (req, res, next) => {
         }).then(res.status(200).json({ message: "Publication supprimée" }))
       }
     } else {
-      // res.status(401).json({ message: "Unauthorized" })
       res.status(401).json({ message: "unauthorized" })
     }
   })
@@ -161,77 +154,3 @@ exports.modifyPublication = (req, res, next) => {
     }
   })     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
 }
-
-
-
-
-// exports.modifyPublication = (req, res, next) => {
-
-//   if (req.token.userId = req.params.id) {
-//     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-
-//     Publication.update({
-//       title: req.body.title,
-//       content: req.body.content,
-//       userId: req.body.userId,
-//       image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
-//     },
-//       {
-//         where: { id: req.params.id }
-
-//       }).then(res.status(200).json({ message: "Publication modifiée" }))
-//     //.catch(error => res.status(500).json({ message: "Utilisateur non trouvé" }));
-//   } else {
-//     res.status(401).json({ message: "userid invalide " })
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// //Delete post 2.0 : à revoir avec le front
-// exports.deletePublicationDeux = (req, res, next) => {
-//   User.findOne({
-//     attributes: ['id', 'username', 'admin'],
-//     where: { id: req.params.id }
-//   })
-//     .then(user => {
-//       if (user.id == req.token.userId) {
-//         Publication.findOne({ where: { id: post.id } })
-//         res.status(200).json({ message: "Utilisateur supprimé" })
-//           .then((publication) => {
-//             Publication.destroy({
-//               where: { id: publication.id }
-//             }).then(() => res.end)
-//               .catch(err => res.status(500).json(err))
-//           }
-//           )
-//       } else {
-//         res.status(401).json({ message: "unauthorized" })
-//       }
-//     })
-// }
-
-
-
-
-
-
-
-
-
-
-
