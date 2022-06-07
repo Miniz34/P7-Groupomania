@@ -17,7 +17,7 @@
           </router-link>
 
         </div>
-        <div class="text">
+        <div class="text text-truncate text-wrap">
           {{ content }}
         </div>
         <div class="data">
@@ -69,7 +69,6 @@ export default {
 }
 
 .img-container {
-  background-color: blue;
   width: 200px;
   margin-left: -12px;
 
@@ -98,6 +97,16 @@ export default {
 
 .comments {
   margin-left: 25px;
+}
+
+.text {
+  text-overflow: ellipsis;
+  height: 100px;
+  max-width: 80%;
+}
+
+.content {
+  text-overflow: ellipsis;
 }
 
 .well {}
