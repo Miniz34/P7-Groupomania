@@ -17,8 +17,8 @@ Les instructions pour lancer le projet sur votre ordinateur local
 2. Install NPM
 ```npm install```
 
-3. Installer une base de donnée et éventuellement importer MyDatabase.sql 
-3.1 ``` bash 
+3. Installer une base de donnée et éventuellement importer MyDatabase.sql
+``` bash
 Créer une nouvelle database nommée "groupomania_dev". Il est ensuite possible soit d'y importer le fichier MyDatabase.sql (qui comprend 1 admin, 1 user et un message de chaque), ou de la laisser vide
  ```
 
