@@ -8,7 +8,8 @@ Par Karim Farhi (Miniz34)
 ### Installation du Backend
 
 1. Accéder au Backend
-``` bash cd backend
+``` bash 
+cd backend
 ```
 
 2. Install NPM
@@ -51,7 +52,10 @@ npm run serve
 
 ### Accéder au site
 
-1. lancer l'url : http://localhost:8080/
+lancer l'url : http://localhost:8080/
+
+
+### Auteur 
 
 
 * **Karim Farhi** -  - [github](https://github.com/Miniz34)
