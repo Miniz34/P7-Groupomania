@@ -1,8 +1,8 @@
 <template>
 
   <main>
-    <div class="container">
-      <div class="img-container">
+    <div class="container post-list">
+      <div class="img-container-post">
         <div class="img-main-page" v-if="image">
           <img :src="image" alt="post img" class="main-img">
         </div>
@@ -56,8 +56,9 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  background-color: white;
+.post-list {
+  background-color: rgb(231, 231, 231);
+  ;
   height: 200px;
   width: 100%;
   margin-top: 25px;
@@ -68,7 +69,7 @@ export default {
 
 }
 
-.img-container {
+.img-container-post {
   width: 200px;
   margin-left: -12px;
 
@@ -109,5 +110,7 @@ export default {
   text-overflow: ellipsis;
 }
 
-.well {}
+.date {
+  margin-left: 25px;
+}
 </style>

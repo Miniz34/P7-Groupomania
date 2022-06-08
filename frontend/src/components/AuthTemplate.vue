@@ -44,7 +44,7 @@
       </div> -->
 
       <button @click.prevent="mounted" type="submit"
-        class="btn btn-primary w-25 col align-self-center">S'inscrire</button>
+        class="btn btn-primary col align-self-center btn-login">S'inscrire</button>
       <p class="col align-self-center">Déjà inscrit ? Vous pouvez vous connecter <a href="/login">ici</a></p>
     </section>
   </form>

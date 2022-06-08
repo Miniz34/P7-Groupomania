@@ -26,6 +26,12 @@ cd backend
 npm install
 ```
 
+<!-- Install Sequelize
+
+``` bash
+npm install sequelize sqlite3
+``` -->
+
 3. Installer une base de donnée (2 options possibles)
 
 Option 1 : base de donnée vide :

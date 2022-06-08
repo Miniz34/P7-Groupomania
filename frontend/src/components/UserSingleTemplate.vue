@@ -1,9 +1,9 @@
 <template>
 
-  <div class="main-user">
+  <div class="main-user-single">
     <div class="row-fluid">
       <div class="span2">
-        <img :src="avatar" class="img-user" alt="avatar">
+        <img :src="avatar" class="img-user-single" alt="avatar">
       </div>
 
       <div class="span8">
@@ -96,22 +96,4 @@ export default {
 
 
 <style scoped>
-.main-user {
-  background-color: rgb(231, 231, 220);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: center;
-  width: 500px;
-  height: 750px;
-  margin: auto;
-  margin-top: 40px;
-  margin-bottom: 50px;
-}
-
-.img-user {
-
-  width: 100%;
-
-}
 </style>

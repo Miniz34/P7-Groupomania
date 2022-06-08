@@ -3,31 +3,36 @@
 
   <form id="Auth-View" enctype="multipart/form-data" method="post">
 
-    <div class="container col align-self-center">
-      <div class="row" id="row_style">
-        <h4 class="text-center">Modifier post</h4>
-        <div class="col-md-4   col-md-offset-4">
-          <div class="form-group">
-            <input v-model="publication.title" type="text" class="form-control" placeholder="Title">
+    <div class="main-post">
+      <div class="form-post" id="row_style">
+        <h4 class="title-post">Modifier post</h4>
+        <div>
+          <div class="form-group post-responsive">
+            <label class="hidden" for="title"> title </label>
+            <input v-model="publication.title" type="text" class="form-control post-responsive" placeholder="Title"
+              id="title" aria-describedby="title">
           </div>
-          <textarea v-model="publication.content" id="editor" cols="30"
-            rows="10">Submit your text post here...</textarea>
+          <label class="hidden content-label " for="editor"> content </label>
+          <textarea v-model="publication.content" id="editor" cols="100" rows="10" class="post-responsive"
+            aria-describedby="editor">Submit your text post here...</textarea>
           <br>
           <div class="form-group">
             <button @click.prevent="modifyPost" class="btn btn-primary" id="submit">Modifier post</button>
           </div>
         </div>
+        <div class="custom-file">
+          <label class="custom-file-label hidden" for="inputFile">File</label>
+          <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" aria-describedby="inputFile"
+            @change="onFileChange" ref="fileInput" />
+
+        </div>
+        <div v-if="publication.image" class="thumbnail">
+          <p>Aperçu de l'image</p>
+          <img :src="publication.image" alt="Miniature avatar" />
+        </div>
       </div>
 
-      <div class="custom-file">
-        <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" aria-describedby="inputFileAddon"
-          @change="onFileChange" ref="fileInput" />
-        <label class="custom-file-label" for="inputFile"></label>
-      </div>
-      <div v-if="publication.image" class="thumbnail">
-        <p>Aperçu de l'image</p>
-        <img :src="publication.image" />
-      </div>
+
     </div>
   </form>
 
@@ -133,9 +138,14 @@ export default {
 
 <style scoped>
 img {
-
   margin-bottom: 25px;
   width: 100px;
   height: 100px;
+}
+
+.main-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

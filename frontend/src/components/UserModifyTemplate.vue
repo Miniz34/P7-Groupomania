@@ -5,18 +5,19 @@
 
 
 
-    <div class="modify-avatar">
+    <div class="main-user-single">
       <div v-if="this.avatar" class="thumbnail">
         <p class="text-center">Aperçu de l'avatar</p>
-        <img class="avatar-img" :src="this.avatar" />
+        <img class="img-user-single" :src="this.avatar" alt="avatar utilisateur" />
       </div>
       <h2 class="col align-self-center">Modification de l'avatar</h2>
 
 
       <div class="custom-file">
-        <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFileAddon"
-          @change="onFileChange" aria-label="choose-avatar" ref="fileInput" />
-        <label class="custom-file-label" for="inputFile"></label>
+        <label class="custom-file-label hidden" for="inputFile">File</label>
+        <input type="file" name="inputFile" class="custom-file-input" id="inputFile" aria-describedby="inputFile"
+          @change="onFileChange" ref="fileInput" />
+
       </div>
       <button @click.prevent="changeAvatar" type="submit" class="btn btn-primary w-50 col align-self-center"
         aria-label="Modifier-avatar">Modifier
@@ -32,17 +33,17 @@
       <h2 class="col align-self-center">Modification de mot de passe</h2>
 
       <label for="newPwd" class="col-md-4 col-form-label text-md-right">Nouveau mot de passe</label>
-      <input v-model="newPwd" class="form-control form-control-lg" type="password" placeholder="Nouveau mot de passe"
-        aria-label=".form-control-lg example" id="newPwd">
+      <input v-model="newPwd" class="form-control form-control-lg modif-pw" type="password"
+        placeholder="Nouveau mot de passe" aria-label=".form-control-lg example" id="newPwd">
 
 
       <label for="repeatNewPwd" class="col-md-4 col-form-label text-md-right">Répéter mot de passe</label>
-      <input v-model="repeatNewPwd" class="form-control form-control-lg" type="password"
+      <input v-model="repeatNewPwd" class="form-control form-control-lg modif-pw" type="password"
         placeholder="Répéter mot de passe" aria-label=".form-control-lg example" id="repeatNewPwd">
 
 
 
-      <button @click.prevent="changePwd" type="submit" class="btn btn-primary w-25 col align-self-center">Modifier mot
+      <button @click.prevent="changePwd" type="submit" class="btn btn-primary col align-self-center">Modifier mot
         de
         passe</button>
     </section>

@@ -5,13 +5,12 @@
       <div class="well ">
         <div class="media">
           <div class="media-body">
-            <h4 class="media-heading"></h4>
-            <p class="text-right fw-bold fs-3"> {{ publications.title }}</p>
+            <h4 class="media-heading text-center fw-bold fs-3">{{ publications.title }}</h4>
             <div class="card-img-top w-50 mx-auto" v-if="publications.image">
               <img :src="publications.image" alt="image publication" class="w-100" />
             </div>
-            <p>{{ publications.content }}</p>
-            <ul class="list-inline list-unstyled main-post">
+            <p class="post-content">{{ publications.content }}</p>
+            <ul class="list-inline list-unstyled main-post date">
               <li><span><i class="glyphicon glyphicon-calendar"></i> </span></li>
               <p>Publié par <router-link :to="{ name: 'SingleUser', params: { id: 1 } }">
                   {{ firstname }} {{ lastname }}
@@ -25,49 +24,59 @@
         </div>
       </div>
     </div>
-  </div>
 
+    <div class="modify container">
+      <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
 
-  <div class="modify container">
-    <router-link :to="{ name: 'Modify', params: { id: this.$route.params.id } }">
+        <button v-if="id == this.publications.userId || admin == `true`" class=" btn btn-warning btn-sm">Modifier
+          publication</button>
+      </router-link>
 
-      <button v-if="id == this.publications.userId || admin == `true`" class=" btn btn-warning btn-sm">Modifier
+      <button v-if="id == this.publications.userId || admin == `true`" @click="deletePost"
+        class="btn btn-danger btn-sm">Supprimer
         publication</button>
-    </router-link>
 
-    <button v-if="id == this.publications.userId || admin == `true`" @click="deletePost"
-      class="btn btn-danger btn-sm">Supprimer
-      publication</button>
+    </div>
 
   </div>
 
 
-  <div class="well container">
-    <h4><i class="fa fa-paper-plane-o"></i> Leave a Comment:</h4>
-    <form role="form">
-      <div class="form-group">
-        <textarea v-model="comment" class="form-control" rows="3"></textarea>
-      </div>
-      <button v-on:click.prevent="SendComment" type="submit" value="" class="btn btn-primary btn-sm"><i
-          class="fa fa-reply" id="comment"></i>
-        Envoyer commentaire</button>
-    </form>
-  </div>
-  <div v-for="comment in publications.comments" :key="comment.id" class="container">
-    <h5><i class="commentaire"></i>Commentaire de <router-link
-        :to="{ name: 'SingleUser', params: { id: comment.userId } }">{{
-            comment.user.firstname
-        }} {{ comment.user.lastname }} </router-link> le
-      <small>{{ new Date(comment.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
-      }}</small>
-    </h5>
-    <p>{{ comment.commentaire }}</p>
-    <router-link :to="{ name: 'ModifyComment', params: { id: comment.id } }">
-      <button v-if="id == comment.userId || admin == `true`" class="btn btn-warning btn-sm"> Modifier commentaire
-      </button>
-    </router-link>
-  </div>
+  <h4><i class="fa fa-paper-plane-o"></i> Commentaires</h4>
 
+  <form role="form">
+
+
+    <div class="form-group">
+      <label for="comment" class="label-comment"> Rédiger un commentaire</label>
+      <textarea v-model="comment" class="comment-input" rows="3" name="comment" id="comment"></textarea>
+
+    </div>
+    <button v-on:click.prevent="SendComment" type="submit" value="" class="btn btn-primary btn-sm"><i
+        class="fa fa-reply" id="comment"></i>
+      Envoyer commentaire</button>
+  </form>
+
+
+  <div class="well  commentaire-view">
+
+
+    <div v-for="comment in publications.comments" :key="comment.id" class="single-comment">
+
+      <p class="commentaire-content">{{ comment.commentaire }}</p>
+      <p><i class="commentaire"></i>Commentaire de <router-link
+          :to="{ name: 'SingleUser', params: { id: comment.userId } }">{{
+              comment.user.firstname
+          }} {{ comment.user.lastname }} </router-link> le
+        <small>{{ new Date(comment.createdAt).toLocaleString("fr-FR", { timeZone: "UTC" })
+        }}</small>
+      </p>
+      <router-link :to="{ name: 'ModifyComment', params: { id: comment.id } }">
+        <button v-if="id == comment.userId || admin == `true`" class="btn btn-warning btn-sm modif-comment"> Modifier
+          commentaire
+        </button>
+      </router-link>
+    </div>
+  </div>
 
 
 
@@ -175,11 +184,60 @@ export default {
 </script>
 
 <style>
-.date {
-  margin-left: 25px
+.Publications-View {
+  background-color: rgb(231, 231, 231);
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
-.comment {
-  margin-bottom: 20px
+.commentaire-view {
+  background-color: rgb(212, 212, 212);
+  width: 100%;
+
+}
+
+.single-comment {
+
+  background-color: rgb(231, 231, 231);
+  margin-bottom: 20px;
+  align-content: center;
+  padding-left: 20px;
+  padding-top: 40px;
+
+
+}
+
+.date {
+  margin-bottom: -30px
+}
+
+.post-content {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 1.2rem;
+}
+
+
+
+
+.label-comment {
+  display: flex;
+  font-size: 1.4rem;
+}
+
+.modif-comment {
+  margin-top: -10px;
+  margin-bottom: 50px;
+}
+
+.commentaire {
+  font-size: 1rem;
+
+}
+
+.commentaire-content {
+  font-size: 1.4rem;
+  margin-top: -20px;
 }
 </style>

@@ -5,6 +5,7 @@
       <div class="row" id="row_style">
         <h4 class="text-center">Modifier commentaire</h4>
         <div class="col-md-4   col-md-offset-4">
+          <label for="commentaire" class="hidden">commentaire</label>
           <textarea id="commentaire" v-model="comments.commentaire" class="form-control form-control-lg" type="text"
             cols="30" rows="10" name="commentaire"></textarea>
           <br>

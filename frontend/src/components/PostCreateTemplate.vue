@@ -1,31 +1,40 @@
 <template>
 
 
-  <form id="Auth-View" enctype="multipart/form-data" method="post">
+  <form id="Auth-View" enctype="multipart/form-data" method="post" class="input-post">
 
-    <div class="container col align-self-center">
-      <div class="row" id="row_style">
-        <h4 class="text-center">Submit new post</h4>
-        <div class="col-md-4   col-md-offset-4">
+    <div class="main-post">
+      <div class="form-post" id="row_style">
+        <h4 class="title-post">Créer un nouveau post</h4>
+        <div>
           <div class="form-group">
-            <input v-model="dataPost.title" type="text" class="form-control" placeholder="Title">
+            <label class="hidden" for="title"> title </label>
+            <input v-model="dataPost.title" type="text" class="form-control post-responsive" placeholder="Title"
+              id="title" aria-describedby="title">
+
           </div>
-          <textarea v-model="dataPost.content" id="editor" cols="30" rows="10">Submit your text post here...</textarea>
+          <label class="hidden content-label" for="editor"> content </label>
+          <textarea v-model="dataPost.content" id="editor" cols="100" rows="10" placeholder="Content"
+            class="post-responsive" aria-describedby="editor">Submit your text post here...</textarea>
+
           <br>
           <div class="form-group">
             <button @click.prevent="sendPost" class="btn btn-primary" id="submit">Submit new post</button>
           </div>
         </div>
+        <div class="custom-file">
+          <label for="inputFile" class="hidden">File</label>
+          <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" @change="onFileChange"
+            ref="fileInput" aria-describedby="inputFile" />
+
+        </div>
+        <div v-if="this.dataPost.image" class="thumbnail">
+          <p>Aperçu de l'image</p>
+          <img :src="this.dataPost.image" alt="Miniature image" />
+        </div>
       </div>
 
-      <div class="custom-file">
-        <input type="file" name="inputFile" class="btn btn-primary" id="inputFile" @change="onFileChange"
-          ref="fileInput" />
-      </div>
-      <div v-if="this.dataPost.image" class="thumbnail">
-        <p>Aperçu de l'image</p>
-        <img :src="this.dataPost.image" />
-      </div>
+
 
     </div>
 
@@ -120,6 +129,12 @@ img {
   margin-bottom: 25px;
   width: 100px;
   height: 100px;
+}
+
+.main-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
 

@@ -6,7 +6,7 @@
 
   <HeaderMainPage />
 
-  <a href="publications/new" class="btn btn-primary new-post">Nouveau post</a>
+  <a href="publications/new" class="btn btn-primary new-post post-list ">Nouveau post</a>
 
   <PostsTemplate v-for="publication in publications" :key="publication.id" v-bind="publication">
 
@@ -70,7 +70,7 @@ export default {
 <style scoped>
 .new-post {
 
-  margin-left: 25%;
+  margin-left: 13%;
 
 }
 </style>

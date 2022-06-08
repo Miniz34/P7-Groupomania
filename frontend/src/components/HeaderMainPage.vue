@@ -1,10 +1,8 @@
  <template>
 
-  <header>
+  <header class="header-main">
     <div id="app" class="main-header d-flex flex-row justify-content-around align-items-center">
-      <img src="../assets/icon.png" class="main-logo" alt="main-logo" />
-
-      <h1 class="center titre">Groupomania</h1>
+      <img src="../assets/icon-left-font-monochrome-black.png" class="main-logo" alt="main-logo" />
       <nav class="nav flex-column">
         <router-link class="nav-link active" :to="{ name: 'SingleUser', params: { id } }">
           Profile
@@ -13,7 +11,10 @@
         <router-link class="nav-link active" to="/publications">Main Page</router-link>
         <router-link @click="clear" class="nav-link active" to="/login">Logout</router-link>
       </nav>
+
+
     </div>
+
 
   </header>
 
@@ -43,7 +44,13 @@ export default {
 </script>
 
 <style scoped>
-.titre {
-  margin-left: -100px;
+.header-main {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.main-header {
+  height: 200px;
 }
 </style>

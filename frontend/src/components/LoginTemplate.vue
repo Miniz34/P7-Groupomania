@@ -11,7 +11,7 @@
       <input v-model="dataLogin.password" class="form-control form-control-lg" type="password" placeholder="Password"
         aria-label=".form-control-lg example" id="password">
 
-      <button @click.prevent="login" type="submit" class="btn btn-primary w-25 col align-self-center">Connexion</button>
+      <button @click.prevent="login" type="submit" class="btn btn-primary col align-self-center">Connexion</button>
       <p class="col align-self-center">Pas de compte ? vous pouvez vous inscrire <a href="/">ici</a></p>
     </section>
   </form>
