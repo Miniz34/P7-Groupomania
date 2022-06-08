@@ -8,20 +8,21 @@
       <h2 class="col align-self-center">Inscription</h2>
       <label for="firstname" class="col-md-4 col-form-label text-md-right">First Name</label>
       <input v-model="dataLogin.firstname" class="form-control form-control-lg" type="text" placeholder="firstname"
-        id="firstname">
+        id="firstname" aria-describedby="firstname">
       <label for="lastname" class="col-md-4 col-form-label text-md-right">Last Name</label>
       <input v-model="dataLogin.lastname" class="form-control form-control-lg" type="text" placeholder="lastname"
-        id="lastname">
+        id="lastname" aria-describedby="lastname">
 
       <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-      <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="email" id="email">
+      <input v-model="dataLogin.email" class="form-control form-control-lg" type="email" placeholder="email" id="email"
+        aria-describedby="email">
 
       <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
       <input v-model="dataLogin.password" class=" form-control form-control-lg" type="password" placeholder="Password"
-        id="password">
+        id="password" aria-describedby="password">
       <label for="repeatPassword" class="col-md-4 col-form-label text-md-right">Repeat Password</label>
       <input v-model="dataLogin.repeatPassword" class=" form-control form-control-lg" type="password"
-        placeholder="repeat Password" id="repeatPassword">
+        placeholder="repeat Password" id="repeatPassword" aria-describedby="repeatPassword">
 
       <!-- <div class="custom-file">
         <input name="inputFile" type="file" accept="image/*" class="custom-file-input" id="inputFile"
