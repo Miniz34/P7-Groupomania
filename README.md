@@ -5,6 +5,14 @@
 Projet 7 du parcours Web d'Openclassrooms
 Par Karim Farhi (Miniz34)
 
+
+### Package nécessaires
+
+```Node.js```
+```Mysql```
+```Vue.js```
+
+
 ### Installation du Backend
 
 1. Accéder au Backend
