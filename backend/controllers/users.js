@@ -35,7 +35,7 @@ exports.signup = (req, res, next) => {
         })
 
     })
-    .catch(error => res.status(500).json({ message: "erreur2" }));
+    .catch(error => res.status(500).json({ error }));
 
 
 };
@@ -169,8 +169,7 @@ exports.modifyAvatar = (req, res, next) => {
         },
           { where: { id: req.params.id } }
         ).then(res.status(200).json({ message: "Avatar modifié" }))
-        // .catch(res.status(400).json({ message: "erreur" }))
-        return;
+          .catch((error) => res.status(400).json({ error }))
       } else {
         fs.unlink(`images/${filename}`, () => {
           User.update({
@@ -178,7 +177,7 @@ exports.modifyAvatar = (req, res, next) => {
           },
             { where: { id: req.params.id } }
           ).then(res.status(200).json({ message: "Avatar modifié" }))
-          // .catch(res.status(400).json({ message: "erreur" }))
+            .catch((error) => res.status(400).json({ error }))
           return;
         })
       }

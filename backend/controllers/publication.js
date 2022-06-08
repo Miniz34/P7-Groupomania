@@ -10,9 +10,7 @@ const fs = require('fs');
 
 
 exports.createPublication = (req, res, next) => {
-  // let attachmentURL = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   Publication.create({
-    // include: [{ model: Comment }, { model: User, attributes: ['username'] }],
     title: req.body.title,
     content: req.body.content,
     userId: req.body.userId,
@@ -43,10 +41,12 @@ exports.getPublication = (req, res, next) => {
 exports.getAllPublication = (req, res, next) => {
   Publication.findAll({
     include: [{ model: Comment }, { model: User, attributes: ['firstname', 'lastname', 'email'] }],
+    order: [['createdAt', 'DESC']]
+
   })
     .then(post => {
       res.status(200).json(post)
-    }).catch((error) => res.status(400).json({ message: "test" }))
+    }).catch((error) => res.status(400).json({ message: "Impossible de contacter la base de données" }))
 }
 
 
@@ -83,17 +83,11 @@ exports.deletePublication = (req, res, next) => {
   Publication.findOne({
     where: { id: req.params.id }
   }).then(post => {
-    const createur = post.userId
-    const letoken = req.token.userId
-    const admin = req.token.admin
-
     if (post.userId == req.token.userId || req.token.admin) {
       if (post.image) {
         const filename = post.image.split('/images/')[1];
         console.log("teseeeest", filename);
-
         fs.unlink(`images/${filename}`, () => {
-
           Publication.destroy({
             where: { id: post.id }
 
@@ -137,6 +131,7 @@ exports.modifyPublication = (req, res, next) => {
               where: { id: post.id }
 
             }).then(res.status(200).json({ message: "Publication modifiée" }))
+            .catch((error) => res.status(400).json({ error }))
         })
       } catch {
         Publication.update({
@@ -149,6 +144,7 @@ exports.modifyPublication = (req, res, next) => {
             where: { id: post.id }
 
           }).then(res.status(200).json({ message: "Publication modifiée" }))
+          .catch((error) => res.status(400).json({ error }))
       }
 
     }

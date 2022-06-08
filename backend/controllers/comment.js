@@ -4,16 +4,9 @@ const Comment = require('../models/comment')
 const Publication = require('../models/publication');
 const User = require("../models/users");
 
-
-
-
-
-
 exports.createComment = (req, res, next) => {
 
-
   Comment.create({
-
 
     publicationId: req.body.publicationId,
     userId: req.token.userId,
@@ -45,7 +38,7 @@ exports.getComment = (req, res, next) => {
 
   }).then(comment => {
     res.status(200).json(comment)
-  }).catch((error) => res.status(404).json({ message: "Commentaire introuvable" })); //Ne fonctionne pas
+  }).catch((error) => res.status(404).json({ message: "Commentaire introuvable" }));
 
 }
 
@@ -77,9 +70,7 @@ exports.modifyComment = (req, res, next) => {
         {
           where: { id: comment.id }
         }).then(res.status(200).json({ message: "Commentaire modifié" }))
-        .then((data) => {
-          console.log(test)
-        })
+        .catch((error) => res.status(400).json({ error }))
     }
 
   })

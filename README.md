@@ -12,25 +12,41 @@ Par Karim Farhi (Miniz34)
 cd backend
 ```
 
+
 2. Install NPM
 ``` bash
 npm install
 ```
 
-3. Installer une base de donnée
-``` bash
-Créer une nouvelle database nommée "groupomania_dev".
- ```
-``` bash
-Importer si besoin le fichier MyDatabase.sql
- ```
+3. Installer une base de donnée (2 options possibles)
 
-4. Renommer `.env_copy` en `.env`
+Option 1 : base de donnée vide :
+``` bash
+Créer une nouvelle database nommée "groupomania_dev". Le lancement du serveur créera les tables
+ ```
+Option 2 : importer le fichier database.sql
+
+
+``` bash
+mysql -u root -p < chemin\vers\database.sql
+ ```
+ le fichier database.sql va créer la base de donnée, les 3 tables, 2 utilisateurs dont 1 admin, 2 post et 2 commentaires
+
+
+4. Renommer `.env_copy` en `.env` et le modifier si besoin
+
+
 
 5. Lancer le serveur
 ``` bash
 nodemon server
 ```
+ou
+
+``` bash
+node server.js
+```
+
 
 ### Installation du Frontend
 
@@ -55,8 +71,10 @@ npm run serve
 lancer l'url : http://localhost:8080/
 
 
-### Auteur 
+### Auteur
 
 
 * **Karim Farhi** -  - [github](https://github.com/Miniz34)
+
+
 

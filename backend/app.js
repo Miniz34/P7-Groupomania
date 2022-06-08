@@ -9,6 +9,8 @@ const publicationRoutes = require('./routes/publication')
 
 const path = require('path');
 const Initialisation = require('./models/initdb');
+
+const helmet = require("helmet");
 //const likeRoutes = require('./routes/like.js');
 
 //création application Express
@@ -27,6 +29,12 @@ app.use((req, res, next) => {
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 
 
 //Middleware

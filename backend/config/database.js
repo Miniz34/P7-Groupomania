@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 
-const db = new Sequelize(process.env.MDB_DB, process.env.MDB_LOG, process.env.MDB_PW, {
+const db = new Sequelize(process.env.DB_NAME, process.env.DB_LOG, process.env.DB_PW, {
   dialect: "mysql",
   define: {
     freezeTableName: true,

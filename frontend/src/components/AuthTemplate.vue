@@ -31,7 +31,7 @@
       </div> -->
 
       <div v-if="isVisibleRegex" class="alert alert-danger" role="alert">
-        Votre mot de passe doit avoir entre 3 et 16 caractères, seules les lettres, chiffres et tirets sont autorisés
+        Votre mot de passe doit avoir entre 3 et 16 caractères, au moins 1 majuscule, 1 minuscule et 1 chiffre
       </div>
       <div v-if="isVisibleEmpty" class="alert alert-danger" role="alert">
         Veuillez remplir les champs "Prénom", "Nom", "Email" et "Password"
