@@ -93,10 +93,20 @@ export default {
             'Content-Type': 'application/json',
             // 'Content-Type': 'multipart/form-data'
           }
+        }).then((response) => {
+          if (response.status == 400) {
+            alert("Votre mot de passe doit contenir au moins 1 minuscule, 1 majuscule et 1 chiffre")
+
+          } else {
+            alert("Votre compte a été créé")
+            document.location.href = `http://localhost:8080/login`
+
+          }
+
+
         })
-          .then((response) => response.json())
-          .then(() =>
-            document.location.href = `http://localhost:8080/login`)
+
+
 
 
       } else {
