@@ -4,6 +4,9 @@ const auth = require('../middleware/auth')
 const multer = require('../middleware/multer-config')
 const limiter = require('../middleware/limit')
 const verifyPassword = require('../middleware/passwordValidity');
+const verifyPasswordModify = require('../middleware/passwordValidityModify');
+
+
 
 
 
@@ -15,7 +18,7 @@ router.get("/:id", multer, User.getOneUser);
 
 // router.get("/data/:id", multer, User.getUserData)
 
-router.put("/modify/:id", auth, multer, User.modifyUser);
+router.put("/modify/:id", verifyPasswordModify, auth, multer, User.modifyUser);
 router.put("/modify/avatar/:id", auth, multer, User.modifyAvatar);
 router.delete("/:id", auth, User.deleteUser);
 // router.get("/get/admin", User.findAdmin)

@@ -104,6 +104,8 @@ export default {
             console.log(response)
             document.location.href = `http://localhost:8080/publications`
           }).catch((err) => console.log(err))
+      } else {
+        alert("Votre post doit au moins contenir un titre et du texte")
       }
     },
     onFileChange() {

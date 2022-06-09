@@ -113,8 +113,16 @@ export default {
               'Content-Type': 'application/json',
               'Authorization': "Bearer " + sessionStorage.getItem("Token")
             }
-          }).then(() => {
-            alert('Mot de passe modifié')
+          }).then((response) => {
+            if (response.status == 400) {
+              alert("Votre mot de passe doit contenir au moins 1 minuscule, 1 majuscule et 1 chiffre")
+
+            } else {
+              alert("Votre mot de passe a été modifié")
+
+            }
+
+
           })
 
       } else {
