@@ -1,21 +1,15 @@
 //Import
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const userRoutes = require('./routes/users');
 const commentRoutes = require('./routes/comment')
 const publicationRoutes = require('./routes/publication')
-// const postRoutes = require('./routes/post.js');
-
 const path = require('path');
 const Initialisation = require('./models/initdb');
-
 const helmet = require("helmet");
-//const likeRoutes = require('./routes/like.js');
 
 //création application Express
 const app = express();
-
 
 //Résolution erreur CORS
 app.use((req, res, next) => {
