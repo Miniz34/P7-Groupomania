@@ -51,7 +51,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'Ce comment peut être supprimé ou modifié seulement par un admin','2022-06-08 13:37:50','2022-06-08 13:40:23',1,1),(2,'Ce commentaire peut être supprimé ou modifié par admin ou user','2022-06-08 13:39:17','2022-06-08 13:39:17',2,2);
+INSERT INTO `comment` VALUES (1,'Ce comment peut être supprimé ou modifié seulement par admin','2022-06-08 13:37:50','2022-06-08 13:40:23',1,1),(2,'Ce commentaire peut être supprimé ou modifié par admin ou user','2022-06-08 13:39:17','2022-06-08 13:39:17',2,2);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +82,7 @@ CREATE TABLE `publication` (
 
 LOCK TABLES `publication` WRITE;
 /*!40000 ALTER TABLE `publication` DISABLE KEYS */;
-INSERT INTO `publication` VALUES (1,'Post admin','Ce message peut être supprimé ou modifié seulement par un admin','http://localhost:3000/images/avatardefault.png','2022-06-08 13:37:37','2022-06-08 13:40:05',1),(2,'Post User','Ce message peut être supprimé  ou modifié par un admin ou user','http://localhost:3000/images/pepper.jpg','2022-06-08 13:38:48','2022-06-08 13:39:30',2);
+INSERT INTO `publication` VALUES (1,'Post admin','Ce message peut être supprimé ou modifié seulement par admin','http://localhost:3000/images/avatardefault.png','2022-06-08 13:37:37','2022-06-08 13:40:05',1),(2,'Post User','Ce message peut être supprimé  ou modifié par un admin ou user','http://localhost:3000/images/pepper.jpg','2022-06-08 13:38:48','2022-06-08 13:39:30',2);
 /*!40000 ALTER TABLE `publication` ENABLE KEYS */;
 UNLOCK TABLES;
 
