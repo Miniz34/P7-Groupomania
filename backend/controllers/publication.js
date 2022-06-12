@@ -124,7 +124,7 @@ exports.modifyPublication = (req, res, next) => {
           Publication.update({
             title: req.body.title,
             content: req.body.content,
-            userId: req.body.userId,
+            // userId: req.body.userId,
             image: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null
           },
             {
