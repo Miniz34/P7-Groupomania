@@ -140,26 +140,30 @@ export default {
       // const aujourdhui = moment();
       let input = document.getElementById('comment')
       console.log(input.value)
-      fetch('http://localhost:3000/api/comments/', {
-        method: "POST",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer " + sessionStorage.getItem("Token")
-        },
-        body: JSON.stringify({
-          publicationId: this.publications.id,
-          commentaire: this.comment,
-          userId: this.id
-        })
-      }).then(
-        alert("votre commentaire a été publié"))
-      location.reload()
-      const test = this.publications.id
-      console.log(test)
-        .catch((error) => {
-          console.log(error + "message d'erreur filler")
-        })
+      if (this.comment) {
+        fetch('http://localhost:3000/api/comments/', {
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + sessionStorage.getItem("Token")
+          },
+          body: JSON.stringify({
+            publicationId: this.publications.id,
+            commentaire: this.comment,
+            userId: this.id
+          })
+        }).then(
+          alert("votre commentaire a été publié"))
+        location.reload()
+        const test = this.publications.id
+        console.log(test)
+          .catch((error) => {
+            console.log(error)
+          })
+      } else {
+        alert("veuillez insérer un commentaire")
+      }
     },
     deletePost() {
       const postId = this.$route.params.id;
