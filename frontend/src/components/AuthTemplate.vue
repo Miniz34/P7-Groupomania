@@ -97,6 +97,9 @@ export default {
           if (response.status == 400) {
             alert("Votre mot de passe doit contenir au moins 1 minuscule, 1 majuscule et 1 chiffre")
 
+          } else if (response.status == 500) {
+            alert('Veuillez insérer une adresse mail valide')
+
           } else {
             alert("Votre compte a été créé")
             document.location.href = `http://localhost:8080/login`

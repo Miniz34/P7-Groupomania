@@ -9,6 +9,8 @@ const multer = require('multer')
 const path = require('path');
 const Publication = require("../models/publication");
 const fs = require('fs');
+let verifInput = require('../utils/validation')
+
 
 //Contrôleur création de compte
 exports.signup = (req, res, next) => {
@@ -18,17 +20,25 @@ exports.signup = (req, res, next) => {
       User.findOne({ where: { email: req.body.email } })
         .then(CheckUser => {
           if (!CheckUser) {
+            let mail = req.body.email;
+            let validityEmail = verifInput.validEmail(mail)
 
-            const newUser = User.create({ //création de l'utilisateur
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              email: req.body.email,
-              password: hash, // on passe le mot de passe hashé via Bcrypt
-              // avatar: attachmentURL
-            })
-              .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
-            // .catch(error => res.status(400).json({ hash }));
-            console.log(newUser);
+            if (validityEmail) {
+
+              const newUser = User.create({ //création de l'utilisateur
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: hash, // on passe le mot de passe hashé via Bcrypt
+                // avatar: attachmentURL
+              })
+                .then(newUser => res.status(201).json({ message: "Utilisateur créé" }))
+              // .catch(error => res.status(400).json({ hash }));
+              console.log(newUser);
+            } else {
+              res.status(500).json({ message: "Veuillez insérer un email valide" })
+              console.log(validityEmail)
+            }
           } else {
             res.status(400).json({ message: "Email existe déjà" })
           }

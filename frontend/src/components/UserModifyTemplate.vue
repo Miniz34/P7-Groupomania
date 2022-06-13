@@ -117,6 +117,9 @@ export default {
             if (response.status == 400) {
               alert("Votre mot de passe doit contenir au moins 1 minuscule, 1 majuscule et 1 chiffre")
 
+            } else if (response.status == 500) {
+              alert("Veuillez insérer un email valide")
+
             } else {
               alert("Votre mot de passe a été modifié")
 
